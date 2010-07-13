@@ -19,7 +19,7 @@ I'd recommend you understand what's happening with those 3 tools before attempti
 
 Include the gem on your Gemfile
 
-    gem 'rails3-jquery-autocomplete'
+    gem 'rails3-jquery-autocomplete', :version => '>= 0.0.2'
     
 And then, run the generator
 
