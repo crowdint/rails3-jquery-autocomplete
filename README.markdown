@@ -15,6 +15,16 @@ You can find more info about that here:
 
 I'd recommend you understand what's happening with those 3 tools before attempting to use this gem.
 
+## Installing
+
+Include the gem on your Gemfile
+
+    gem 'rails3-jquery-autocomplete'
+    
+And then, run the generator
+
+    rails generate autocomplete
+
 ## Usage
 
 ### Controller
@@ -23,7 +33,7 @@ To set up an action on your controller, all you have to do is call it with the o
 as in the following example:
 
     class ProductsController < Admin::BaseController
-     autocomplete :brand, :name
+      autocomplete :brand, :name
     end
 
 This will magically generate an action autocomplete_brand_name, so, 
