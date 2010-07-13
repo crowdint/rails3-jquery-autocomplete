@@ -20,7 +20,11 @@ I'd recommend you understand what's happening with those 3 tools before attempti
 Include the gem on your Gemfile
 
     gem 'rails3-jquery-autocomplete', '>= 0.0.2'
-    
+
+Install it
+
+    bundle install
+
 And then, run the generator
 
     rails generate autocomplete
@@ -51,3 +55,7 @@ using the url to the autocomplete action as the value.
     f.text_field :brand_name, :autocomplete => autocomplete_brand_name_products_path
 
 That's it!
+
+## TODO
+
+Tests
