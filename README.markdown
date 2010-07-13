@@ -51,10 +51,17 @@ don't forget to add it on your routes file
 
 On your view, all you have to do is include the attribute autocomplete on the text field
 using the url to the autocomplete action as the value.
+    form_for @product do |f|
+      f.text_field :brand_name, :autocomplete => autocomplete_brand_name_products_path
+    end
 
-    f.text_field :brand_name, :autocomplete => autocomplete_brand_name_products_path
+This will generate an HTML tag that looks like:
 
-That's it!
+    <input type="text" autocomplete="products/autocomplete_brand_name">
+
+Now your autocomplete JS code is unobtrusive, Rails 3 style.
+
+And... That's it!
 
 ## TODO
 
