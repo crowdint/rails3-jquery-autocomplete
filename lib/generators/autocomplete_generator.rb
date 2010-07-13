@@ -5,7 +5,7 @@ class AutocompleteGenerator < Rails::Generators::Base
     # Copy the unobtrusive JS file
     copy_file('autocomplete-rails.js', 'public/autocomplete-rails.js')
     # Rails initializer
-    copy_file('autocomplete.rb', 'initializers/autocomplete.rb')
+    copy_file('autocomplete.rb', 'config/initializers/autocomplete.rb')
   end
 
   def self.source_root
