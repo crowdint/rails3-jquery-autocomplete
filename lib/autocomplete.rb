@@ -1,5 +1,4 @@
-module AutoComplete
-
+module Autocomplete
   def self.included(base)
     base.extend(ClassMethods)
   end
@@ -42,4 +41,8 @@ module AutoComplete
       end
     end
   end
+end
+
+class ActionController::Base
+  include Autocomplete
 end
