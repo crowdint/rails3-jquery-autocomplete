@@ -4,13 +4,13 @@ An easy way to use jQuery's autocomplete with Rails 3
 
 ## Before you start
 
-Make sure your project is using jQuery and you have the Autocomplete plugin installed 
+Make sure your project is using jQuery-ui with the autocomplete widget
 before you continue.
 
 You can find more info about that here:
 
 * http://jquery.com/
-* http://bassistance.de/jquery-plugins/jquery-plugin-autocomplete/
+* http://jqueryui.com/demos/autocomplete/
 * http://github.com/rails/jquery-ujs
 
 I'd recommend you understand what's happening with those 3 tools before attempting to use this gem.
@@ -19,7 +19,7 @@ I'd recommend you understand what's happening with those 3 tools before attempti
 
 Include the gem on your Gemfile
 
-    gem 'rails3-jquery-autocomplete', '>= 0.0.3', :require => 'autocomplete'
+    gem 'rails3-jquery-autocomplete', '>= 0.1.0', :require => 'autocomplete'
 
 Install it
 

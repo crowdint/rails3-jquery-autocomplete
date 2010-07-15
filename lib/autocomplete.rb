@@ -31,15 +31,20 @@ module Autocomplete
       order = options[:order] || "#{method} ASC"
 
       define_method("autocomplete_#{object}_#{method}") do
-        unless params[:q] && params[:q].empty?
-          items = object.to_s.camelize.constantize.where(["LOWER(#{method}) LIKE ?", "#{params[:q]}%"]).limit(limit).order(order)
+        unless params[:term] && params[:term].empty?
+          items = object.to_s.camelize.constantize.where(["LOWER(#{method}) LIKE ?", "#{params[:term]}%"]).limit(limit).order(order)
         else
-          items = []
+          items = {}
         end
 
-        render :text => items.collect {|i| i[method]}.join("\n")
+        render :json => json_for_autocomplete(items, method)
       end
     end
+  end
+
+  private
+  def json_for_autocomplete(items, method)
+    items.collect {|i| {"id" => i.id, "label" => i[method], "value" => i[method]}}
   end
 end
 
