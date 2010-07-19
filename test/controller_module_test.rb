@@ -70,6 +70,19 @@ class ActorsControllerTest < ActionController::TestCase
     assert_equal(json_response.first["label"], "Alpha")
     assert_equal(json_response.last["label"], "Alzpha")
   end
+  
+  def test_alternative_sort_order
+    @movie = Movie.create(:name => 'Alzpha')
+    @movie = Movie.create(:name => 'Alspha')
+    @movie = Movie.create(:name => 'Alpha')
+
+    ActorsController.send(:autocomplete, :movie, :name, {:order => "name DESC"})
+    
+    get :autocomplete_movie_name, :term => 'Al'
+    json_response = JSON.parse(@response.body)
+    assert_equal(json_response.first["label"], "Alzpha")
+    assert_equal(json_response.last["label"], "Alpha")
+  end
 
   def test_response_limit
     @movie = Movie.create(:name => 'Alzpha')
