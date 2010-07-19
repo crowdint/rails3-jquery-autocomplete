@@ -66,7 +66,3 @@ This will generate an HTML tag that looks like:
 Now your autocomplete JS code is unobtrusive, Rails 3 style.
 
 And... That's it!
-
-## TODO
-
-Tests
