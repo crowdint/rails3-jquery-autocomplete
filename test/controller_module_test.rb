@@ -1,6 +1,8 @@
 require "test_helper"
 
-class ActorsController < ApplicationController; end
+class ActorsController < ApplicationController
+  autocomplete :movie, :name
+end
 
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
 
@@ -38,13 +40,12 @@ class ActorsControllerTest < ActionController::TestCase
     @controller.request  = @request  = ActionController::TestRequest.new
     @controller.response = @response = ActionController::TestResponse.new
   end
-  
+
   def teardown
     teardown_db
   end
 
   def test_response_succesful
-    ActorsController.send(:autocomplete, :movie, :name)
     get :autocomplete_movie_name, :term => 'Al'
     assert_response :success
   end
@@ -52,11 +53,21 @@ class ActorsControllerTest < ActionController::TestCase
   def test_response_json
     @movie = Movie.create(:name => 'Alpha')
 
-    ActorsController.send(:autocomplete, :movie, :name)
     get :autocomplete_movie_name, :term => 'Al'
     json_response = JSON.parse(@response.body)
     assert_equal(json_response.first["label"], @movie.name)
     assert_equal(json_response.first["value"], @movie.name)
     assert_equal(json_response.first["id"], @movie.id)
+  end
+
+  def test_alphabetic_order
+    @movie = Movie.create(:name => 'Alzpha')
+    @movie = Movie.create(:name => 'Alspha')
+    @movie = Movie.create(:name => 'Alpha')
+
+    get :autocomplete_movie_name, :term => 'Al'
+    json_response = JSON.parse(@response.body)
+    assert_equal(json_response.first["label"], "Alpha")
+    assert_equal(json_response.last["label"], "Alzpha")
   end
 end
