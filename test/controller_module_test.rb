@@ -33,14 +33,30 @@ end
 class ActorsControllerTest < ActionController::TestCase
   def setup
     setup_db
+
     @controller          = ActorsController.new
     @controller.request  = @request  = ActionController::TestRequest.new
     @controller.response = @response = ActionController::TestResponse.new
   end
+  
+  def teardown
+    teardown_db
+  end
 
   def test_response_succesful
     ActorsController.send(:autocomplete, :movie, :name)
-    get :autocomplete_movie_name
+    get :autocomplete_movie_name, :term => 'Al'
     assert_response :success
+  end
+
+  def test_response_json
+    @movie = Movie.create(:name => 'Alpha')
+
+    ActorsController.send(:autocomplete, :movie, :name)
+    get :autocomplete_movie_name, :term => 'Al'
+    json_response = JSON.parse(@response.body)
+    assert_equal(json_response.first["label"], @movie.name)
+    assert_equal(json_response.first["value"], @movie.name)
+    assert_equal(json_response.first["id"], @movie.id)
   end
 end
