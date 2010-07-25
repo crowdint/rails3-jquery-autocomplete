@@ -2,7 +2,7 @@ require 'rubygems'
 require 'rake'
 require 'echoe'
 
-Echoe.new('rails3-jquery-autocomplete', '0.1.2') do |p|
+Echoe.new('rails3-jquery-autocomplete', '0.1.3') do |p|
   p.description    = "Use jQuery's autocomplete plugin with Rails 3."
   p.url            = "http://github.com/crowdint/rails3-jquery-autocomplete"
   p.author         = "David Padilla"

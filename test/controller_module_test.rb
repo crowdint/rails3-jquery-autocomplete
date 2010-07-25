@@ -70,14 +70,14 @@ class ActorsControllerTest < ActionController::TestCase
     assert_equal(json_response.first["label"], "Alpha")
     assert_equal(json_response.last["label"], "Alzpha")
   end
-  
+
   def test_alternative_sort_order
     @movie = Movie.create(:name => 'Alzpha')
     @movie = Movie.create(:name => 'Alspha')
     @movie = Movie.create(:name => 'Alpha')
 
     ActorsController.send(:autocomplete, :movie, :name, {:order => "name DESC"})
-    
+
     get :autocomplete_movie_name, :term => 'Al'
     json_response = JSON.parse(@response.body)
     assert_equal(json_response.first["label"], "Alzpha")
@@ -88,11 +88,33 @@ class ActorsControllerTest < ActionController::TestCase
     @movie = Movie.create(:name => 'Alzpha')
     @movie = Movie.create(:name => 'Alspha')
     @movie = Movie.create(:name => 'Alpha')
-    
+
     ActorsController.send(:autocomplete, :movie, :name, {:limit => 1})
 
     get :autocomplete_movie_name, :term => 'Al'
     json_response = JSON.parse(@response.body)
     assert_equal(json_response.length, 1)
+  end
+
+  def test_downcase
+    @movie = Movie.create(:name => 'aLpHa')
+
+    ActorsController.send(:autocomplete, :movie, :name)
+
+    get :autocomplete_movie_name, :term => 'Al'
+    json_response = JSON.parse(@response.body)
+    assert_equal(json_response.length, 1)
+    assert_equal(json_response.first["label"], 'aLpHa')
+  end
+
+  def test_full_search
+    @movie = Movie.create(:name => 'aLpHa')
+
+    ActorsController.send(:autocomplete, :movie, :name, {:full => true})
+
+    get :autocomplete_movie_name, :term => 'ph'
+    json_response = JSON.parse(@response.body)
+    assert_equal(json_response.length, 1)
+    assert_equal(json_response.first["label"], 'aLpHa')
   end
 end

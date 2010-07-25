@@ -19,7 +19,7 @@ I'd recommend you understand what's happening with those 3 tools before attempti
 
 Include the gem on your Gemfile
 
-    gem 'rails3-jquery-autocomplete', '>= 0.1.1', :require => 'autocomplete'
+    gem 'rails3-jquery-autocomplete', '>= 0.1.3', :require => 'autocomplete'
 
 Install it
 
@@ -50,6 +50,18 @@ don't forget to add it on your routes file
     resources :products do
       get :autocomplete_brand_name, :on => :collection
     end
+
+By default, the search starts from the beginning of the string you're searching for. If you want to do a full search, set the _full_ parameter to true.
+
+    class ProductsController < Admin::BaseController
+      autocomplete :brand, :name, :full => true
+    end
+
+The following list would match the term query 'un':
+
+* Luna
+* Unacceptable
+* Rerun
 
 ### View
 
