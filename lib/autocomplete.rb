@@ -32,7 +32,7 @@ module Autocomplete
 
       define_method("autocomplete_#{object}_#{method}") do
         unless params[:term] && params[:term].empty?
-          items = object.to_s.camelize.constantize.where(["LOWER(#{method}) LIKE ?", "%#{params[:term]}%"]).limit(limit).order(order)
+          items = object.to_s.camelize.constantize.where(["LOWER(#{method}) LIKE ?", "%#{params[:term].downcase}%"]).limit(limit).order(order)
         else
           items = {}
         end
