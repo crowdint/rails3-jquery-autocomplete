@@ -13,13 +13,13 @@ You can find more info about that here:
 * http://jqueryui.com/demos/autocomplete/
 * http://github.com/rails/jquery-ujs
 
-I'd recommend you understand what's happening with those 3 tools before attempting to use this gem.
+I'd encourage you to understand how to use those 3 amazing tools before attempting to use this gem.
 
 ## Installing
 
 Include the gem on your Gemfile
 
-    gem 'rails3-jquery-autocomplete', '>= 0.1.3', :require => 'autocomplete'
+    gem 'rails3-jquery-autocomplete', '>= 0.2.0'
 
 Install it
 
@@ -35,17 +35,27 @@ And include autocomplete-rails.js on your layouts
 
 ## Usage
 
+### Model Example
+
+Assuming you have a Brand model:
+
+    class Brand < ActiveRecord::Base
+    end
+
+    create_table :brand do |t|
+      t.column :name, :string
+    end
+
 ### Controller
 
-To set up an action on your controller, all you have to do is call it with the object name and the method
+To set up the required action on your controller, all you have to do is call it with the class name and the method
 as in the following example:
 
     class ProductsController < Admin::BaseController
       autocomplete :brand, :name
     end
 
-This will magically generate an action autocomplete_brand_name, so, 
-don't forget to add it on your routes file
+This will create an action _autocomplete_brand_name_ on your controller, don't forget to add it on your routes file
 
     resources :products do
       get :autocomplete_brand_name, :on => :collection
@@ -57,11 +67,19 @@ By default, the search starts from the beginning of the string you're searching 
       autocomplete :brand, :name, :full => true
     end
 
-The following list would match the term query 'un':
+#### :full => true
+
+The following terms would match the query 'un':
 
 * Luna
 * Unacceptable
 * Rerun
+
+#### :full => false
+
+Only the following terms mould match the query 'un':
+
+* Unacceptable
 
 ### View
 
@@ -76,5 +94,3 @@ This will generate an HTML tag that looks like:
     <input type="text" autocomplete="products/autocomplete_brand_name">
 
 Now your autocomplete JS code is unobtrusive, Rails 3 style.
-
-And... That's it!

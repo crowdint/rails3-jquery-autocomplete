@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rails3-jquery-autocomplete}
-  s.version = "0.1.3"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Padilla"]
@@ -17,13 +17,15 @@ Gem::Specification.new do |s|
      "README.markdown"
   ]
   s.files = [
-    ".gitignore",
+    ".document",
+     ".gitignore",
+     "LICENSE",
      "README.markdown",
      "Rakefile",
-     "init.rb",
-     "lib/autocomplete.rb",
+     "VERSION",
      "lib/generators/autocomplete_generator.rb",
      "lib/generators/templates/autocomplete-rails.js",
+     "lib/rails3-jquery-autocomplete.rb",
      "rails3-jquery-autocomplete.gemspec",
      "test/autocomplete_generator_test.rb",
      "test/controller_module_test.rb",
