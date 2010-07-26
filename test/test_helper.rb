@@ -12,22 +12,22 @@ require "active_model"
 require "action_controller"
 require "rails/railtie"
 
-require "#{File.dirname(__FILE__)}/../init"
+require 'rails3-jquery-autocomplete'
 
 class ApplicationController < ActionController::Base; end
 
 ActionController::Base.view_paths = File.join(File.dirname(__FILE__), 'views')
 
-Autocomplete::Routes = ActionDispatch::Routing::RouteSet.new
-Autocomplete::Routes.draw do |map|
+Rails3JQueryAutocomplete::Routes = ActionDispatch::Routing::RouteSet.new
+Rails3JQueryAutocomplete::Routes.draw do |map|
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action'
 end
 
-ActionController::Base.send :include, Autocomplete::Routes.url_helpers
+ActionController::Base.send :include, Rails3JQueryAutocomplete::Routes.url_helpers
 
 class ActiveSupport::TestCase
   setup do
-    @routes = Autocomplete::Routes
+    @routes = Rails3JQueryAutocomplete::Routes
   end
 end

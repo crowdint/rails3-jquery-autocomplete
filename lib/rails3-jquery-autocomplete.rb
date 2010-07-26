@@ -1,4 +1,4 @@
-module Autocomplete
+module Rails3JQueryAutocomplete
   def self.included(base)
     base.extend(ClassMethods)
   end
@@ -21,8 +21,6 @@ module Autocomplete
   # Now, on your view, all you have to do is have a text field like:
   # 
   #   f.text_field :brand_name, :autocomplete => autocomplete_brand_name_products_path
-  #
-  # That's it!
   #
   #
   module ClassMethods
@@ -50,5 +48,5 @@ module Autocomplete
 end
 
 class ActionController::Base
-  include Autocomplete
+  include Rails3JQueryAutocomplete
 end
