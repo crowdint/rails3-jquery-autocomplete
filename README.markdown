@@ -75,7 +75,7 @@ The following terms would match the query 'un':
 * Unacceptable
 * Rerun
 
-#### :full => false
+#### :full => false (default behavior)
 
 Only the following terms mould match the query 'un':
 
