@@ -1,6 +1,7 @@
 # rails3-jquery-autocomplete
 
-An easy way to use jQuery's autocomplete with Rails 3
+An easy way to use jQuery's autocomplete with Rails 3. You can find a [detailed example](http://github.com/crowdint/rails3-jquery-autocomplete-app) 
+on how to use this gem [here](http://github.com/crowdint/rails3-jquery-autocomplete-app).
 
 ## Before you start
 
