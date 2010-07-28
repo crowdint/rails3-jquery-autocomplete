@@ -1,7 +1,8 @@
 require 'test/unit'
 
 require 'rubygems'
-gem 'rails', '>=3.0.0.beta4'
+gem 'rails', '>=3.0.0.rc'
+gem 'sqlite3-ruby'
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
