@@ -27,7 +27,6 @@ module Rails3JQueryAutocomplete
     def autocomplete(object, method, options = {})
       limit = options[:limit] || 10
       order = options[:order] || "#{method} ASC"
-      inner = options[:full] || false
 
       define_method("autocomplete_#{object}_#{method}") do
         unless params[:term] && params[:term].empty?
