@@ -96,6 +96,20 @@ This will generate an HTML tag that looks like:
 
 Now your autocomplete JS code is unobtrusive, Rails 3 style.
 
+## Development
+
+If you want to make changes to the gem, first install bundler 1.0.0:
+
+    gem install bundler --pre
+
+And then, install all your dependecies:
+
+    bundle install
+
+### Running the test suite
+
+    rake test
+
 # About the Author
 
 [Crowd Interactive](http://www.crowdint.com) is an American web design and development company that happens to work in Colima, Mexico. 
