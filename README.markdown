@@ -96,6 +96,14 @@ This will generate an HTML tag that looks like:
 
 Now your autocomplete JS code is unobtrusive, Rails 3 style.
 
+### Getting the object id
+
+If you need to use the id of the selected object, you can use the *:id_element* HTML tag too:
+
+    f.text_field :brand_name, :autocomplete => autocomplete_brand_name_products_path, :id_element => '#some_element'
+
+This will update the field with id *#some_element with the id of the selected object. The value for this option can be any jQuery selector.
+
 ## Development
 
 If you want to make changes to the gem, first install bundler 1.0.0:
