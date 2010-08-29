@@ -29,20 +29,19 @@ module Rails3JQueryAutocomplete
       order = options[:order] || "#{method} ASC"
 
       define_method("autocomplete_#{object}_#{method}") do
-        term = params[:term]
-        unless term && term.empty?
-          items = object.to_s.camelize.constantize.where(["LOWER(#{method}) LIKE ?", "#{(options[:full] ? '%' : '')}#{term.downcase}%"]).limit(limit).order(order)
+        unless params[:term] && params[:term].empty?
+          items = object.to_s.camelize.constantize.where(["LOWER(#{method}) LIKE ?", "#{(options[:full] ? '%' : '')}#{params[:term].downcase}%"]).limit(limit).order(order)
         else
           items = {}
         end
 
-        render :json => Rails3JQueryAutocomplete.json_for_autocomplete(items, method)
+        render :json => json_for_autocomplete(items, method)
       end
     end
   end
 
   private
-  def self.json_for_autocomplete(items, method)
+  def json_for_autocomplete(items, method)
     items.collect {|i| {"id" => i.id, "label" => i[method], "value" => i[method]}}
   end
 end
