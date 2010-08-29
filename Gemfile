@@ -4,3 +4,7 @@ source :gemcutter
 gem 'rails', '3.0.0.rc2'
 gem 'sqlite3-ruby'
 gem 'jeweler'
+
+group :development do
+  gem 'reek'
+end
