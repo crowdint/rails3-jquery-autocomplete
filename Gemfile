@@ -1,10 +1,7 @@
 # A sample Gemfile
 source :gemcutter
 #
-gem 'rails', '3.0.0.rc2'
+gem 'rails', '3.0.0'
 gem 'sqlite3-ruby'
 gem 'jeweler'
-
-group :development do
-  gem 'reek'
-end
+gem 'reek'
