@@ -62,13 +62,15 @@ This will create an action _autocomplete_brand_name_ on your controller, don't f
       get :autocomplete_brand_name, :on => :collection
     end
 
+### Options
+
+#### :full => true
+
 By default, the search starts from the beginning of the string you're searching for. If you want to do a full search, set the _full_ parameter to true.
 
     class ProductsController < Admin::BaseController
       autocomplete :brand, :name, :full => true
     end
-
-#### :full => true
 
 The following terms would match the query 'un':
 
@@ -81,6 +83,27 @@ The following terms would match the query 'un':
 Only the following terms mould match the query 'un':
 
 * Unacceptable
+
+#### :display_value
+
+If you want to display a different version of what you're looking for, you can use the :display_value option.
+
+This options receives a method name as the parameter, and that method will be called on the instance when displaying the results.
+
+    class Brand < ActiveRecord::Base
+      def funky_method
+        "#{self.name}.camelize"
+      end
+    end
+
+
+    class ProductsController < Admin::BaseController
+      autocomplete :brand, :name, :display_value => :funky_method
+    end
+
+In the example above, you will search by _name_, but the autocomplete list will display the result of _funky_method_
+
+This wouldn't really make much sense unless you use it with the :id_element HTML tag. (See below)
 
 ### View
 

@@ -11,6 +11,9 @@ class Actor < ActiveRecord::Base
 end
 
 class Movie < ActiveRecord::Base
+  def display_name
+    "Movie: #{name}"
+  end
 end
 
 def setup_db
@@ -116,5 +119,19 @@ class ActorsControllerTest < ActionController::TestCase
     json_response = JSON.parse(@response.body)
     assert_equal(json_response.length, 1)
     assert_equal(json_response.first["label"], 'aLpHa')
+  end
+
+  def test_value_option
+    ActorsController.send(:autocomplete, :movie, :name, {:display_value => :display_name})
+
+    @movie = Movie.create(:name => 'Alpha')
+
+    get :autocomplete_movie_name, :term => 'Al'
+
+    json_response = JSON.parse(@response.body)
+
+    assert_equal(@movie.display_name, json_response.first["label"])
+    assert_equal(@movie.display_name, json_response.first["value"])
+    assert_equal(@movie.id, json_response.first["id"])
   end
 end

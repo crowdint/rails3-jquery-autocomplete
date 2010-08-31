@@ -35,14 +35,14 @@ module Rails3JQueryAutocomplete
           items = {}
         end
 
-        render :json => json_for_autocomplete(items, method)
+        render :json => json_for_autocomplete(items, (options[:display_value] ? options[:display_value] : method))
       end
     end
   end
 
   private
   def json_for_autocomplete(items, method)
-    items.collect {|i| {"id" => i.id, "label" => i[method], "value" => i[method]}}
+    items.collect {|i| {"id" => i.id, "label" => i.send(method), "value" => i.send(method)}}
   end
 end
 
