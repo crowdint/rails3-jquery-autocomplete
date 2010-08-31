@@ -133,7 +133,7 @@ If you want to make changes to the gem, first install bundler 1.0.0:
 
     gem install bundler --pre
 
-And then, install all your dependecies:
+And then, install all your dependencies:
 
     bundle install
 
