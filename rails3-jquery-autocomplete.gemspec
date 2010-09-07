@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
      "lib/rails3-jquery-autocomplete.rb",
      "test/autocomplete_generator_test.rb",
      "test/controller_module_test.rb",
+     "test/form_helper_test.rb",
      "test/test_helper.rb"
   ]
   s.homepage = %q{http://github.com/crowdint/rails3-jquery-autocomplete}
@@ -35,6 +36,7 @@ Gem::Specification.new do |s|
   s.test_files = [
     "test/autocomplete_generator_test.rb",
      "test/controller_module_test.rb",
+     "test/form_helper_test.rb",
      "test/test_helper.rb"
   ]
 
