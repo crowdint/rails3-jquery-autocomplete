@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Padilla"]
-  s.date = %q{2010-08-31}
+  s.date = %q{2010-09-07}
   s.description = %q{Use jQuery's autocomplete plugin with Rails 3.}
   s.email = %q{david.padilla@crowdint.com}
   s.extra_rdoc_files = [
@@ -17,18 +17,12 @@ Gem::Specification.new do |s|
      "README.markdown"
   ]
   s.files = [
-    ".document",
-     ".gitignore",
-     "Gemfile",
-     "Gemfile.lock",
-     "LICENSE",
-     "README.markdown",
+    "README.markdown",
      "Rakefile",
-     "VERSION",
+     "lib/form_helper.rb",
      "lib/generators/autocomplete_generator.rb",
      "lib/generators/templates/autocomplete-rails.js",
      "lib/rails3-jquery-autocomplete.rb",
-     "rails3-jquery-autocomplete.gemspec",
      "test/autocomplete_generator_test.rb",
      "test/controller_module_test.rb",
      "test/test_helper.rb"

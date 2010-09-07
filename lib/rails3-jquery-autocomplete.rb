@@ -1,3 +1,5 @@
+require 'form_helper'
+
 module Rails3JQueryAutocomplete
   def self.included(base)
     base.extend(ClassMethods)
