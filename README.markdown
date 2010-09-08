@@ -116,7 +116,7 @@ This wouldn't really make much sense unless you use it with the :id_element HTML
 On your view, all you have to do is include the attribute autocomplete on the text field
 using the url to the autocomplete action as the value.
     form_for @product do |f|
-      f.text_field :brand_name, :autocomplete => autocomplete_brand_name_products_path
+      f.autocomplete_field :brand_name, autocomplete_brand_name_products_path
     end
 
 This will generate an HTML tag that looks like:
@@ -129,7 +129,7 @@ Now your autocomplete JS code is unobtrusive, Rails 3 style.
 
 If you need to use the id of the selected object, you can use the *:id_element* HTML tag too:
 
-    f.text_field :brand_name, :autocomplete => autocomplete_brand_name_products_path, :id_element => '#some_element'
+    f.autocomplete_field :brand_name, autocomplete_brand_name_products_path, :id_element => '#some_element'
 
 This will update the field with id *#some_element with the id of the selected object. The value for this option can be any jQuery selector.
 
