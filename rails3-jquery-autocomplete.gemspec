@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rails3-jquery-autocomplete}
-  s.version = "0.3.1"
+  s.version = "0.3.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Padilla"]
@@ -45,12 +45,12 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency(%q<rails>, [">= 3.0.0.rc2"])
+      s.add_development_dependency(%q<rails>, [">= 3.0.0"])
     else
-      s.add_dependency(%q<rails>, [">= 3.0.0.rc2"])
+      s.add_dependency(%q<rails>, [">= 3.0.0"])
     end
   else
-    s.add_dependency(%q<rails>, [">= 3.0.0.rc2"])
+    s.add_dependency(%q<rails>, [">= 3.0.0"])
   end
 end
 
