@@ -137,7 +137,7 @@ This will update the field with id *#some_element with the id of the selected ob
 
 If you want to make changes to the gem, first install bundler 1.0.0:
 
-    gem install bundler --pre
+    gem install bundler
 
 And then, install all your dependencies:
 
