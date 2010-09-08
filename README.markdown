@@ -121,7 +121,7 @@ using the url to the autocomplete action as the value.
 
 This will generate an HTML tag that looks like:
 
-    <input type="text" autocomplete="products/autocomplete_brand_name">
+    <input type="text" data-autocomplete="products/autocomplete_brand_name">
 
 Now your autocomplete JS code is unobtrusive, Rails 3 style.
 
