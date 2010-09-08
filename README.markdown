@@ -20,7 +20,7 @@ I'd encourage you to understand how to use those 3 amazing tools before attempti
 
 Include the gem on your Gemfile
 
-    gem 'rails3-jquery-autocomplete', '0.3.0'
+    gem 'rails3-jquery-autocomplete', '0.3.1'
 
 Install it
 

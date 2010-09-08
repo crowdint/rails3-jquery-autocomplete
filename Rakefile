@@ -10,7 +10,7 @@ begin
     gem.email = "david.padilla@crowdint.com"
     gem.homepage = "http://github.com/crowdint/rails3-jquery-autocomplete"
     gem.authors = ["David Padilla"]
-    gem.add_development_dependency "rails", ">= 3.0.0.rc2"
+    gem.add_development_dependency "rails", ">= 3.0.0"
     gem.files = %w(README.markdown Rakefile) + Dir.glob("{lib,test}/**/*")
 
   end
