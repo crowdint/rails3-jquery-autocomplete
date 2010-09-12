@@ -115,6 +115,7 @@ This wouldn't really make much sense unless you use it with the :id_element HTML
 
 On your view, all you have to do is include the attribute autocomplete on the text field
 using the url to the autocomplete action as the value.
+
     form_for @product do |f|
       f.autocomplete_field :brand_name, autocomplete_brand_name_products_path
     end
@@ -123,7 +124,14 @@ This will generate an HTML tag that looks like:
 
     <input type="text" data-autocomplete="products/autocomplete_brand_name">
 
-Now your autocomplete JS code is unobtrusive, Rails 3 style.
+If you are not using a FormBuilder (form_for) or you just want to include an autocomplete field without the form, you can use the
+*autocomplete_field_tag* helper.
+
+    form_tag 'some/path'
+      autocomplete_field_tag 'address', '', address_autocomplete_path, :size => 75
+    end
+
+Now your autocomplete code is unobtrusive, Rails 3 style.
 
 ### Getting the object id
 
