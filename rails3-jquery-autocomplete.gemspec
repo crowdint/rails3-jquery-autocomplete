@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Padilla"]
-  s.date = %q{2010-09-08}
+  s.date = %q{2010-09-12}
   s.description = %q{Use jQuery's autocomplete plugin with Rails 3.}
   s.email = %q{david.padilla@crowdint.com}
   s.extra_rdoc_files = [
