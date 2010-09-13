@@ -20,7 +20,7 @@ I'd encourage you to understand how to use those 3 amazing tools before attempti
 
 Include the gem on your Gemfile
 
-    gem 'rails3-jquery-autocomplete', '0.3.2'
+    gem 'rails3-jquery-autocomplete', '0.3.3'
 
 Install it
 
@@ -34,11 +34,13 @@ And include autocomplete-rails.js on your layouts
 
     javascript_include_tag "autocomplete-rails.js"
 
-## Upgrading from 0.2.x
+## Upgrading from older versions
 
 If you are upgrading from a previous version, run the generator after installing to replace the javascript file.
 
     rails generate autocomplete
+
+I'd recommend you do this every time you update to make sure you have the latest JS file.
 
 ## Usage
 
