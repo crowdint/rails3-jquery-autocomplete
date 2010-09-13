@@ -50,7 +50,7 @@ module ActionView
 end
 
 class ActionView::Helpers::FormBuilder #:nodoc:
-  def autocomplete_field(method, options)
-    @template.autocomplete_field(@object_name, method, options)
+  def autocomplete_field(method, source, options = {})
+    @template.autocomplete_field(@object_name, method, source, options)
   end
 end
