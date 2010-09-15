@@ -20,7 +20,7 @@ I'd encourage you to understand how to use those 3 amazing tools before attempti
 
 Include the gem on your Gemfile
 
-    gem 'rails3-jquery-autocomplete', '0.3.3'
+    gem 'rails3-jquery-autocomplete'
 
 Install it
 
@@ -143,7 +143,33 @@ If you need to use the id of the selected object, you can use the *:id_element* 
 
 This will update the field with id *#some_element with the id of the selected object. The value for this option can be any jQuery selector.
 
-## Development
+# Cucumber
+
+I have created a step to test your autocomplete with Cucumber and Capybara, all you have to do is add the following lines to your *env.rb* file:
+
+    require 'cucumber/autocomplete'
+    
+Then you'll have access to the following step:
+
+    And I choose "Alpha" in the autocomplete list
+
+An example on how to use it:
+
+    @javascript
+    Scenario: Autocomplete
+      Given the following brands exists:
+        | name  |
+        | Alpha |
+        | Beta  |
+        | Gamma |
+      And I go to the home page
+      And I fill in "Brand name" with "al"
+      And I choose "Alpha" in the autocomplete list
+      Then the "Brand name" field should contain "Alpha"
+
+I have only tested this using Capybara, no idea if it works with something else, to see it in action, check the [example app](http://github.com/crowdint/rails3-jquery-autocomplete-app).
+
+# Development
 
 If you want to make changes to the gem, first install bundler 1.0.0:
 
@@ -153,7 +179,7 @@ And then, install all your dependencies:
 
     bundle install
 
-### Running the test suite
+## Running the test suite
 
     rake test
 
