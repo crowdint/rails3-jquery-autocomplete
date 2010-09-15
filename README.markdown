@@ -151,7 +151,7 @@ I have created a step to test your autocomplete with Cucumber and Capybara, all 
     
 Then you'll have access to the following step:
 
-    And I choose "Alpha" in the autocomplete list
+    I choose "([^"]*)" in the autocomplete list
 
 An example on how to use it:
 
