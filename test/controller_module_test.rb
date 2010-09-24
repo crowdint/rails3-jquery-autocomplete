@@ -51,6 +51,15 @@ class ActorsControllerTest < ActionController::TestCase
   def test_response_succesful
     get :autocomplete_movie_name, :term => 'Al'
     assert_response :success
+
+    get :autocomplete_movie_name
+    assert_response :success
+
+    get :autocomplete_movie_name, :term => ''
+    assert_response :success
+
+    get :autocomplete_movie_name, :term => nil
+    assert_response :success
   end
 
   def test_response_json
