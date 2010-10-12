@@ -182,6 +182,10 @@ And then, install all your dependencies:
 ## Running the test suite
 
     rake test
+    
+# Changelog
+
+* 0.3.6 Using .live() to put autocomplete on dynamic fields
 
 # About the Author
 
