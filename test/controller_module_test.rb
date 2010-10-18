@@ -1,11 +1,5 @@
 require "test_helper"
 
-class ActorsController < ApplicationController
-  autocomplete :movie, :name
-end
-
-ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
-
 class Actor < ActiveRecord::Base
   belongs_to :movie
 end
@@ -34,6 +28,12 @@ def teardown_db
     ActiveRecord::Base.connection.drop_table(table)
   end
 end
+
+class ActorsController < ApplicationController
+  autocomplete :movie, :name
+end
+
+ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
 
 class ActorsControllerTest < ActionController::TestCase
   require 'shoulda'

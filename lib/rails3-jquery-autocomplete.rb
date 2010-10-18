@@ -27,12 +27,19 @@ module Rails3JQueryAutocomplete
   #
   module ClassMethods
     def autocomplete(object, method, options = {})
+      is_mongoid = object.to_s.camelize.constantize.included_modules.include?(Mongoid::Document)
       limit = options[:limit] || 10
       order = options[:order] || "#{method} ASC"
 
       define_method("autocomplete_#{object}_#{method}") do
-        if params[:term] && !params[:term].empty?
-          items = object.to_s.camelize.constantize.where(["LOWER(#{method}) LIKE ?", "#{(options[:full] ? '%' : '')}#{params[:term].downcase}%"]).limit(limit).order(order)
+
+        unless params[:term].empty? && params[:term]
+          if is_mongoid
+            search = (options[:full] ? '.*' : '^') + params[:term] + '.*'
+            items = object.to_s.camelize.constantize.where(method.to_sym => /#{search}/i).limit(limit).order_by(method.to_sym.asc)
+          else
+            items = object.to_s.camelize.constantize.where(["LOWER(#{method}) LIKE ?", "#{(options[:full] ? '%' : '')}#{params[:term].downcase}%"]).limit(limit).order(order)
+          end
         else
           items = {}
         end
