@@ -5,6 +5,7 @@ module Rails3JQueryAutocomplete
     base.extend(ClassMethods)
   end
 
+
   # Inspired on DHH's autocomplete plugin
   # 
   # Usage:
@@ -27,19 +28,27 @@ module Rails3JQueryAutocomplete
   #
   module ClassMethods
     def autocomplete(object, method, options = {})
-      is_mongoid = object.to_s.camelize.constantize.included_modules.include?(Mongoid::Document)
-      limit = options[:limit] || 10
-      order = options[:order] || "#{method} ASC"
 
       define_method("autocomplete_#{object}_#{method}") do
 
-        unless params[:term].empty? && params[:term]
-          if is_mongoid
-            search = (options[:full] ? '.*' : '^') + params[:term] + '.*'
-            items = object.to_s.camelize.constantize.where(method.to_sym => /#{search}/i).limit(limit).order_by(method.to_sym.asc)
-          else
-            items = object.to_s.camelize.constantize.where(["LOWER(#{method}) LIKE ?", "#{(options[:full] ? '%' : '')}#{params[:term].downcase}%"]).limit(limit).order(order)
+        object = get_object(object)
+        implementation = get_implementation(object)
+
+        if implementation && params[:term] && !params[:term].empty?
+
+          order = get_order(implementation, method, options)
+          limit = get_limit(options)
+
+          items = case implementation
+            when :mongoid 
+              search = (options[:full] ? '.*' : '^') + params[:term] + '.*'
+              items = object.where(method.to_sym => /#{search}/i) \
+                .limit(limit).order_by(order)
+            when :activerecord
+              items = object.where(["LOWER(#{method}) LIKE ?", "#{(options[:full] ? '%' : '')}#{params[:term].downcase}%"]) \
+                .limit(limit).order(order)
           end
+
         else
           items = {}
         end
@@ -51,8 +60,37 @@ module Rails3JQueryAutocomplete
 
   private
   def json_for_autocomplete(items, method)
-    items.collect {|i| {"id" => i.id, "label" => i.send(method), "value" => i.send(method)}}
+    items.collect {|item| {"id" => item.id, "label" => item.send(method), "value" => item.send(method)}}
   end
+
+  def get_object(model_sym)
+    object = model_sym.to_s.camelize.constantize
+  end
+
+  def get_implementation(object) 
+    if object.superclass.to_s == 'ActiveRecord::Base'
+      :activerecord
+    elsif object.included_modules.collect(&:to_s).include?('Mongoid::Document')
+      :mongoid
+    else
+      nil
+    end
+  end
+
+  def get_order(implementation, method, options)
+    case implementation
+      when :mongoid then
+         options[:order] ? options[:order].split(',').collect {|orderer| [orderer.split[0].downcase.to_sym, orderer.split[1].downcase.to_sym] } : method.to_sym.asc
+      when :activerecord then 
+        options[:order] || "#{method} ASC"
+      else nil
+    end
+  end
+
+  def get_limit(options)
+    limit = options[:limit] || 10
+  end
+
 end
 
 class ActionController::Base

@@ -1,4 +1,6 @@
 require "test_helper"
+require "active_record"
+require "active_model"
 
 class Actor < ActiveRecord::Base
   belongs_to :movie
@@ -10,36 +12,23 @@ class Movie < ActiveRecord::Base
   end
 end
 
-def setup_db
-  ActiveRecord::Schema.define(:version => 1) do
-    create_table :movies do |t|
-      t.column :name, :string
-    end
+class ActorsController < ApplicationController 
+  autocomplete :movie, :name                       
+end        
 
-    create_table :actors do |t|
-      t.column :movie_id, :integer
-      t.column :name, :string
-    end
-  end
-end
-
-def teardown_db
-  ActiveRecord::Base.connection.tables.each do |table|
-    ActiveRecord::Base.connection.drop_table(table)
-  end
-end
-
-class ActorsController < ApplicationController
-  autocomplete :movie, :name
-end
-
-ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
-
-class ActorsControllerTest < ActionController::TestCase
-  require 'shoulda'
-  require 'redgreen'
+module Setup
   def setup
-    setup_db
+    ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
+    ActiveRecord::Schema.define(:version => 1) do
+      create_table :movies do |t|
+        t.column :name, :string
+      end
+
+      create_table :actors do |t|
+        t.column :movie_id, :integer
+        t.column :name, :string
+      end
+    end
 
     @controller          = ActorsController.new
     @controller.request  = @request  = ActionController::TestRequest.new
@@ -47,8 +36,17 @@ class ActorsControllerTest < ActionController::TestCase
   end
 
   def teardown
-    teardown_db
+    ActiveRecord::Base.connection.tables.each do |table|
+      ActiveRecord::Base.connection.drop_table(table)
+    end
   end
+end
+
+class ActorsControllerTest < ActionController::TestCase
+
+  include Setup
+  require 'shoulda'
+  require 'redgreen'
 
   context "the autocomplete gem" do
     setup do
