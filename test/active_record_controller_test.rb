@@ -1,6 +1,4 @@
 require "test_helper"
-require "active_record"
-require "active_model"
 
 class Actor < ActiveRecord::Base
   belongs_to :movie
@@ -12,41 +10,39 @@ class Movie < ActiveRecord::Base
   end
 end
 
-class ActorsController < ApplicationController 
+class ActorsController < ActionController::Base
   autocomplete :movie, :name                       
 end        
 
-module Setup
-  def setup
-    ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
-    ActiveRecord::Schema.define(:version => 1) do
-      create_table :movies do |t|
-        t.column :name, :string
+module Rails3JQueryAutocomplete
+  module ActiveRecord
+    module Test
+      def setup
+        ::ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
+        ::ActiveRecord::Schema.define(:version => 1) do
+          create_table :movies do |t|
+            t.column :name, :string
+          end
+
+          create_table :actors do |t|
+            t.column :movie_id, :integer
+            t.column :name, :string
+          end
+        end
       end
 
-      create_table :actors do |t|
-        t.column :movie_id, :integer
-        t.column :name, :string
+      def teardown
+        ::ActiveRecord::Base.connection.tables.each do |table|
+          ::ActiveRecord::Base.connection.drop_table(table)
+        end
       end
-    end
-
-    @controller          = ActorsController.new
-    @controller.request  = @request  = ActionController::TestRequest.new
-    @controller.response = @response = ActionController::TestResponse.new
-  end
-
-  def teardown
-    ActiveRecord::Base.connection.tables.each do |table|
-      ActiveRecord::Base.connection.drop_table(table)
     end
   end
 end
 
 class ActorsControllerTest < ActionController::TestCase
 
-  include Setup
-  require 'shoulda'
-  require 'redgreen'
+  include Rails3JQueryAutocomplete::ActiveRecord::Test
 
   context "the autocomplete gem" do
     setup do

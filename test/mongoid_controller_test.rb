@@ -1,5 +1,4 @@
 require "test_helper"
-require 'mongoid'
 
 class Character
   include Mongoid::Document
@@ -16,34 +15,33 @@ class Game
   end
 end
 
-class GamesController < ApplicationController 
+class GamesController < ActionController::Base
   autocomplete :game, :name                       
 end        
 
-module Setup
-  def setup
-    Mongoid.configure do |config|
-      name = "rails3_jquery_autocomplete_test"
-      host = "localhost"
-      config.master = Mongo::Connection.new.db(name)
-      config.logger = nil
+module Rails3JQueryAutocomplete
+  module Mongoid
+    module Test
+      def setup
+        ::Mongoid.configure do |config|
+          name = "rails3_jquery_autocomplete_test"
+          host = "localhost"
+          config.master = Mongo::Connection.new.db(name)
+          config.logger = nil
+        end
+
+      end
+
+      def teardown
+        ::Mongoid.master.collections.select {|c| c.name !~ /system/ }.each(&:drop)
+      end
     end
-
-    @controller          = GamesController.new
-    @controller.request  = @request  = ActionController::TestRequest.new
-    @controller.response = @response = ActionController::TestResponse.new
-  end
-
-  def teardown
-    Mongoid.master.collections.select {|c| c.name !~ /system/ }.each(&:drop)
   end
 end
 
-class GameControllerTest < ActionController::TestCase
+class GamesControllerTest < ActionController::TestCase
 
-  include Setup
-  require 'shoulda'
-  require 'redgreen'
+  include Rails3JQueryAutocomplete::Mongoid::Test
 
   context "the autocomplete gem" do
     setup do

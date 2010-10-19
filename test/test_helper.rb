@@ -1,32 +1,26 @@
 require 'test/unit'
 require 'rubygems'
 gem 'rails', '>=3.0.0.rc'
-gem 'sqlite3-ruby'
-
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
-require "active_support"
-require "action_controller"
+ENV["RAILS_ENV"] = "test"
+
+require 'rails/all'
+require 'mongoid'
 require 'shoulda'
 require 'redgreen'
 require 'rails3-jquery-autocomplete'
+require 'rails/test_help'
 
-class ApplicationController < ActionController::Base; end
-
-ActionController::Base.view_paths = File.join(File.dirname(__FILE__), 'views')
-
-Rails3JQueryAutocomplete::Routes = ActionDispatch::Routing::RouteSet.new
-Rails3JQueryAutocomplete::Routes.draw do |map|
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action'
-end
-
-ActionController::Base.send :include, Rails3JQueryAutocomplete::Routes.url_helpers
-
-class ActiveSupport::TestCase
-  setup do
-    @routes = Rails3JQueryAutocomplete::Routes
+module Rails3JQueryAutocomplete
+  class Application < Rails::Application
   end
 end
+
+Rails3JQueryAutocomplete::Application.routes.draw do
+  match '/:controller(/:action(/:id))'
+end
+
+ActionController::Base.send :include, Rails3JQueryAutocomplete::Application.routes.url_helpers
