@@ -11,8 +11,8 @@ require 'rails/all'
 require 'mongoid'
 require 'shoulda'
 require 'redgreen'
-require 'rails3-jquery-autocomplete'
 require 'rails/test_help'
+require 'rails3-jquery-autocomplete'
 
 module Rails3JQueryAutocomplete
   class Application < Rails::Application

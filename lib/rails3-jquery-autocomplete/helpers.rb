@@ -1,8 +1,5 @@
-require 'form_helper'
-
 module Rails3JQueryAutocomplete
-
-  class Helpers
+  module Helpers
 
     def self.json_for_autocomplete(items, method)
       items.collect {|item| {"id" => item.id, "label" => item.send(method), "value" => item.send(method)}}
@@ -37,5 +34,4 @@ module Rails3JQueryAutocomplete
     end
 
   end
-
 end

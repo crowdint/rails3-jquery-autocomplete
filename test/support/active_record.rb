@@ -13,8 +13,8 @@ class ActorsController < ActionController::Base
 end        
 
 module Rails3JQueryAutocomplete
-  module ActiveRecord
-    module Test
+  module Test
+    module ActiveRecord
       def setup
         ::ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
         ::ActiveRecord::Schema.define(:version => 1) do

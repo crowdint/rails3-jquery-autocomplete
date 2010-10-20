@@ -18,8 +18,8 @@ class GamesController < ActionController::Base
 end        
 
 module Rails3JQueryAutocomplete
-  module Mongoid
-    module Test
+  module Test
+    module Mongoid
       def setup
         ::Mongoid.configure do |config|
           name = "rails3_jquery_autocomplete_test"
