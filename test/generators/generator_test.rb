@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'rails3-jquery-autocomplete/generators/autocomplete_generator'
+require 'generators/autocomplete_generator'
 
 class AutocompleteGeneratorTest < Test::Unit::TestCase
   def setup
