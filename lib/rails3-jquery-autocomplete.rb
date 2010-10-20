@@ -1,4 +1,5 @@
 require 'form_helper'
+require 'rails3-jquery-autocomplete-helpers'
 
 module Rails3JQueryAutocomplete
   def self.included(base)
@@ -31,13 +32,13 @@ module Rails3JQueryAutocomplete
 
       define_method("autocomplete_#{object}_#{method}") do
 
-        object = get_object(object)
-        implementation = get_implementation(object)
+        object = Helpers.get_object(object)
+        implementation = Helpers.get_implementation(object)
 
         if implementation && params[:term] && !params[:term].empty?
 
-          order = get_order(implementation, method, options)
-          limit = get_limit(options)
+          order = Helpers.get_order(implementation, method, options)
+          limit = Helpers.get_limit(options)
 
           items = case implementation
             when :mongoid 
@@ -53,42 +54,9 @@ module Rails3JQueryAutocomplete
           items = {}
         end
 
-        render :json => json_for_autocomplete(items, (options[:display_value] ? options[:display_value] : method))
+        render :json => Helpers.json_for_autocomplete(items, (options[:display_value] ? options[:display_value] : method))
       end
     end
-  end
-
-  private
-  def json_for_autocomplete(items, method)
-    items.collect {|item| {"id" => item.id, "label" => item.send(method), "value" => item.send(method)}}
-  end
-
-  def get_object(model_sym)
-    object = model_sym.to_s.camelize.constantize
-  end
-
-  def get_implementation(object) 
-    if object.superclass.to_s == 'ActiveRecord::Base'
-      :activerecord
-    elsif object.included_modules.collect(&:to_s).include?('Mongoid::Document')
-      :mongoid
-    else
-      nil
-    end
-  end
-
-  def get_order(implementation, method, options)
-    case implementation
-      when :mongoid then
-         options[:order] ? options[:order].split(',').collect {|orderer| [orderer.split[0].downcase.to_sym, orderer.split[1].downcase.to_sym] } : method.to_sym.asc
-      when :activerecord then 
-        options[:order] || "#{method} ASC"
-      else nil
-    end
-  end
-
-  def get_limit(options)
-    limit = options[:limit] || 10
   end
 
 end
