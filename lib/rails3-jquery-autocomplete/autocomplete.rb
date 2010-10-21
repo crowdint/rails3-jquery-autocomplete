@@ -25,29 +25,16 @@ module Rails3JQueryAutocomplete
 
       define_method("autocomplete_#{object}_#{method}") do
 
-        object = get_object(object)
-        implementation = get_implementation(object)
+        term = params[:term]
 
-        if implementation && params[:term] && !params[:term].empty?
-
-          order = get_order(implementation, method, options)
-          limit = get_limit(options)
-
-          items = case implementation
-          when :mongoid
-            search = (options[:full] ? '.*' : '^') + params[:term] + '.*'
-            items = object.where(method.to_sym => /#{search}/i) \
-            .limit(limit).order_by(order)
-          when :activerecord
-            items = object.where(["LOWER(#{method}) LIKE ?", "#{(options[:full] ? '%' : '')}#{params[:term].downcase}%"]) \
-            .limit(limit).order(order)
-          end
-
+        if term && !term.empty?
+          items = get_items(:model => get_object(object), \
+            :options => options, :term => term, :method => method) 
         else
           items = {}
         end
 
-        render :json => json_for_autocomplete(items, (options[:display_value] ? options[:display_value] : method))
+        render :json => json_for_autocomplete(items, options[:display_value] ||= method)
       end
     end
   end
