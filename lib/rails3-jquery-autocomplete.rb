@@ -3,5 +3,6 @@ require 'rails3-jquery-autocomplete/helpers'
 require 'rails3-jquery-autocomplete/autocomplete'
 
 class ActionController::Base
-  extend Rails3JQueryAutocomplete::Autocomplete
+  extend Rails3JQueryAutocomplete::ClassMethods
+  include Rails3JQueryAutocomplete::Helpers
 end
