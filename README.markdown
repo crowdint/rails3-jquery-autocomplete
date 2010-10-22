@@ -12,7 +12,7 @@ on how to use this gem with ActiveRecord [here](http://github.com/crowdint/rails
 ## MongoID
 
 You can find a [detailed example](http://github.com/crowdint/rails3-jquery-autocomplete-app/tree/mongoid)
-on how to use this gem with MongoID [here](http://github.com/crowdint/rails3-jquery-autocomplete-app/tree/mongoid).
+on how to use this gem with MongoID [here](http://github.com/crowdint/rails3-jquery-autocomplete-app/tree/mongoid). (Same thing, different branch)
 
 ## Before you start
 
@@ -196,6 +196,7 @@ And then, install all your dependencies:
     
 # Changelog
 
+* 0.4.0 MongoID support
 * 0.3.6 Using .live() to put autocomplete on dynamic fields
 
 # About the Author
