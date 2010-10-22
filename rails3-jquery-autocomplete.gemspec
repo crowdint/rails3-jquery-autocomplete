@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rails3-jquery-autocomplete}
-  s.version = "0.3.6"
+  s.version = "0.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Padilla"]
@@ -33,8 +33,7 @@ Gem::Specification.new do |s|
      "test/mongoid_controller_test.rb",
      "test/support/active_record.rb",
      "test/support/mongoid.rb",
-     "test/test_helper.rb",
-     "test/tmp/test_app/public/javascripts/autocomplete-rails.js"
+     "test/test_helper.rb"
   ]
   s.homepage = %q{http://github.com/crowdint/rails3-jquery-autocomplete}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -42,14 +41,14 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Use jQuery's autocomplete plugin with Rails 3.}
   s.test_files = [
-    "test/generators/generator_test.rb",
+    "test/active_record_controller_test.rb",
      "test/form_helper_test.rb",
-     "test/test_helper.rb",
+     "test/generators/generator_test.rb",
      "test/helpers.rb",
-     "test/active_record_controller_test.rb",
-     "test/support/mongoid.rb",
+     "test/mongoid_controller_test.rb",
      "test/support/active_record.rb",
-     "test/mongoid_controller_test.rb"
+     "test/support/mongoid.rb",
+     "test/test_helper.rb"
   ]
 
   if s.respond_to? :specification_version then
