@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Padilla"]
-  s.date = %q{2010-10-12}
+  s.date = %q{2010-10-22}
   s.description = %q{Use jQuery's autocomplete plugin with Rails 3.}
   s.email = %q{david.padilla@crowdint.com}
   s.extra_rdoc_files = [
@@ -20,14 +20,21 @@ Gem::Specification.new do |s|
     "README.markdown",
      "Rakefile",
      "lib/cucumber/autocomplete.rb",
-     "lib/form_helper.rb",
      "lib/generators/autocomplete_generator.rb",
      "lib/generators/templates/autocomplete-rails.js",
      "lib/rails3-jquery-autocomplete.rb",
-     "test/autocomplete_generator_test.rb",
-     "test/controller_module_test.rb",
+     "lib/rails3-jquery-autocomplete/autocomplete.rb",
+     "lib/rails3-jquery-autocomplete/form_helper.rb",
+     "lib/rails3-jquery-autocomplete/helpers.rb",
+     "test/active_record_controller_test.rb",
      "test/form_helper_test.rb",
-     "test/test_helper.rb"
+     "test/generators/generator_test.rb",
+     "test/helpers.rb",
+     "test/mongoid_controller_test.rb",
+     "test/support/active_record.rb",
+     "test/support/mongoid.rb",
+     "test/test_helper.rb",
+     "test/tmp/test_app/public/javascripts/autocomplete-rails.js"
   ]
   s.homepage = %q{http://github.com/crowdint/rails3-jquery-autocomplete}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -35,10 +42,14 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Use jQuery's autocomplete plugin with Rails 3.}
   s.test_files = [
-    "test/autocomplete_generator_test.rb",
-     "test/controller_module_test.rb",
+    "test/generators/generator_test.rb",
      "test/form_helper_test.rb",
-     "test/test_helper.rb"
+     "test/test_helper.rb",
+     "test/helpers.rb",
+     "test/active_record_controller_test.rb",
+     "test/support/mongoid.rb",
+     "test/support/active_record.rb",
+     "test/mongoid_controller_test.rb"
   ]
 
   if s.respond_to? :specification_version then
