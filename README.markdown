@@ -1,17 +1,17 @@
 # rails3-jquery-autocomplete
 
-An easy way to use jQuery's autocomplete with Rails 3. 
+An easy way to use jQuery's autocomplete with Rails 3.
 
 In now supports both ActiveRecord and [mongoid](http://github.com/mongoid/mongoid).
 
 ## ActiveRecord
 
-You can find a [detailed example](http://github.com/crowdint/rails3-jquery-autocomplete-app) 
+You can find a [detailed example](http://github.com/crowdint/rails3-jquery-autocomplete-app)
 on how to use this gem with ActiveRecord [here](http://github.com/crowdint/rails3-jquery-autocomplete-app).
 
 ## MongoID
 
-You can find a [detailed example](http://github.com/crowdint/rails3-jquery-autocomplete-app/tree/mongoid) 
+You can find a [detailed example](http://github.com/crowdint/rails3-jquery-autocomplete-app/tree/mongoid)
 on how to use this gem with MongoID [here](http://github.com/crowdint/rails3-jquery-autocomplete-app/tree/mongoid).
 
 ## Before you start
