@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Padilla"]
-  s.date = %q{2010-10-22}
+  s.date = %q{2010-10-26}
   s.description = %q{Use jQuery's autocomplete plugin with Rails 3.}
   s.email = %q{david.padilla@crowdint.com}
   s.extra_rdoc_files = [
@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
      "lib/rails3-jquery-autocomplete.rb",
      "lib/rails3-jquery-autocomplete/autocomplete.rb",
      "lib/rails3-jquery-autocomplete/form_helper.rb",
+     "lib/rails3-jquery-autocomplete/formtastic_plugin.rb",
      "lib/rails3-jquery-autocomplete/helpers.rb",
      "test/active_record_controller_test.rb",
      "test/form_helper_test.rb",
