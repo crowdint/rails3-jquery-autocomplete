@@ -4,6 +4,8 @@ An easy way to use jQuery's autocomplete with Rails 3.
 
 In now supports both ActiveRecord and [mongoid](http://github.com/mongoid/mongoid).
 
+It also supports [Formtastic](http://github.com/justinfrench/formtastic)
+
 ## ActiveRecord
 
 You can find a [detailed example](http://github.com/crowdint/rails3-jquery-autocomplete-app)
@@ -154,6 +156,16 @@ If you need to use the id of the selected object, you can use the *:id_element* 
 
 This will update the field with id *#some_element with the id of the selected object. The value for this option can be any jQuery selector.
 
+## Formtastic
+
+If you are using [Formtastic](http://github.com/justinfrench/formtastic), you automatically get the *autocompleted_input* helper on *semantic_form_for*:
+
+    semantic_form_for @product do |f|
+      f.autocompleted_input :brand_name, :url => autocomplete_brand_name_path
+    end
+
+The only difference with the original helper is that you must specify the autocomplete url using the *:url* option.
+
 # Cucumber
 
 I have created a step to test your autocomplete with Cucumber and Capybara, all you have to do is add the following lines to your *env.rb* file:
@@ -196,6 +208,7 @@ And then, install all your dependencies:
     
 # Changelog
 
+* 0.5.0 Formtastic support
 * 0.4.0 MongoID support
 * 0.3.6 Using .live() to put autocomplete on dynamic fields
 
