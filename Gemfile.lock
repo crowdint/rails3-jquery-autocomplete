@@ -34,6 +34,10 @@ GEM
     builder (2.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
+    formtastic (1.1.0)
+      actionpack (>= 2.3.0)
+      activesupport (>= 2.3.0)
+      i18n (>= 0.4.0)
     gemcutter (0.6.1)
     git (1.2.5)
     i18n (0.4.1)
@@ -42,10 +46,11 @@ GEM
       git (>= 1.2.5)
       rubyforge (>= 2.0.0)
     json_pure (1.4.6)
-    mail (2.2.7)
+    mail (2.2.9)
       activesupport (>= 2.3.6)
-      mime-types
-      treetop (>= 1.4.5)
+      i18n (~> 0.4.1)
+      mime-types (~> 1.16)
+      treetop (~> 1.4.8)
     mime-types (1.16)
     mongo (1.0.9)
       bson (>= 1.0.5)
@@ -99,6 +104,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  formtastic
   jeweler
   mongoid (>= 2.0.0.beta.17)
   rails (= 3.0.0)
