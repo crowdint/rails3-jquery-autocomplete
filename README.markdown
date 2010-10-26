@@ -204,8 +204,10 @@ And then, install all your dependencies:
 
 ## Running the test suite
 
+You need to have an instance of MongoDB running on your computer or all the mongo tests will fail miserably.
+
     rake test
-    
+
 # Changelog
 
 * 0.5.0 Formtastic support
