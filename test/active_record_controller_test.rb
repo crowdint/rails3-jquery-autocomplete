@@ -9,10 +9,6 @@ module Rails3JQueryAutocomplete
 
         include Rails3JQueryAutocomplete::Test::ActiveRecord
     
-        setup do
-          @controller = ActorsController.new
-        end
-
         context "the autocomplete gem" do
 
           should "be able to access the autocomplete action regardless of the quality of param[:term]" do
@@ -32,9 +28,9 @@ module Rails3JQueryAutocomplete
           should "respond with expected json" do
             get :autocomplete_movie_name, :term => 'Al'
             json_response = JSON.parse(@response.body)
-            assert_equal(json_response.first["label"], @movie.name)
-            assert_equal(json_response.first["value"], @movie.name)
-            assert_equal(json_response.first["id"], @movie.id)
+            assert_equal(json_response.first["label"], @movie1.name)
+            assert_equal(json_response.first["value"], @movie1.name)
+            assert_equal(json_response.first["id"], @movie1.id)
           end
 
           should "return results in alphabetical order by default" do
@@ -45,7 +41,9 @@ module Rails3JQueryAutocomplete
           end
 
           should "be able to sort in other ways if desired" do
-            ActorsController.send(:autocomplete, :movie, :name, {:order => "name DESC"})
+            @controller.class_eval do
+              autocomplete :movie, :name, {:order => "name DESC"}
+            end
 
             get :autocomplete_movie_name, :term => 'Al'
             json_response = JSON.parse(@response.body)
@@ -54,7 +52,9 @@ module Rails3JQueryAutocomplete
           end
 
           should "be able to limit the results" do
-            ActorsController.send(:autocomplete, :movie, :name, {:limit => 1})
+            @controller.class_eval do
+              autocomplete :movie, :name, {:limit => 1}
+            end
 
             get :autocomplete_movie_name, :term => 'Al'
             json_response = JSON.parse(@response.body)
@@ -62,35 +62,41 @@ module Rails3JQueryAutocomplete
           end
 
           should "ignore case of search term and results" do
-            @movie = Movie.create(:name => 'aLpHa')
+            @movie = @movie_class.create(:name => 'aLpHa')
 
-            ActorsController.send(:autocomplete, :movie, :name)
+            @controller.class_eval do
+              autocomplete :movie, :name
+            end
 
             get :autocomplete_movie_name, :term => 'Al'
             json_response = JSON.parse(@response.body)
-            assert_equal(json_response.length, Movie.count)
+            assert_equal(json_response.length, @movie_class.count)
             assert_equal(json_response.last["label"], 'aLpHa')
           end
 
           should "match term to letters in middle of words when full-text search is on" do
-            ActorsController.send(:autocomplete, :movie, :name, {:full => true})
+            @controller.class_eval do
+              autocomplete :movie, :name, {:full => true}
+            end
 
             get :autocomplete_movie_name, :term => 'ph'
             json_response = JSON.parse(@response.body)
-            assert_equal(json_response.length, Movie.count)
-            assert_equal(json_response.first["label"], @movie.name)
+            assert_equal(json_response.length, @movie_class.count)
+            assert_equal(json_response.first["label"], @movie1.name)
           end
 
           should "be able to customize what is displayed" do
-            ActorsController.send(:autocomplete, :movie, :name, {:display_value => :display_name})
+            @controller.class_eval do
+              autocomplete :movie, :name, {:display_value => :display_name}
+            end
 
             get :autocomplete_movie_name, :term => 'Al'
 
             json_response = JSON.parse(@response.body)
 
-            assert_equal(@movie.display_name, json_response.first["label"])
-            assert_equal(@movie.display_name, json_response.first["value"])
-            assert_equal(@movie.id, json_response.first["id"])
+            assert_equal(@movie1.display_name, json_response.first["label"])
+            assert_equal(@movie1.display_name, json_response.first["value"])
+            assert_equal(@movie1.id, json_response.first["id"])
           end
         end
       end

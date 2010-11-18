@@ -24,3 +24,6 @@ Rails3JQueryAutocomplete::Application.routes.draw do
 end
 
 ActionController::Base.send :include, Rails3JQueryAutocomplete::Application.routes.url_helpers
+
+ActorsController = Class.new(ActionController::Base)
+ActorsController.autocomplete(:movie, :name)

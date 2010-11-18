@@ -1,17 +1,3 @@
-class Actor < ActiveRecord::Base
-  belongs_to :movie
-end
-
-class Movie < ActiveRecord::Base
-  def display_name
-    "Movie: #{name}"
-  end
-end
-
-class ActorsController < ActionController::Base
-  autocomplete :movie, :name                       
-end        
-
 module Rails3JQueryAutocomplete
   module Test
     module ActiveRecord
@@ -28,12 +14,26 @@ module Rails3JQueryAutocomplete
           end
         end
 
-        @movie  = Movie.create(:name => 'Alpha')
-        @movie2 = Movie.create(:name => 'Alspha')
-        @movie3 = Movie.create(:name => 'Alzpha')
+        @actor_class = Object.const_set(:Actor, Class.new(::ActiveRecord::Base))
+        @actor_class.belongs_to(:movie)
+
+        @movie_class = Object.const_set(:Movie, Class.new(::ActiveRecord::Base))
+        @movie_class.class_eval do
+          def display_name
+            "Movie: #{name}"
+          end
+        end
+
+        @controller = ActorsController.new
+
+        @movie1  = @movie_class.create(:name => 'Alpha')
+        @movie2 = @movie_class.create(:name => 'Alspha')
+        @movie3 = @movie_class.create(:name => 'Alzpha')
       end
 
       def teardown
+        Object.send(:remove_const, :Actor)
+        Object.send(:remove_const, :Movie)
         ::ActiveRecord::Base.connection.tables.each do |table|
           ::ActiveRecord::Base.connection.drop_table(table)
         end
