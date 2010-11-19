@@ -1,6 +1,6 @@
 module Rails3JQueryAutocomplete
   module Test
-    module Mongoid
+    class ActorsControllerTest
       def setup
         ::Mongoid.configure do |config|
           name = "rails3_jquery_autocomplete_test"

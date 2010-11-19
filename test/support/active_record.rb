@@ -1,6 +1,6 @@
 module Rails3JQueryAutocomplete
   module Test
-    module ActiveRecord
+    module Setup
       def setup
         ::ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
         ::ActiveRecord::Schema.define(:version => 1) do
