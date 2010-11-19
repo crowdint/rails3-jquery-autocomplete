@@ -1,6 +1,6 @@
 module Rails3JQueryAutocomplete
-  module Test
-    class ActorsControllerTest
+  module TestCase
+    module Mongoid
       def setup
         ::Mongoid.configure do |config|
           name = "rails3_jquery_autocomplete_test"
@@ -9,6 +9,22 @@ module Rails3JQueryAutocomplete
           config.logger = nil
         end
 
+        create_models 
+
+        @controller = ActorsController.new
+
+        @movie1 = @movie_class.create(:name => 'Alpha')
+        @movie2 = @movie_class.create(:name => 'Alspha')
+        @movie3 = @movie_class.create(:name => 'Alzpha')
+      end
+
+      def teardown
+        destroy_models
+        ::Mongoid.master.collections.select {|c| c.name !~ /system/ }.each(&:drop)
+      end
+
+      private
+      def create_models
         @movie_class = Object.const_set(:Movie, Class.new)
         @movie_class.send(:include, ::Mongoid::Document)
         @movie_class.field(:name, :class => String)
@@ -17,18 +33,12 @@ module Rails3JQueryAutocomplete
             "Movie: #{name}"
           end
         end
-
-        @controller = ActorsController.new
-
-        @movie1  = @movie_class.create(:name => 'Alpha')
-        @movie2 = @movie_class.create(:name => 'Alspha')
-        @movie3 = @movie_class.create(:name => 'Alzpha')
       end
 
-      def teardown
+      def destroy_models
         Object.send(:remove_const, :Movie)          
-        ::Mongoid.master.collections.select {|c| c.name !~ /system/ }.each(&:drop)
       end
+
     end
   end
 end

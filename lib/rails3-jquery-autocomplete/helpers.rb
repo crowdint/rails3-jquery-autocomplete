@@ -19,9 +19,10 @@ module Rails3JQueryAutocomplete
     # Returns a symbol representing what implementation should be used to query
     # the database and raises *NotImplementedError* if ORM implementor can not be found
     def get_implementation(object) 
-      if object.ancestors.collect(&:to_s).include?('ActiveRecord::Base')
+      ancestors_ary = object.ancestors.collect(&:to_s)
+      if ancestors_ary.include?('ActiveRecord::Base')
         :activerecord
-      elsif object.ancestors.collect(&:to_s).include?('Mongoid::Document')
+      elsif ancestors_ary.include?('Mongoid::Document')
         :mongoid
       else
         raise NotImplementedError

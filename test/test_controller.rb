@@ -1,5 +1,5 @@
 module Rails3JQueryAutocomplete
-  module Test
+  module TestCase
 
     include Shoulda::InstanceMethods
     extend Shoulda::ClassMethods
