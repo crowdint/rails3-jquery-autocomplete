@@ -210,6 +210,7 @@ You need to have an instance of MongoDB running on your computer or all the mong
 
 # Changelog
 
+* 0.5.1 Add STI support
 * 0.5.0 Formtastic support
 * 0.4.0 MongoID support
 * 0.3.6 Using .live() to put autocomplete on dynamic fields
