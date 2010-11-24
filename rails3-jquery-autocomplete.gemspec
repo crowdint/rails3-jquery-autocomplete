@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rails3-jquery-autocomplete}
-  s.version = "0.5.0"
+  s.version = "0.5.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Padilla"]
-  s.date = %q{2010-10-26}
+  s.date = %q{2010-11-24}
   s.description = %q{Use jQuery's autocomplete plugin with Rails 3.}
   s.email = %q{david.padilla@crowdint.com}
   s.extra_rdoc_files = [
@@ -27,13 +27,13 @@ Gem::Specification.new do |s|
      "lib/rails3-jquery-autocomplete/form_helper.rb",
      "lib/rails3-jquery-autocomplete/formtastic_plugin.rb",
      "lib/rails3-jquery-autocomplete/helpers.rb",
-     "test/active_record_controller_test.rb",
      "test/form_helper_test.rb",
      "test/generators/generator_test.rb",
      "test/helpers.rb",
-     "test/mongoid_controller_test.rb",
+     "test/implementations_test.rb",
      "test/support/active_record.rb",
      "test/support/mongoid.rb",
+     "test/test_controller.rb",
      "test/test_helper.rb"
   ]
   s.homepage = %q{http://github.com/crowdint/rails3-jquery-autocomplete}
@@ -42,13 +42,13 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Use jQuery's autocomplete plugin with Rails 3.}
   s.test_files = [
-    "test/active_record_controller_test.rb",
-     "test/form_helper_test.rb",
+    "test/form_helper_test.rb",
      "test/generators/generator_test.rb",
      "test/helpers.rb",
-     "test/mongoid_controller_test.rb",
+     "test/implementations_test.rb",
      "test/support/active_record.rb",
      "test/support/mongoid.rb",
+     "test/test_controller.rb",
      "test/test_helper.rb"
   ]
 
