@@ -28,7 +28,9 @@ module Rails3JQueryAutocomplete
         term = params[:term]
 
         if term && !term.empty?
-          items = get_items(:model => get_object(object), \
+          #allow specifying fully qualified class name for model object
+          class_name = options[:class_name] || object
+          items = get_items(:model => get_object(class_name), \
             :options => options, :term => term, :method => method) 
         else
           items = {}
