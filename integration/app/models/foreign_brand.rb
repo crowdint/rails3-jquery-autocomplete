@@ -1,0 +1,3 @@
+class ForeignBrand < Brand
+
+end

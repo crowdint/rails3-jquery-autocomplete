@@ -5,10 +5,10 @@ Feature: Autocomplete
 
   Background: 
     Given the following brands exists:
-      | id  | name  |
-      | 1   | Alpha |
-      | 2   | Beta  |
-      | 3   | Gamma |
+      | name  |
+      | Alpha |
+      | Beta  |
+      | Gamma |
 
   @javascript
   Scenario: Autocomplete
@@ -24,5 +24,15 @@ Feature: Autocomplete
     And I choose "Alpha" in the autocomplete list
     Then the "Brand name" field should contain "Alpha"
     And the "Brand" field should contain the "Alpha" brand id
+
+  @javascript
+  Scenario: Autocomplete for a sub class
+    Given the following foreign brands exists:
+      | name  |
+      | Omega |
+    Given I go to the new sub class page
+    And I fill in "Brand name" with "om"
+    And I choose "Omega" in the autocomplete list
+    Then the "Brand name" field should contain "Omega"
 
 
