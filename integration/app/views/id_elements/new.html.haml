@@ -1,0 +1,12 @@
+%h1 Id Element
+
+= form_for @product do |form|
+  %p
+    = form.label :name
+    = form.text_field :name
+  %p
+    = form.label :brand_name
+    = form.autocomplete_field :brand_name, autocomplete_brand_name_id_elements_path, :id_element => '#product_brand_id'
+  %p
+    = form.label :brand_id
+    = form.text_field :brand_id

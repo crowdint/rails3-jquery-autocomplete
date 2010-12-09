@@ -17,3 +17,12 @@ Feature: Autocomplete
     And I choose "Alpha" in the autocomplete list
     Then the "Brand name" field should contain "Alpha"
 
+  @javascript
+  Scenario: Autocomplete, id_element option
+    Given I go to the new id element page
+    And I fill in "Brand name" with "al"
+    And I choose "Alpha" in the autocomplete list
+    Then the "Brand name" field should contain "Alpha"
+    And the "Brand" field should contain the "Alpha" brand id
+
+
