@@ -171,7 +171,7 @@ The only difference with the original helper is that you must specify the autoco
 I have created a step to test your autocomplete with Cucumber and Capybara, all you have to do is add the following lines to your *env.rb* file:
 
     require 'cucumber/autocomplete'
-    
+
 Then you'll have access to the following step:
 
     I choose "([^"]*)" in the autocomplete list
@@ -208,8 +208,23 @@ You need to have an instance of MongoDB running on your computer or all the mong
 
     rake test
 
+## Integration tests
+
+If you make changes or add features to the jQuery part, please make sure
+you write a cucumber test for it.
+
+You can find an example Rails app on the *integration* folder.
+
+You can run the integration tests with the cucumber command while on the
+integration folder:
+
+    cd integration
+    cucumber
+
 # Changelog
 
+* 0.6.1 Allow specifying fully qualified class name for model object as an option to autocomplete
+* 0.6.0 JS Code cleanup
 * 0.5.1 Add STI support
 * 0.5.0 Formtastic support
 * 0.4.0 MongoID support
