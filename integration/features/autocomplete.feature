@@ -35,4 +35,11 @@ Feature: Autocomplete
     And I choose "Omega" in the autocomplete list
     Then the "Brand name" field should contain "Omega"
 
-
+  @javascript
+  Scenario: Autocomplete
+    Given I go to the new multiple selection page
+    And I send al to "Brand name"
+    And I choose "Alpha" in the autocomplete list
+    And I send bet to "Brand name"
+    And I choose "Beta" in the autocomplete list
+    Then the "Brand name" field should contain "Alpha,Beta"

@@ -1,4 +1,5 @@
 Integration::Application.routes.draw do
+
   root :to => 'autocomplete#new'
   match 'autocomplete/autocomplete_brand_name' => 'autocomplete#autocomplete_brand_name'
 
@@ -9,5 +10,9 @@ Integration::Application.routes.draw do
 
   resources :sub_classes do
     get :autocomplete_foreign_brand_name, :on => :collection
+  end
+
+  resources :multiple_selections do
+    get :autocomplete_brand_name, :on => :collection
   end
 end
