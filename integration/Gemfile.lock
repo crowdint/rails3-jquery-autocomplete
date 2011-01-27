@@ -6,9 +6,9 @@ GIT
       capybara
 
 PATH
-  remote: /Users/dab/gems/rails3-jquery-autocomplete
+  remote: ../
   specs:
-    rails3-jquery-autocomplete (0.6.0)
+    rails3-jquery-autocomplete (0.6.1)
       rails (~> 3.0.0)
 
 GEM
