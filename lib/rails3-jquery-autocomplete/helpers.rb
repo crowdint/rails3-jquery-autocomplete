@@ -3,7 +3,10 @@ module Rails3JQueryAutocomplete
   # Contains utility methods used by autocomplete
   module Helpers
 
-    # Returns a three keys hash 
+    #
+    # Returns a three keys hash actually used by the Autocomplete jQuery-ui
+    # Can be overriden to show whatever you like
+    #
     def json_for_autocomplete(items, method)
       items.collect {|item| {"id" => item.id, "label" => item.send(method), "value" => item.send(method)}}
     end
@@ -12,6 +15,7 @@ module Rails3JQueryAutocomplete
     #
     #   get_object(:actor)
     #   # returns a Actor constant supposing it is already defined
+    #
     def get_object(model_sym)
       object = model_sym.to_s.camelize.constantize
     end
@@ -29,14 +33,20 @@ module Rails3JQueryAutocomplete
       end
     end
 
-    # Returns the order parameter to be used in the query created by get_items
+    #DEPRECATED
     def get_order(implementation, method, options)
+      warn 'Rails3JQueryAutocomplete#get_order is has been DEPRECATED, please use #get_autocomplete_order instead'
+      get_autocomplete_order(implementation, method, options)
+    end
+
+    # Returns the order parameter to be used in the query created by get_items
+    def get_autocomplete_order(implementation, method, options)
       order = options[:order]
 
       case implementation
         when :mongoid then
           if order 
-            order.split(',').collect do |fields| 
+            order.split(',').collect do |fields|
               sfields = fields.split
               [sfields[0].downcase.to_sym, sfields[1].downcase.to_sym]
             end
@@ -48,25 +58,39 @@ module Rails3JQueryAutocomplete
       end
     end
 
-    # Returns a limit that will be used on the query    
+    # DEPRECATED
     def get_limit(options)
+      warn 'Rails3JQueryAutocomplete#get_limit is has been DEPRECATED, please use #get_autocomplete_limit instead'
+      get_autocomplete_limit(options)
+    end
+
+    # Returns a limit that will be used on the query
+    def get_autocomplete_limit(options)
       options[:limit] ||= 10
     end
-  
-    # Queries selected database
-    #
-    #   items = get_items(:model => get_object(object), :options => options, :term => term, :method => method) 
-    def get_items(parameters)
 
+    # DEPRECATED
+    def get_items(parameters)
+      warn 'Rails3JQueryAutocomplete#get_items is has been DEPRECATED, you should use #get_autocomplete_items instead'
+      get_autocomplete_items(parameters)
+    end
+
+    #
+    # Can be overriden to return or filter however you like
+    # the objects to be shown by autocomplete
+    #
+    #   items = get_autocomplete_items(:model => get_object(object), :options => options, :term => term, :method => method) 
+    #
+    def get_autocomplete_items(parameters)
       model = parameters[:model]
       method = parameters[:method]
       options = parameters[:options]
       term = parameters[:term]
       is_full_search = options[:full]
 
-      limit = get_limit(options)
+      limit = get_autocomplete_limit(options)
       implementation = get_implementation(model)
-      order = get_order(implementation, method, options)
+      order = get_autocomplete_order(implementation, method, options)
 
       case implementation
         when :mongoid
