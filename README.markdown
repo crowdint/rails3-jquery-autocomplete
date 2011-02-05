@@ -42,7 +42,7 @@ Install it
 Run the generator
 
     rails generate autocomplete
-    
+
 And include autocomplete-rails.js on your layouts
 
     javascript_include_tag "autocomplete-rails.js"
@@ -105,6 +105,16 @@ Only the following terms mould match the query 'un':
 
 * Unacceptable
 
+#### :extra_data
+
+By default, your search will only return the required columns from the database needed to populate your form, namely id and the column you are searching (name, in the above example).
+
+Passing an array of attributes/column names to this option will fetch and return the specified data.
+
+    class ProductsController < Admin::BaseController
+      autocomplete :brand, :name, :extra_data => [:slogan]
+    end
+
 #### :display_value
 
 If you want to display a different version of what you're looking for, you can use the :display_value option.
@@ -125,6 +135,8 @@ This options receives a method name as the parameter, and that method will be ca
 In the example above, you will search by _name_, but the autocomplete list will display the result of _funky_method_
 
 This wouldn't really make much sense unless you use it with the :id_element HTML tag. (See below)
+
+Only the object's id and the column you are searching on will be returned in JSON, so if your display_value method requires another parameter, make sure to fetch it with the :extra_data option
 
 ### View
 
@@ -155,6 +167,20 @@ If you need to use the id of the selected object, you can use the *:id_element* 
     f.autocomplete_field :brand_name, autocomplete_brand_name_products_path, :id_element => '#some_element'
 
 This will update the field with id *#some_element with the id of the selected object. The value for this option can be any jQuery selector.
+
+### Getting extra object data
+
+If you need to extra data about the selected object, you can use the *:update_elements* HTML attribute.
+
+The :update_elements attribute accepts a hash where the keys represent the object attribute/column data to use to update and the values are jQuery selectors to retrieve the HTML element to update:
+
+    f.autocomplete_field :brand_name, autocomplete_brand_name_products_path, :update_elements => {:id => '#id_element', :slogan => '#some_other_element'}
+
+    class ProductsController < Admin::BaseController
+      autocomplete :brand, :name, :extra_data => [:slogan]
+    end
+
+The previous example would fetch the extra attribute slogan and update jQuery('#some_other_element') with the slogan value.
 
 ## Formtastic
 
@@ -232,6 +258,6 @@ integration folder:
 
 # About the Author
 
-[Crowd Interactive](http://www.crowdint.com) is an American web design and development company that happens to work in Colima, Mexico. 
+[Crowd Interactive](http://www.crowdint.com) is an American web design and development company that happens to work in Colima, Mexico.
 We specialize in building and growing online retail stores. We don’t work with everyone – just companies we believe in. Call us today to see if there’s a fit.
 Find more info [here](http://www.crowdint.com)!

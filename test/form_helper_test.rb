@@ -6,12 +6,12 @@ end
 
 class FormHelperTest < ActionView::TestCase
   def test_text_field_tag
-    assert_match(/data-autocomplete=\"some\/path\"/, text_field_tag('field_name', '', :autocomplete => 'some/path'))
+    assert_match(/autocomplete=\"some\/path\"/, text_field_tag('field_name', '', :autocomplete => 'some/path'))
   end
 
   def test_text_field
     post = Post.new
-    assert_match(/data-autocomplete=\"some\/path\"/, text_field(:post, :author, :autocomplete => 'some/path'))
+    assert_match(/autocomplete=\"some\/path\"/, text_field(:post, :author, :autocomplete => 'some/path'))
   end
 
   def test_autocomplete_field_tag

@@ -4,11 +4,18 @@ module Rails3JQueryAutocomplete
   module Helpers
 
     #
-    # Returns a three keys hash actually used by the Autocomplete jQuery-ui
+    # Returns a hash with three keys actually used by the Autocomplete jQuery-ui
     # Can be overriden to show whatever you like
+    # Hash also includes a key/value pair for each method in extra_data
     #
-    def json_for_autocomplete(items, method)
-      items.collect {|item| {"id" => item.id, "label" => item.send(method), "value" => item.send(method)}}
+    def json_for_autocomplete(items, method, extra_data)
+      items.collect do |item|
+        hash = {"id" => item.id, "label" => item.send(method), "value" => item.send(method)}
+        extra_data.each do |datum|
+          hash[datum] = item.send(datum)
+        end if extra_data
+        hash
+      end
     end
 
     # Returns parameter model_sym as a constant
@@ -22,7 +29,7 @@ module Rails3JQueryAutocomplete
 
     # Returns a symbol representing what implementation should be used to query
     # the database and raises *NotImplementedError* if ORM implementor can not be found
-    def get_implementation(object) 
+    def get_implementation(object)
       ancestors_ary = object.ancestors.collect(&:to_s)
       if ancestors_ary.include?('ActiveRecord::Base')
         :activerecord
@@ -45,7 +52,7 @@ module Rails3JQueryAutocomplete
 
       case implementation
         when :mongoid then
-          if order 
+          if order
             order.split(',').collect do |fields|
               sfields = fields.split
               [sfields[0].downcase.to_sym, sfields[1].downcase.to_sym]
@@ -53,7 +60,7 @@ module Rails3JQueryAutocomplete
           else
             [[method.to_sym, :asc]]
           end
-        when :activerecord then 
+        when :activerecord then
           order || "#{method} ASC"
       end
     end
@@ -79,10 +86,10 @@ module Rails3JQueryAutocomplete
     # Can be overriden to return or filter however you like
     # the objects to be shown by autocomplete
     #
-    #   items = get_autocomplete_items(:model => get_object(object), :options => options, :term => term, :method => method) 
+    #   items = get_autocomplete_items(:model => get_object(object), :options => options, :term => term, :method => method)
     #
     def get_autocomplete_items(parameters)
-      model = parameters[:model]
+      model = relation = parameters[:model]
       method = parameters[:method]
       options = parameters[:options]
       term = parameters[:term]
@@ -91,13 +98,14 @@ module Rails3JQueryAutocomplete
       limit = get_autocomplete_limit(options)
       implementation = get_implementation(model)
       order = get_autocomplete_order(implementation, method, options)
+      relation = model.select([:id, method] + (options[:extra_data].blank? ? [] : options[:extra_data])) unless options[:full_model]
 
       case implementation
         when :mongoid
           search = (is_full_search ? '.*' : '^') + term + '.*'
-          items = model.where(method.to_sym => /#{search}/i).limit(limit).order_by(order)
+          items = relation.where(method.to_sym => /#{search}/i).limit(limit).order_by(order)
         when :activerecord
-          items = model.where(["LOWER(#{method}) LIKE ?", "#{(is_full_search ? '%' : '')}#{term.downcase}%"]) \
+          items = relation.where(["LOWER(#{method}) LIKE ?", "#{(is_full_search ? '%' : '')}#{term.downcase}%"]) \
             .limit(limit).order(order)
       end
     end

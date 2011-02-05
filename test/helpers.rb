@@ -11,7 +11,7 @@ module Rails3JQueryAutocomplete
       end
 
       items_exist_assert = lambda do |model|
-          items = Helpers.get_items(:model => model), :term => 'A', :method => 'name') 
+          items = Helpers.get_items(:model => model), :term => 'A', :method => 'name')
           assert(items)
           assert_equal(3, items.size)
       end
@@ -30,7 +30,7 @@ module Rails3JQueryAutocomplete
             response.each(&assert_structure)
           end
         end
-    
+
         context 'looking for items' do
 
           include Rails3JQueryAutocomplete::Mongoid::Test
@@ -48,7 +48,7 @@ module Rails3JQueryAutocomplete
         context 'passing an ActiveRecord query result' do
 
           include Rails3JQueryAutocomplete::ActiveRecord::Test
-     
+
           should 'parse items to JSON' do
             response = Helpers.json_for_autocomplete(Game.all, :name)
             assert_not_nil(response)
