@@ -15,7 +15,7 @@ module ActionView
       #
       def autocomplete_field(object_name, method, source, options ={})
         options["data-autocomplete"] = source
-        text_field(object_name, method, rename_autocomplete_option(options))
+        text_field(object_name, method, rewrite_autocomplete_option(options))
       end
     end
 
@@ -33,7 +33,7 @@ module ActionView
       #
       def autocomplete_field_tag(name, value, source, options ={})
         options["data-autocomplete"] = source
-        text_field_tag(name, value, rename_autocomplete_option(options))
+        text_field_tag(name, value, rewrite_autocomplete_option(options))
       end
     end
 
