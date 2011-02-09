@@ -1,10 +1,3 @@
-GIT
-  remote: git@github.com:crowdint/send-keys.git
-  revision: 23080296ce7f582c04a4818aec015fc854e2303d
-  specs:
-    send-keys (0.1.0)
-      capybara
-
 PATH
   remote: ../
   specs:
@@ -155,5 +148,4 @@ DEPENDENCIES
   pickle
   rails (~> 3.0.3)
   rails3-jquery-autocomplete!
-  send-keys!
   sqlite3-ruby

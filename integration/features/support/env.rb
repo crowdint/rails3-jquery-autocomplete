@@ -19,7 +19,6 @@ require 'cucumber/rails/capybara_javascript_emulation' # Lets you click links wi
 
 # rails3-jquery-autocomplete cucumber steps
 require 'cucumber/autocomplete'
-require 'send-keys/step_definitions/send_keys_steps'
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
