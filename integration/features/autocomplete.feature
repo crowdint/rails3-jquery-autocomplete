@@ -9,6 +9,10 @@ Feature: Autocomplete
       | Alpha |
       | Beta  |
       | Gamma |
+    And the following features exists:
+      | name  |
+      | Shiny |
+      | Glowy |
 
   @javascript
   Scenario: Autocomplete
@@ -43,3 +47,10 @@ Feature: Autocomplete
     And I send bet to "Brand name"
     And I choose "Beta" in the autocomplete list
     Then the "Brand name" field should contain "Alpha,Beta"
+
+  @javascript
+  Scenario: Autocomplete for Nested Models
+    Given I go to the new nested model page
+    When I send sh to "Feature Name"
+    And I choose "Shiny" in the autocomplete list
+    Then the "Feature Name" field should contain "Glowy,Shiny"
