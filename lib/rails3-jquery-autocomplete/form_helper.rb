@@ -1,11 +1,6 @@
 module ActionView
   module Helpers
     module FormHelper
-      alias_method :original_text_field, :text_field
-      def text_field(object_name, method, options = {})
-        original_text_field(object_name, method, options)
-      end
-
       # Returns an input tag of the "text" type tailored for accessing a specified attribute (identified by +method+) and
       # that is populated with jQuery's autocomplete plugin.
       #
@@ -20,11 +15,6 @@ module ActionView
     end
 
     module FormTagHelper
-      alias_method :original_text_field_tag, :text_field_tag
-      def text_field_tag(name, value = nil, options = {})
-        original_text_field_tag(name, value, options)
-      end
-
       # Creates a standard text field that can be populated with jQuery's autocomplete plugin
       #
       # ==== Examples
@@ -51,6 +41,6 @@ end
 
 class ActionView::Helpers::FormBuilder #:nodoc:
   def autocomplete_field(method, source, options = {})
-    @template.autocomplete_field(@object_name, method, source, options)
+    @template.autocomplete_field(@object_name, method, source, objectify_options(options))
   end
 end
