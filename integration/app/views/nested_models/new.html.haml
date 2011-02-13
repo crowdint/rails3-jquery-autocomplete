@@ -6,5 +6,6 @@
   %p
     = form.fields_for :features do |feature_form|
       = feature_form.label :name, "Feature Name"
-      = feature_form.autocomplete_field :name, autocomplete_feature_name_nested_models_path
+      = feature_form.autocomplete_field :name, autocomplete_feature_name_nested_models_path, :"data-delimiter" => ','
+      = feature_form.text_field :name
 

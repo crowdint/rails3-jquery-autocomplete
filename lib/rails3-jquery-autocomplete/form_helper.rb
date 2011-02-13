@@ -51,6 +51,6 @@ end
 
 class ActionView::Helpers::FormBuilder #:nodoc:
   def autocomplete_field(method, source, options = {})
-    @template.autocomplete_field(@object_name, method, source, options)
+    @template.autocomplete_field(@object_name, method, source, objectify_options(options))
   end
 end
