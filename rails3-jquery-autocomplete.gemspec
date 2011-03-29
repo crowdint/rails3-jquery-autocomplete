@@ -15,7 +15,8 @@ Gem::Specification.new do |s|
   s.add_dependency('rails', '~>3.0.0')
 
   s.add_development_dependency('sqlite3-ruby')
-  s.add_development_dependency('mongoid', '>= 2.0.0.beta.17')
+  s.add_development_dependency('mongoid', '>= 2.0.0.rc.7')
+  s.add_development_dependency('bson_ext', '~>1.2.4')
   s.add_development_dependency('redgreen')
   s.add_development_dependency('shoulda', '~>2.11.1')
   s.add_development_dependency('json')

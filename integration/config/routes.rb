@@ -15,4 +15,8 @@ Integration::Application.routes.draw do
   resources :multiple_selections do
     get :autocomplete_brand_name, :on => :collection
   end
+
+  resources :nested_models do
+    get :autocomplete_feature_name, :on => :collection
+  end
 end
