@@ -98,17 +98,16 @@ module Rails3JQueryAutocomplete
       limit = get_autocomplete_limit(options)
       implementation = get_implementation(model)
       order = get_autocomplete_order(implementation, method, options)
-      relation = model.select([:id, method] + (options[:extra_data].blank? ? [] : options[:extra_data])) unless options[:full_model]
 
       case implementation
         when :mongoid
           search = (is_full_search ? '.*' : '^') + term + '.*'
-          items = relation.where(method.to_sym => /#{search}/i).limit(limit).order_by(order)
+          items = model.where(method.to_sym => /#{search}/i).limit(limit).order_by(order)
         when :activerecord
+          relation = model.select([:id, method] + (options[:extra_data].blank? ? [] : options[:extra_data])) unless options[:full_model]
           items = relation.where(["LOWER(#{method}) LIKE ?", "#{(is_full_search ? '%' : '')}#{term.downcase}%"]) \
             .limit(limit).order(order)
       end
     end
-
   end
 end
