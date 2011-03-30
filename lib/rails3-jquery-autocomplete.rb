@@ -18,3 +18,9 @@ begin
   end
 rescue LoadError
 end
+
+begin
+  require 'simple_form'
+  require 'rails3-jquery-autocomplete/simple_form_plugin'
+rescue LoadError
+end
