@@ -1,0 +1,8 @@
+%h1 Autocomplete
+
+= simple_form_for @product do |form|
+  %p
+    = form.input :name
+  %p
+    = form.input :brand_name, :url => autocomplete_autocomplete_brand_name_path, :as => :autocomplete
+

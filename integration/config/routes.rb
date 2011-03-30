@@ -19,4 +19,8 @@ Integration::Application.routes.draw do
   resources :nested_models do
     get :autocomplete_feature_name, :on => :collection
   end
+
+  resources :simple_forms do
+    get :autocomplete_feature_name, :on => :collection
+  end
 end
