@@ -9,7 +9,6 @@ ENV["RAILS_ENV"] = "test"
 require 'rails/all'
 require 'mongoid'
 require 'shoulda'
-require 'redgreen'
 require 'rails/test_help'
 require 'rails3-jquery-autocomplete'
 
