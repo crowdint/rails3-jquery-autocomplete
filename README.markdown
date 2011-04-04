@@ -183,6 +183,12 @@ The :update_elements attribute accepts a hash where the keys represent the objec
 
 The previous example would fetch the extra attribute slogan and update jQuery('#some_other_element') with the slogan value.
 
+### Running custom code on selection
+
+A javascript event named *railsAutocomplete.select* is fired on the input field when a value is selected from the autocomplete drop down. If you need to do something more complex than update fields with data, you can hook into this event, like so:
+
+    $('#my_autocomplete_field').bind('railsAutocomplete.select', function(){ /* Do something here */});
+
 ## Formtastic
 
 If you are using [Formtastic](http://github.com/justinfrench/formtastic), you automatically get the *autocompleted_input* helper on *semantic_form_for*:
