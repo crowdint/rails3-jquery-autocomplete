@@ -6,7 +6,7 @@
 *
 *   Example:
 *       <input type="text" data-autocomplete="/url/to/autocomplete">
-* 
+*
 * Optionally, you can use a jQuery selector to specify a field that can
 * be updated with the element id whenever you find a matching value
 *
@@ -28,16 +28,16 @@ $(document).ready(function(){
 			}
 		});
 	};
-	
+
 	jQuery.railsAutocomplete = function (e) {
 		_e = e;
 		this.init(_e);
 	};
-	
+
 	jQuery.railsAutocomplete.fn = jQuery.railsAutocomplete.prototype = {
 		railsAutocomplete: '0.0.1'
 	};
-	
+
 	jQuery.railsAutocomplete.fn.extend = jQuery.railsAutocomplete.extend = jQuery.extend;
 	jQuery.railsAutocomplete.fn.extend({
 		init: function(e) {
@@ -48,12 +48,19 @@ $(document).ready(function(){
 			function extractLast( term ) {
 				return split( term ).pop().replace(/^\s+/,"");
 			}
-		
+
 	    $(e).autocomplete({
 				source: function( request, response ) {
 					$.getJSON( $(e).attr('data-autocomplete'), {
 					term: extractLast( request.term )
-					}, response );
+					}, function() {
+                        $(arguments[0]).each(function(i, el) {
+                            var obj = {};
+                            obj[el.id] = el;
+                            $(e).data(obj);
+                        });
+                        response.apply(null, arguments);
+                    });
 				},
 				search: function() {
 					// custom minLength
@@ -81,8 +88,16 @@ $(document).ready(function(){
 						if ($(this).attr('id_element')) {
 							$($(this).attr('id_element')).val(ui.item.id);
 						}
-					};
-				
+                        if ($(this).attr('data-update-elements')) {
+                            var data = $(this).data(ui.item.id.toString());
+                            var update_elements = $.parseJSON($(this).attr("data-update-elements"));
+                            for (var key in update_elements) {
+                                $(update_elements[key]).val(data[key]);
+                            }
+                        }
+					}
+					$(this).trigger('railsAutocomplete.select');
+
 					return false;
 				}
 			});
