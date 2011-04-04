@@ -261,7 +261,9 @@ integration folder:
 
 # Changelog
 
-* 0.6.2 SimpleForm plugin
+* 0.6.4 Use YAJL instead of JSON
+* 0.6.3 SimpleForm plugin
+* 0.6.2 Fix Issue #8
 * 0.6.1 Allow specifying fully qualified class name for model object as an option to autocomplete
 * 0.6.0 JS Code cleanup
 * 0.5.1 Add STI support
