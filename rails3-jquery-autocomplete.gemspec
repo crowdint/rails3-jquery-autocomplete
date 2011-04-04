@@ -20,7 +20,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency('bson_ext', '~>1.2.4')
   s.add_development_dependency('redgreen')
   s.add_development_dependency('shoulda', '~>2.11.1')
-  s.add_development_dependency('json')
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
