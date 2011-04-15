@@ -142,7 +142,11 @@ Only the object's id and the column you are searching on will be returned in JSO
 
 #### :scopes
   Added option to use scopes. Pass scopes in an array.
-  e.g :scopes => [:scope1, :scope2]
+  e.g `:scopes => [:scope1, :scope2]`
+
+#### :column_name
+   By default autocomplete uses method name as column name. Now it can be specified using column_name options
+   `:column_name => 'name'`
 
 ### View
 
