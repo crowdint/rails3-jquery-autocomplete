@@ -105,9 +105,9 @@ module Rails3JQueryAutocomplete
           items = model.where(method.to_sym => /#{search}/i).limit(limit).order_by(order)
         when :activerecord
           relation = model.select([:id, method] + (options[:extra_data].blank? ? [] : options[:extra_data])) unless options[:full_model]
-          if options.has_key?(:scopes)
+          if options.has_key?(:scopes) and not options[:scopes].blank?
             items = relation.scoped
-            scopes.each do |scope|
+            options[:scopes].each do |scope|
               items = items.send(scope)
             end
             items = items.where(["LOWER(#{method}) LIKE ?", "#{(is_full_search ? '%' : '')}#{term.downcase}%"]) \
