@@ -90,7 +90,7 @@ module Rails3JQueryAutocomplete
     #
     def get_autocomplete_items(parameters)
       model = relation = parameters[:model]
-      method = parameters[:method]
+      method = parameters.has_key?(:column_name) ? parameters[:column_name] : parameters[:method]
       options = parameters[:options]
       term = parameters[:term]
       is_full_search = options[:full]
