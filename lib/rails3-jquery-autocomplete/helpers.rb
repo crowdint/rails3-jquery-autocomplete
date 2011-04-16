@@ -92,7 +92,7 @@ module Rails3JQueryAutocomplete
       Rails.logger.info "============================== inspecting parameters"
       Rails.logger.info parameters.inspect
       model = relation = parameters[:model]
-      if parameters.has_key?(:column_name)
+      if parameters.has_key?(:options) and parameters[:options].has_key?(:column_name)
           Rails.logger.info "column_name specified........................"
           method = parameters[:column_name] 
       else
