@@ -89,15 +89,8 @@ module Rails3JQueryAutocomplete
     #   items = get_autocomplete_items(:model => get_object(object), :options => options, :term => term, :method => method)
     #
     def get_autocomplete_items(parameters)
-      Rails.logger.info "============================== inspecting parameters"
-      Rails.logger.info parameters.inspect
       model = relation = parameters[:model]
-      if parameters.has_key?(:options) and parameters[:options].has_key?(:column_name)
-          Rails.logger.info "column_name specified........................"
-          method = parameters[:options][:column_name] 
-      else
-          method = parameters[:method]
-      end
+      method = parameters[:method]
       options = parameters[:options]
       term = parameters[:term]
       is_full_search = options[:full]
