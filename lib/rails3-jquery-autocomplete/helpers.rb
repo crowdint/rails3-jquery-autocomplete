@@ -94,7 +94,7 @@ module Rails3JQueryAutocomplete
       model = relation = parameters[:model]
       if parameters.has_key?(:options) and parameters[:options].has_key?(:column_name)
           Rails.logger.info "column_name specified........................"
-          method = parameters[:column_name] 
+          method = parameters[:options][:column_name] 
       else
           method = parameters[:method]
       end
