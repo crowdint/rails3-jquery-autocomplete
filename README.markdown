@@ -267,6 +267,8 @@ integration folder:
 
 # Changelog
 
+* 0.6.6 ILIKE for postgres
+* 0.6.5 JS select event
 * 0.6.4 Use YAJL instead of JSON
 * 0.6.3 SimpleForm plugin
 * 0.6.2 Fix Issue #8
