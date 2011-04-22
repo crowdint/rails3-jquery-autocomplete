@@ -9,7 +9,6 @@ class ActiveRecordControllerTest < ActionController::TestCase
 end
 
 class ActiveRecordSTIControllerTest < ActionController::TestCase
-  require 'support/active_record'
   include Rails3JQueryAutocomplete::TestCase::ActiveRecord
   include Rails3JQueryAutocomplete::TestCase
 
