@@ -22,3 +22,4 @@ tmp
 ## PROJECT::SPECIFIC
 .bundle
 .rvmrc
+Gemfile.lock
