@@ -9,10 +9,9 @@ module Rails3JQueryAutocomplete
           config.logger = nil
         end
 
-        create_models 
+        create_models
 
         @controller = ActorsController.new
-
         @movie1 = @movie_class.create(:name => 'Alpha')
         @movie2 = @movie_class.create(:name => 'Alspha')
         @movie3 = @movie_class.create(:name => 'Alzpha')
@@ -36,7 +35,7 @@ module Rails3JQueryAutocomplete
       end
 
       def destroy_models
-        Object.send(:remove_const, :Movie)          
+        Object.send(:remove_const, :Movie)
       end
 
     end
