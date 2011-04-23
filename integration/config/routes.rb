@@ -23,4 +23,8 @@ Integration::Application.routes.draw do
   resources :simple_forms do
     get :autocomplete_feature_name, :on => :collection
   end
+
+  resources :scoped_autocompletes do
+    get :autocomplete_brand_name, :on => :collection
+  end
 end

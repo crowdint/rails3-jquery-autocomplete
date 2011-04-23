@@ -1,0 +1,10 @@
+%h1 Scoped Autocomplete
+
+= form_for @product do |form|
+  %p
+    = form.label :name
+    = form.text_field :name
+  %p
+    = form.label :brand_name
+    = form.autocomplete_field :brand_name, autocomplete_brand_name_scoped_autocompletes_path
+
