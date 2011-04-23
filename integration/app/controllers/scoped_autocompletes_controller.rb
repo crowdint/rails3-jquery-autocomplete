@@ -1,4 +1,4 @@
-class ScopedAutocompletesControllerController < ApplicationController
+class ScopedAutocompletesController < ApplicationController
   autocomplete :brand, :name, :scope => "active"
 
   def new

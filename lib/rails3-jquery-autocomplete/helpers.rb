@@ -89,35 +89,31 @@ module Rails3JQueryAutocomplete
     #   items = get_autocomplete_items(:model => get_object(object), :options => options, :term => term, :method => method)
     #
     def get_autocomplete_items(parameters)
-      model = relation = parameters[:model]
-      method = parameters[:method]
+      model   = parameters[:model]
+      term    = parameters[:term]
+      method  = parameters[:method]
       options = parameters[:options]
-      term = parameters[:term]
-      is_full_search = options[:full]
 
-      limit = get_autocomplete_limit(options)
+      is_full_search = options[:full]
+      scopes         = Array(options[:scopes])
+      limit          = get_autocomplete_limit(options)
       implementation = get_implementation(model)
-      order = get_autocomplete_order(implementation, method, options)
+      order          = get_autocomplete_order(implementation, method, options)
 
       like_clause = (defined?(PGconn) ? 'ILIKE' : 'LIKE')
+
+      items = model.scoped
+
+      scopes.each { |scope| items = items.send(scope) } unless scopes.empty?
 
       case implementation
         when :mongoid
           search = (is_full_search ? '.*' : '^') + term + '.*'
-          items = model.where(method.to_sym => /#{search}/i).limit(limit).order_by(order)
+          items  = model.where(method.to_sym => /#{search}/i).limit(limit).order_by(order)
         when :activerecord
-          relation = model.select([:id, method] + (options[:extra_data].blank? ? [] : options[:extra_data])) unless options[:full_model]
-          if options.has_key?(:scopes) and not options[:scopes].blank?
-            items = relation.scoped
-            options[:scopes].each do |scope|
-              items = items.send(scope)
-            end
-            items = items.where(["LOWER(#{method}) #{like_clause} ?", "#{(is_full_search ? '%' : '')}#{term.downcase}%"]) \
+          items = items.select([:id, method] + (options[:extra_data].blank? ? [] : options[:extra_data])) unless options[:full_model]
+          items = items.where(["LOWER(#{method}) #{like_clause} ?", "#{(is_full_search ? '%' : '')}#{term.downcase}%"]) \
               .limit(limit).order(order)
-          else
-            items = relation.where(["LOWER(#{method}) #{like_clause} ?", "#{(is_full_search ? '%' : '')}#{term.downcase}%"]) \
-              .limit(limit).order(order)
-          end
       end
     end
   end
