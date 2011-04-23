@@ -34,7 +34,7 @@ I'd encourage you to understand how to use those 3 amazing tools before attempti
 
 Include the gem on your Gemfile
 
-    gem 'rails3-jquery-autocomplete', :git => 'https://github.com/prawin/rails3-jquery-autocomplete'
+    gem 'rails3-jquery-autocomplete'
 
 Install it
 
