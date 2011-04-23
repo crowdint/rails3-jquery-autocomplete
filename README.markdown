@@ -34,7 +34,7 @@ I'd encourage you to understand how to use those 3 amazing tools before attempti
 
 Include the gem on your Gemfile
 
-    gem 'rails3-jquery-autocomplete'
+    gem 'rails3-jquery-autocomplete', :git => 'https://github.com/prawin/rails3-jquery-autocomplete'
 
 Install it
 
@@ -138,6 +138,15 @@ In the example above, you will search by _name_, but the autocomplete list will 
 This wouldn't really make much sense unless you use it with the :id_element HTML tag. (See below)
 
 Only the object's id and the column you are searching on will be returned in JSON, so if your display_value method requires another parameter, make sure to fetch it with the :extra_data option
+
+
+#### :scopes
+  Added option to use scopes. Pass scopes in an array.
+  e.g `:scopes => [:scope1, :scope2]`
+
+#### :column_name
+   By default autocomplete uses method name as column name. Now it can be specified using column_name options
+   `:column_name => 'name'`
 
 ### View
 
@@ -288,3 +297,4 @@ Everyone on [this list](https://github.com/crowdint/rails3-jquery-autocomplete/c
 [Crowd Interactive](http://www.crowdint.com) is an American web design and development company that happens to work in Colima, Mexico.
 We specialize in building and growing online retail stores. We don’t work with everyone – just companies we believe in. Call us today to see if there’s a fit.
 Find more info [here](http://www.crowdint.com)!
+

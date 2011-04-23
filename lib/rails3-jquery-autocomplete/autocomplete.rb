@@ -27,6 +27,9 @@ module Rails3JQueryAutocomplete
 
       define_method("autocomplete_#{object}_#{method}") do
 
+
+        method = options[:column_name] if options.has_key?(:column_name)
+
         term = params[:term]
 
         if term && !term.empty?
@@ -44,3 +47,4 @@ module Rails3JQueryAutocomplete
   end
 
 end
+
