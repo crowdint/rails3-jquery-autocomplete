@@ -35,6 +35,7 @@ GEM
       activemodel (= 3.0.4)
       activesupport (= 3.0.4)
     activesupport (3.0.4)
+    annotate (2.4.0)
     arel (2.0.8)
     builder (2.1.2)
     capybara (0.4.0)
@@ -146,6 +147,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  annotate
   capybara (~> 0.4.0)
   cucumber-rails (~> 0.3.2)
   database_cleaner
