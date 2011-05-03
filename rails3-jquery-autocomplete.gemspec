@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency('sqlite3-ruby')
   s.add_development_dependency('mongoid', '>= 2.0.0')
+  s.add_development_dependency('mongo_mapper', '>= 0.9')
   s.add_development_dependency('bson_ext', '~>1.3.0')
   s.add_development_dependency('shoulda', '~>2.11.1')
 

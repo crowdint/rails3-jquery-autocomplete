@@ -1,6 +1,7 @@
 require "test_helper"
 require 'test_controller'
 require 'support/mongoid'
+require 'support/mongo_mapper'
 require 'support/active_record'
 
 class ActiveRecordControllerTest < ActionController::TestCase
@@ -31,5 +32,10 @@ end
 
 class MonogidControllerTest < ActionController::TestCase
   include Rails3JQueryAutocomplete::TestCase::Mongoid
+  include Rails3JQueryAutocomplete::TestCase
+end
+
+class MongoMapperControllerTest < ActionController::TestCase
+  include Rails3JQueryAutocomplete::TestCase::MongoMapper
   include Rails3JQueryAutocomplete::TestCase
 end

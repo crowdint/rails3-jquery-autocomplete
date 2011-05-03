@@ -2,7 +2,7 @@
 
 An easy way to use jQuery's autocomplete with Rails 3.
 
-Supports both ActiveRecord and [mongoid](http://github.com/mongoid/mongoid).
+Supports both ActiveRecord, [mongoid](http://github.com/mongoid/mongoid), and [MongoMapper](https://github.com/jnunemaker/mongomapper).
 
 Works with [Formtastic](http://github.com/justinfrench/formtastic)
 and [SimpleForm](https://github.com/plataformatec/simple_form)
@@ -16,6 +16,10 @@ on how to use this gem with ActiveRecord [here](http://github.com/crowdint/rails
 
 You can find a [detailed example](http://github.com/crowdint/rails3-jquery-autocomplete-app/tree/mongoid)
 on how to use this gem with MongoID [here](http://github.com/crowdint/rails3-jquery-autocomplete-app/tree/mongoid). (Same thing, different branch)
+
+## MongoMapper
+
+TODO
 
 ## Before you start
 

@@ -35,6 +35,8 @@ module Rails3JQueryAutocomplete
         :activerecord
       elsif ancestors_ary.include?('Mongoid::Document')
         :mongoid
+      elsif ancestors_ary.include?('MongoMapper::Document')
+        :mongo_mapper  
       else
         raise NotImplementedError
       end
@@ -60,6 +62,15 @@ module Rails3JQueryAutocomplete
           else
             [[method.to_sym, :asc]]
           end
+        when :mongo_mapper then
+          if order
+            order.split(',').collect do |fields|
+              sfields = fields.split
+              [sfields[0].downcase.to_sym, sfields[1].downcase.to_sym]
+            end
+          else
+            [[method.to_sym, :asc]]
+          end  
         when :activerecord then
           order || "#{method} ASC"
       end
@@ -102,7 +113,7 @@ module Rails3JQueryAutocomplete
 
       like_clause = (defined?(PGconn) ? 'ILIKE' : 'LIKE')
 
-      items = model.scoped
+      implementation == :mongo_mapper ? (items = model.query) : items = model.scoped
 
       scopes.each { |scope| items = items.send(scope) } unless scopes.empty?
 
@@ -110,6 +121,9 @@ module Rails3JQueryAutocomplete
         when :mongoid
           search = (is_full_search ? '.*' : '^') + term + '.*'
           items  = model.where(method.to_sym => /#{search}/i).limit(limit).order_by(order)
+        when :mongo_mapper
+          search = (is_full_search ? '.*' : '^') + term + '.*'
+          items  = model.where(method.to_sym => /#{search}/i).limit(limit).sort(order)  
         when :activerecord
           items = items.select([:id, method] + (options[:extra_data].blank? ? [] : options[:extra_data])) unless options[:full_model]
           items = items.where(["LOWER(#{method}) #{like_clause} ?", "#{(is_full_search ? '%' : '')}#{term.downcase}%"]) \

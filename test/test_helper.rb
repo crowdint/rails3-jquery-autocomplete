@@ -8,6 +8,7 @@ ENV["RAILS_ENV"] = "test"
 
 require 'rails/all'
 require 'mongoid'
+require 'mongo_mapper'
 require 'shoulda'
 require 'rails/test_help'
 require 'rails3-jquery-autocomplete'
