@@ -256,6 +256,7 @@ Then you'll have access to the following helper:
     choose_autocomplete_result
 
 An example on how to use it:
+
     scenario "Autocomplete" do
       lambda do 
         Brand.create! [
