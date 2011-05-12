@@ -8,7 +8,7 @@ module Rails3JQueryAutocomplete
     # Can be overriden to show whatever you like
     # Hash also includes a key/value pair for each method in extra_data
     #
-    def json_for_autocomplete(items, method, extra_data)
+    def json_for_autocomplete(items, method, extra_data=nil)
       items.collect do |item|
         hash = {"id" => item.id.to_s, "label" => item.send(method), "value" => item.send(method)}
         extra_data.each do |datum|
