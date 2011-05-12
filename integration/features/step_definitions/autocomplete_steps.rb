@@ -7,4 +7,9 @@ And /^I send (.*) to "(.*)"$/ do |key, element|
   find_field(element).native.send_keys(key)
 end
 
+Given /^the "([^"]*)" brand has an address$/ do |brand_name|
+  brand = Brand.find_by_name(brand_name)
+  brand.address = Address.create
+  brand.save!
+end
 

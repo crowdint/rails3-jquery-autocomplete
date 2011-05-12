@@ -12,4 +12,7 @@
 
 class Brand < ActiveRecord::Base
   scope :active, where(:state => true)
+  scope :with_address, joins(:address)
+
+  belongs_to :address
 end
