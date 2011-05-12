@@ -6,11 +6,11 @@ Feature: Autocomplete
   Background:
     Given the following brands exists:
       | name    | state |
-      | Alpha   | 1     |
-      | Beta    | 0     |
-      | Gamma   | 0     |
-      | Kappa   | 1     |
-      | Kappler | 0     |
+      | Alpha   | true  |
+      | Beta    | false |
+      | Gamma   | false |
+      | Kappa   | true  |
+      | Kappler | false |
     And the following features exists:
       | name  |
       | Shiny |
@@ -66,6 +66,7 @@ Feature: Autocomplete
 
   @javascript
   Scenario: Autocomplete with scope
+    Given the "Kappa" brand has an address
     Given I go to the new scoped autocomplete page
     And I fill in "Brand name" with "ka"
     And I choose "Kappa" in the autocomplete list

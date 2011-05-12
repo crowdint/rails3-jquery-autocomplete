@@ -301,10 +301,13 @@ You can run the integration tests with the cucumber command while on the
 integration folder:
 
     cd integration
+    rake db:migrate
     cucumber
 
 # Changelog
 
+* 0.7.1 Fixed joined scopes (Issue #43)
+* 0.7.0 Scopes
 * 0.6.6 ILIKE for postgres
 * 0.6.5 JS select event
 * 0.6.4 Use YAJL instead of JSON
