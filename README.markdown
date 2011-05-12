@@ -245,6 +245,35 @@ An example on how to use it:
 
 I have only tested this using Capybara, no idea if it works with something else, to see it in action, check the [example app](http://github.com/crowdint/rails3-jquery-autocomplete-app).
 
+# Steak
+
+I have created a helper to test your autocomplete with Steak and Capybara, all you have to do is add the following lines to your *acceptance_helper.rb* file:
+
+    require 'steak/autocomplete'
+
+Then you'll have access to the following helper:
+
+    choose_autocomplete_result
+
+An example on how to use it:
+
+    scenario "Autocomplete" do
+      lambda do 
+        Brand.create! [
+          {:name => "Alpha"}, 
+          {:name => "Beta"},
+          {:name => "Gamma"}
+        ]
+      end.should change(Brand, :count).by(3)
+
+      visit home_page
+      fill_in "Brand name", :with => "al"
+      choose_autocomplete_result "Alpha"
+      find_field("Brand name").value.should include("Alpha")
+    end
+
+I have only tested this using Capybara, no idea if it works with something else.
+
 # Development
 
 If you want to make changes to the gem, first install bundler 1.0.0:
@@ -272,10 +301,14 @@ You can run the integration tests with the cucumber command while on the
 integration folder:
 
     cd integration
+    rake db:migrate
     cucumber
 
 # Changelog
 
+* 0.7.2 Steak helper
+* 0.7.1 Fixed joined scopes (Issue #43)
+* 0.7.0 Scopes
 * 0.6.6 ILIKE for postgres
 * 0.6.5 JS select event
 * 0.6.4 Use YAJL instead of JSON

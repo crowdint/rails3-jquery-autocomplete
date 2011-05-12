@@ -1,5 +1,5 @@
 class ScopedAutocompletesController < ApplicationController
-  autocomplete :brand, :name, :scope => "active"
+  autocomplete :brand, :name, :scopes => ["active", "with_address"]
 
   def new
     @product = Product.new
