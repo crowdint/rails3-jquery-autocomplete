@@ -10,11 +10,11 @@ feature "Autocomplete", %q{
     enable_javascript
     lambda do 
       Brand.create! [
-        {:name => "Alpha", :state => 1}, 
-        {:name => "Beta", :state => 0},
-        {:name => "Gamma", :state => 0},
-        {:name => "Kappa", :state => 1},
-        {:name => "Kappler", :state => 0}
+         { :name => "Alpha"   , :state => true  },
+         { :name => "Beta"    , :state => false },
+         { :name => "Gamma"   , :state => false },
+         { :name => "Kappa"   , :state => true  },
+         { :name => "Kappler" , :state => false }
       ]
     end.should change(Brand, :count).by(5)
     lambda { Feature.create! [{:name => "Shiny"}, {:name => "Glowy"}] }.should change(Feature, :count).by(2)
@@ -69,6 +69,9 @@ feature "Autocomplete", %q{
     end
 
     scenario "Autocomplete with scope" do
+      kappa_brand = Brand.find_by_name('Kappa')
+      kappa_brand.address = Address.create!
+      kappa_brand.save!
       visit new_scoped_cutocomplete_page
       fill_in("Brand name", :with => "ka")
       choose_autocomplete_result "Kappa"
