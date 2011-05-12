@@ -89,10 +89,10 @@ module Rails3JQueryAutocomplete
     #   items = get_autocomplete_items(:model => get_object(object), :options => options, :term => term, :method => method)
     #
     def get_autocomplete_items(parameters)
-      model   = parameters[:model]
-      term    = parameters[:term]
-      method  = parameters[:method]
-      options = parameters[:options]
+      model      = parameters[:model]
+      term       = parameters[:term]
+      method     = parameters[:method]
+      options    = parameters[:options]
 
       is_full_search = options[:full]
       scopes         = Array(options[:scopes])
@@ -111,8 +111,9 @@ module Rails3JQueryAutocomplete
           search = (is_full_search ? '.*' : '^') + term + '.*'
           items  = model.where(method.to_sym => /#{search}/i).limit(limit).order_by(order)
         when :activerecord
-          items = items.select([:id, method] + (options[:extra_data].blank? ? [] : options[:extra_data])) unless options[:full_model]
-          items = items.where(["LOWER(#{method}) #{like_clause} ?", "#{(is_full_search ? '%' : '')}#{term.downcase}%"]) \
+          table_name = model.table_name
+          items = items.select(["#{table_name}.id", "#{table_name}.#{method}"] + (options[:extra_data].blank? ? [] : options[:extra_data])) unless options[:full_model]
+          items = items.where(["LOWER(#{table_name}.#{method}) #{like_clause} ?", "#{(is_full_search ? '%' : '')}#{term.downcase}%"]) \
               .limit(limit).order(order)
       end
     end
