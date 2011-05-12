@@ -47,7 +47,7 @@ module Rails3JQueryAutocomplete
     end
 
     # Returns the order parameter to be used in the query created by get_items
-    def get_autocomplete_order(implementation, method, options)
+    def get_autocomplete_order(implementation, method, options, model=nil)
       order = options[:order]
 
       case implementation
@@ -61,7 +61,8 @@ module Rails3JQueryAutocomplete
             [[method.to_sym, :asc]]
           end
         when :activerecord then
-          order || "#{method} ASC"
+          table_prefix = model ? "#{model.table_name}." : ""
+          order || "#{table_prefix}#{method} ASC"
       end
     end
 
@@ -98,7 +99,7 @@ module Rails3JQueryAutocomplete
       scopes         = Array(options[:scopes])
       limit          = get_autocomplete_limit(options)
       implementation = get_implementation(model)
-      order          = get_autocomplete_order(implementation, method, options)
+      order          = get_autocomplete_order(implementation, method, options, model)
 
       like_clause = (defined?(PGconn) ? 'ILIKE' : 'LIKE')
 
