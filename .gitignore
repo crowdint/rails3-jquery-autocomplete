@@ -22,4 +22,5 @@ tmp
 ## PROJECT::SPECIFIC
 .bundle
 .rvmrc
+.gemrc
 Gemfile.lock
