@@ -306,6 +306,7 @@ integration folder:
 
 # Changelog
 
+* 0.7.2 Steak helper
 * 0.7.1 Fixed joined scopes (Issue #43)
 * 0.7.0 Scopes
 * 0.6.6 ILIKE for postgres
