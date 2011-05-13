@@ -207,7 +207,7 @@ A javascript event named *railsAutocomplete.select* is fired on the input field 
 If you are using [Formtastic](http://github.com/justinfrench/formtastic), you automatically get the *autocompleted_input* helper on *semantic_form_for*:
 
     semantic_form_for @product do |f|
-      f.autocompleted_input :brand_name, :url => autocomplete_brand_name_path
+      f.autocompleted_input :brand_name, :url => autocomplete_brand_name_products_path
     end
 
 The only difference with the original helper is that you must specify the autocomplete url using the *:url* option.
