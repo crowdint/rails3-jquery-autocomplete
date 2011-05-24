@@ -221,7 +221,7 @@ option.
 
     simple_form_for @product do |form|
       form.input :name
-      form.input :brand_name, :url => autocomplete_brand_name_path, :as => :autocomplete
+      form.input :brand_name, :url => autocomplete_brand_name_products_path, :as => :autocomplete
 
 # Cucumber
 
