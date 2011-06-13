@@ -221,7 +221,7 @@ option.
 
     simple_form_for @product do |form|
       form.input :name
-      form.input :brand_name, :url => autocomplete_brand_name_path, :as => :autocomplete
+      form.input :brand_name, :url => autocomplete_brand_name_products_path, :as => :autocomplete
 
 # Cucumber
 
@@ -310,6 +310,7 @@ integration folder:
 
 # Changelog
 
+* 0.7.4 Allows Rails 3.1
 * 0.7.3 MongoMapper
 * 0.7.2 Steak helper
 * 0.7.1 Fixed joined scopes (Issue #43)
