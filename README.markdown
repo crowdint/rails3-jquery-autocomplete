@@ -139,7 +139,7 @@ This options receives a method name as the parameter, and that method will be ca
 
 In the example above, you will search by _name_, but the autocomplete list will display the result of _funky_method_
 
-This wouldn't really make much sense unless you use it with the :id_element HTML tag. (See below)
+This wouldn't really make much sense unless you use it with the "data-id-element" attribute. (See below)
 
 Only the object's id and the column you are searching on will be returned in JSON, so if your display_value method requires another parameter, make sure to fetch it with the :extra_data option
 
@@ -176,9 +176,9 @@ Now your autocomplete code is unobtrusive, Rails 3 style.
 
 ### Getting the object id
 
-If you need to use the id of the selected object, you can use the *:id_element* HTML tag too:
+If you need to use the id of the selected object, you can use the *data-id-element* attribute too:
 
-    f.autocomplete_field :brand_name, autocomplete_brand_name_products_path, :id_element => '#some_element'
+    f.autocomplete_field :brand_name, autocomplete_brand_name_products_path, "data-id-element" => '#some_element'
 
 This will update the field with id *#some_element with the id of the selected object. The value for this option can be any jQuery selector.
 
@@ -188,7 +188,7 @@ If you need to extra data about the selected object, you can use the *:update_el
 
 The :update_elements attribute accepts a hash where the keys represent the object attribute/column data to use to update and the values are jQuery selectors to retrieve the HTML element to update:
 
-    f.autocomplete_field :brand_name, autocomplete_brand_name_products_path, :update_elements => {:id => '#id_element', :slogan => '#some_other_element'}
+    f.autocomplete_field :brand_name, autocomplete_brand_name_products_path, :update_elements => {:id => '#data-id-element', :slogan => '#some_other_element'}
 
     class ProductsController < Admin::BaseController
       autocomplete :brand, :name, :extra_data => [:slogan]
