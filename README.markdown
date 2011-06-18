@@ -23,7 +23,7 @@ TODO
 
 ## Before you start
 
-Make sure your project is using jQuery-ui with the autocomplete widget
+Make sure your project is using jQuery-UI and the autocomplete widget
 before you continue.
 
 You can find more info about that here:
@@ -46,7 +46,7 @@ Install it
 
 Run the generator
 
-    rails generate autocomplete
+    rails generate autocomplete:install
 
 And include autocomplete-rails.js on your layouts
 
@@ -56,9 +56,16 @@ And include autocomplete-rails.js on your layouts
 
 If you are upgrading from a previous version, run the generator after installing to replace the javascript file.
 
-    rails generate autocomplete
+    rails generate autocomplete:install
 
 I'd recommend you do this every time you update to make sure you have the latest JS file.
+
+## Uncompressed Javascript file
+
+If you want to make changes to the JS file, you can install the
+uncompressed version by running:
+
+    rails generate autocomplete:uncompressed
 
 ## Usage
 

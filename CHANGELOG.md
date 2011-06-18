@@ -1,5 +1,6 @@
 # Changelog
 
+* 0.8.0 Compressed JS file
 * 0.7.5 Pull request #46
 * 0.7.4 Allows Rails 3.1
 * 0.7.3 MongoMapper
