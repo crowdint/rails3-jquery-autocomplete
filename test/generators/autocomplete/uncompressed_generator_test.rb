@@ -10,7 +10,7 @@ module Autocomplete
 
       File.unlink(@filename) if File.exists?(@filename)
 
-      InstallGenerator.start('', :destination_root => @destination)
+      InstallGenerator.start([], :destination_root => @destination)
     end
 
     def test_install
