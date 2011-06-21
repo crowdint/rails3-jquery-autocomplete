@@ -1,7 +1,7 @@
 PATH
   remote: ../
   specs:
-    rails3-jquery-autocomplete (0.7.5)
+    rails3-jquery-autocomplete (0.8.0)
       rails (~> 3.0)
       yajl-ruby
 
