@@ -1,5 +1,3 @@
-require "yajl"
-
 module Rails3JQueryAutocomplete
 
   # Inspired on DHH's autocomplete plugin
@@ -22,6 +20,15 @@ module Rails3JQueryAutocomplete
   #   f.text_field :brand_name, :autocomplete => autocomplete_brand_name_products_path
   #
   #
+  # Yajl is used by default to encode results, if you want to use a different encoder
+  # you can specify your custom encoder via block
+  #
+  # class ProductsController < Admin::BaseController
+  #   autocomplete :brand, :name do |items|
+  #     CustomJSONEncoder.encode(items)
+  #   end
+  # end
+  #
   module ClassMethods
     def autocomplete(object, method, options = {})
 
@@ -41,7 +48,12 @@ module Rails3JQueryAutocomplete
           items = {}
         end
 
-        render :json => Yajl::Encoder.encode(json_for_autocomplete(items, options[:display_value] ||= method, options[:extra_data]))
+        render :json => if block_given?
+                          yield json_for_autocomplete(items, options[:display_value] ||= method, options[:extra_data])
+                        else
+                          require 'yajl'
+                          Yajl::Encoder.encode(json_for_autocomplete(items, options[:display_value] ||= method, options[:extra_data]))
+                        end
       end
     end
   end

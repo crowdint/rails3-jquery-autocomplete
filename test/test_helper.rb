@@ -12,6 +12,7 @@ require 'mongo_mapper'
 require 'shoulda'
 require 'rails/test_help'
 require 'rails3-jquery-autocomplete'
+require 'yajl/json_gem'
 
 module Rails3JQueryAutocomplete
   class Application < Rails::Application

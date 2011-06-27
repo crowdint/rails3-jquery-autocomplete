@@ -96,6 +96,22 @@ module Rails3JQueryAutocomplete
         assert_equal(@movie1.display_name, json_response.first["value"])
         assert_equal(@movie1.id.to_s, json_response.first["id"].to_s)
       end
+
+      should "be able to use custom JSON backend" do
+        @controller.class_eval do
+          autocomplete :movie, :name, {:display_value => :display_name} do |items|
+            ActiveSupport::JSON.encode(items)
+          end
+        end
+
+        get :autocomplete_movie_name, :term => 'Al'
+        json_response = JSON.parse(@response.body)
+
+        assert_equal(@movie1.display_name, json_response.first["label"])
+        assert_equal(@movie1.display_name, json_response.first["value"])
+        assert_equal(@movie1.id.to_s, json_response.first["id"].to_s)
+      end
+
     end
   end
 end

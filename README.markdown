@@ -159,6 +159,15 @@ Only the object's id and the column you are searching on will be returned in JSO
    By default autocomplete uses method name as column name. Now it can be specified using column_name options
    `:column_name => 'name'`
 
+#### json encoder
+Autocomplete uses Yajl as JSON encoder/decoder, but you can specify your own
+
+    class ProductsController < Admin::BaseController
+      autocomplete :brand, :name do |items|
+         CustomJSON::Encoder.encode(items)
+      end
+    end
+
 ### View
 
 On your view, all you have to do is include the attribute autocomplete on the text field

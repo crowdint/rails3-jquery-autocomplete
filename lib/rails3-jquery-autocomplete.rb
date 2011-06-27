@@ -1,4 +1,3 @@
-require 'yajl/json_gem'
 require 'rails3-jquery-autocomplete/form_helper'
 require 'rails3-jquery-autocomplete/helpers'
 require 'rails3-jquery-autocomplete/autocomplete'
