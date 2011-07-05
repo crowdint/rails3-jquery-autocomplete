@@ -3,7 +3,7 @@ require 'test_helper'
 module Rails3JQueryAutocomplete
   module Test
     class HelpersTest < ::Test::Unit::TestCase
-      include Rails3JQueryAutocomplete::Helpers
+      include Rails3JQueryAutocomplete::Autocomplete
 
         context 'passing a query result' do
           should 'parse items to JSON' do

@@ -1,11 +1,9 @@
 require 'rails3-jquery-autocomplete/form_helper'
-require 'rails3-jquery-autocomplete/helpers'
 require 'rails3-jquery-autocomplete/autocomplete'
 require 'rails3-jquery-autocomplete/formtastic_plugin'
 
 class ActionController::Base
-  extend Rails3JQueryAutocomplete::ClassMethods
-  include Rails3JQueryAutocomplete::Helpers
+  include Rails3JQueryAutocomplete::Autocomplete
 end
 
 #
