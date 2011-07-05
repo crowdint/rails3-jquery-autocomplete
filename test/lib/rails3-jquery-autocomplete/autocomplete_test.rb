@@ -9,7 +9,7 @@ module Rails3JQueryAutocomplete
         item = mock(Object)
         mock(item).send(:name).times(2) { 'Object Name' }
         mock(item).id { 1 }
-        items = [item]
+        items    = [item]
         response = self.json_for_autocomplete(items, :name).first
         assert_equal response["id"], "1"
         assert_equal response["value"], "Object Name"
@@ -23,12 +23,26 @@ module Rails3JQueryAutocomplete
           mock(item).id { 1 }
           mock(item).send("extra") { 'Object Extra ' }
 
-          items = [item]
+          items    = [item]
           response = self.json_for_autocomplete(items, :name, ["extra"]).first
 
-          assert_equal response["id"], "1"
-          assert_equal response["value"], "Object Name"
-          assert_equal response["label"], "Object Name"
+          assert_equal "1"           , response["id"]
+          assert_equal "Object Name" , response["value"]
+          assert_equal "Object Name" , response["label"]
+        end
+      end
+    end
+
+    context '#get_autocomplete_limit' do
+      context 'the limit option was specified' do
+        should "return the limit option" do
+          assert_equal 99, get_autocomplete_limit({:limit => 99})
+        end
+      end
+
+      context 'the limit option is not specified' do
+        should 'return 10' do
+          assert_equal 10, get_autocomplete_limit({})
         end
       end
     end
