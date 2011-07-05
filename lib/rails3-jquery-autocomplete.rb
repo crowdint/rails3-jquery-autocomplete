@@ -1,6 +1,7 @@
 require 'rails3-jquery-autocomplete/form_helper'
 require 'rails3-jquery-autocomplete/autocomplete'
 require 'rails3-jquery-autocomplete/formtastic_plugin'
+require 'rails3-jquery-autocomplete/orm/active_record'
 
 class ActionController::Base
   include Rails3JQueryAutocomplete::Autocomplete

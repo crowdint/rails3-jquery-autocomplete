@@ -33,3 +33,11 @@ class Test::Unit::TestCase
   include RR::Adapters::TestUnit
 end
 
+# ::ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
+# ::ActiveRecord::Schema.define(:version => 1) do
+  # create_table :movies do |t|
+    # t.column :name, :string
+  # end
+# end
+
+class Dog < ActiveRecord::Base ; end
