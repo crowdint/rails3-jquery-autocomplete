@@ -10,6 +10,7 @@ require 'rails/all'
 require 'mongoid'
 require 'mongo_mapper'
 require 'shoulda'
+require 'rr'
 require 'rails/test_help'
 require 'rails3-jquery-autocomplete'
 require 'yajl/json_gem'
@@ -27,3 +28,8 @@ ActionController::Base.send :include, Rails3JQueryAutocomplete::Application.rout
 
 ActorsController = Class.new(ActionController::Base)
 ActorsController.autocomplete(:movie, :name)
+
+class Test::Unit::TestCase
+  include RR::Adapters::TestUnit
+end
+
