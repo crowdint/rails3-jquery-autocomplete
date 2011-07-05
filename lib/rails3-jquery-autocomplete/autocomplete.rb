@@ -145,11 +145,6 @@ module Rails3JQueryAutocomplete
       get_autocomplete_limit(options)
     end
 
-    # Returns a limit that will be used on the query
-    def get_autocomplete_limit(options)
-      options[:limit] ||= 10
-    end
-
     # DEPRECATED
     def get_items(parameters)
       warn 'Rails3JQueryAutocomplete#get_items is has been DEPRECATED, you should use #get_autocomplete_items instead'

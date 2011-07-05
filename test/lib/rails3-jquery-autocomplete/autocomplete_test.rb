@@ -4,6 +4,29 @@ module Rails3JQueryAutocomplete
   class AutocompleteTest < Test::Unit::TestCase
     include Rails3JQueryAutocomplete::Autocomplete
 
+    context '#get_autocomplete_limit' do
+      context 'the limit option was specified' do
+        should "return the limit option" do
+          assert_equal 99, get_autocomplete_limit({:limit => 99})
+        end
+      end
+
+      context 'the limit option is not specified' do
+        should 'return 10' do
+          assert_equal 10, get_autocomplete_limit({})
+        end
+      end
+    end
+
+    context '#get_object' do
+      should 'return the specified sym as a class name' do
+        symbol = Object.new
+        class_object = Class.new
+        mock(symbol).to_s.mock!.camelize.mock!.constantize { class_object }
+        assert_equal class_object, get_object(symbol)
+      end
+    end
+
     context '#json_for_autocomplete' do
       should 'parse items to JSON' do
         item = mock(Object)
@@ -29,20 +52,6 @@ module Rails3JQueryAutocomplete
           assert_equal "1"           , response["id"]
           assert_equal "Object Name" , response["value"]
           assert_equal "Object Name" , response["label"]
-        end
-      end
-    end
-
-    context '#get_autocomplete_limit' do
-      context 'the limit option was specified' do
-        should "return the limit option" do
-          assert_equal 99, get_autocomplete_limit({:limit => 99})
-        end
-      end
-
-      context 'the limit option is not specified' do
-        should 'return 10' do
-          assert_equal 10, get_autocomplete_limit({})
         end
       end
     end
