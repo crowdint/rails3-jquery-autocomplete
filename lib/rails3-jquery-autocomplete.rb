@@ -1,9 +1,10 @@
 require 'rails3-jquery-autocomplete/form_helper'
 require 'rails3-jquery-autocomplete/autocomplete'
-require 'rails3-jquery-autocomplete/formtastic_plugin'
-require 'rails3-jquery-autocomplete/orm/active_record'
-require 'rails3-jquery-autocomplete/orm/mongoid'
-require 'rails3-jquery-autocomplete/orm/mongo_mapper'
+
+module Rails3JQueryAutocomplete
+  autoload :Orm              , 'rails3-jquery-autocomplete/orm'
+  autoload :FormtasticPlugin , 'rails3-jquery-autocomplete/formtastic_plugin'
+end
 
 class ActionController::Base
   include Rails3JQueryAutocomplete::Autocomplete
@@ -11,7 +12,7 @@ end
 
 #
 # Load the formtastic plugin if using Formtastic
-#
+# TODO: Better way to load plugins
 begin
   require 'formtastic'
   class Formtastic::SemanticFormBuilder < ActionView::Helpers::FormBuilder

@@ -2,6 +2,14 @@ module Rails3JQueryAutocomplete
   module Autocomplete
     def self.included(target)
       target.extend Rails3JQueryAutocomplete::Autocomplete::ClassMethods
+
+      if defined?(Mongoid::Document)
+        target.send :include, Rails3JQueryAutocomplete::Orm::Mongoid
+      elsif defined?(MongoMapper::Document)
+        target.send :include, Rails3JQueryAutocomplete::Orm::MongoMapper
+      else
+        target.send :include, Rails3JQueryAutocomplete::Orm::ActiveRecord
+      end
     end
 
     #
@@ -86,21 +94,6 @@ module Rails3JQueryAutocomplete
         end if extra_data
         # TODO: Come back to remove this if clause when test suite is better
         hash
-      end
-    end
-
-    # Returns a symbol representing what implementation should be used to query
-    # the database and raises *NotImplementedError* if ORM implementor can not be found
-    def get_implementation(object)
-      ancestors_ary = object.ancestors.collect(&:to_s)
-      if ancestors_ary.include?('ActiveRecord::Base')
-        :activerecord
-      elsif ancestors_ary.include?('Mongoid::Document')
-        :mongoid
-      elsif ancestors_ary.include?('MongoMapper::Document')
-        :mongo_mapper
-      else
-        raise NotImplementedError
       end
     end
   end
