@@ -57,12 +57,7 @@ module Rails3JQueryAutocomplete
             items = {}
           end
 
-          render :json => if block_given?
-                            yield json_for_autocomplete(items, options[:display_value] ||= method, options[:extra_data])
-                          else
-                            require 'yajl'
-                            Yajl::Encoder.encode(json_for_autocomplete(items, options[:display_value] ||= method, options[:extra_data]))
-                          end
+          render :json => json_for_autocomplete(items, options[:display_value] ||= method, options[:extra_data])
         end
       end
     end
