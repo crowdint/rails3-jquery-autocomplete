@@ -10,14 +10,14 @@ module Autocomplete
 
       File.unlink(@filename) if File.exists?(@filename)
 
-      InstallGenerator.start([], :destination_root => @destination)
+      UncompressedGenerator.start([], :destination_root => @destination)
     end
 
     def test_install
       assert File.exists?(@filename)
 
       assert_equal(
-          File.read(File.join(@source, 'autocomplete-rails.js')),
+          File.read(File.join(@source, 'autocomplete-rails-uncompressed.js')),
           File.read(@filename)
       )
     end
