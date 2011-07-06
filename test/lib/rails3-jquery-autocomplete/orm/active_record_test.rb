@@ -29,6 +29,8 @@ module Rails3JQueryAutocomplete
 
 			context '#get_autocomplete_items' do
 				should 'retrieve the items from ActiveRecord' do
+					class Dog ; end
+
 					model = Dog
 					scoped = []
 					whered = []
