@@ -25,9 +25,7 @@ end
 
 ActionController::Base.send :include, Rails3JQueryAutocomplete::Application.routes.url_helpers
 
-ActorsController = Class.new(ActionController::Base)
-ActorsController.autocomplete(:movie, :name)
-
 class Test::Unit::TestCase
   include RR::Adapters::TestUnit
 end
+
