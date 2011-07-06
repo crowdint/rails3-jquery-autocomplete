@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('shoulda', '~>2.11.1')
   s.add_development_dependency('uglifier')
   s.add_development_dependency('rr')
+  s.add_development_dependency('rcov')
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
