@@ -113,6 +113,18 @@ module Rails3JQueryAutocomplete
 					end
 				end
 			end
+
+			context '#postgres?' do
+				should 'return nil if PGConn is not defined' do
+					assert_nil self.postgres?
+				end
+
+				should 'return true if PGConn is defined' do
+					class ::PGConn ; end
+
+					assert self.postgres?
+				end
+			end
 		end
 	end
 end
