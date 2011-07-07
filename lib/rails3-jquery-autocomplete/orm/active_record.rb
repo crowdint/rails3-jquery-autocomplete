@@ -9,14 +9,13 @@ module Rails3JQueryAutocomplete
       end
 
       def get_autocomplete_items(parameters)
-        model      = parameters[:model]
-        term       = parameters[:term]
-        method     = parameters[:method]
-        options    = parameters[:options]
-
-        scopes         = Array(options[:scopes])
-        limit          = get_autocomplete_limit(options)
-        order          = get_autocomplete_order(method, options, model)
+        model   = parameters[:model]
+        term    = parameters[:term]
+        method  = parameters[:method]
+        options = parameters[:options]
+        scopes  = Array(options[:scopes])
+        limit   = get_autocomplete_limit(options)
+        order   = get_autocomplete_order(method, options, model)
 
 
         items = model.scoped
