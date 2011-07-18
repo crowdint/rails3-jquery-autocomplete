@@ -8,7 +8,6 @@ module Rails3JQueryAutocomplete
         "See http://api.rubyonrails.org/classes/ActiveRecord/Callbacks.html for more information.", caller)
       end
 
-      options[:required] = method_required?(method) unless options.key?(:required)
       options[:as]     ||= "autocompleted_string"
 
       html_class = [ options[:as], (options[:required] ? :required : :optional) ]
