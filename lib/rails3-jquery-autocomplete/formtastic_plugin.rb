@@ -14,7 +14,7 @@ module Rails3JQueryAutocomplete
       html_class << 'error' if @object && @object.respond_to?(:errors) && !@object.errors[method.to_sym].blank?
 
       wrapper_html = options.delete(:wrapper_html) || {}
-      wrapper_html[:id]  ||= generate_html_id(method)
+      # wrapper_html[:id]  ||= generate_html_id(method)
       wrapper_html[:class] = (html_class << wrapper_html[:class]).flatten.compact.join(' ')
 
       if options[:input_html] && options[:input_html][:id]
