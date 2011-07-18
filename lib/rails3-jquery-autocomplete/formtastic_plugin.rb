@@ -22,8 +22,8 @@ module Rails3JQueryAutocomplete
         options[:label_html][:for] ||= options[:input_html][:id]
       end
 
-      input_parts = self.class.inline_order.dup
-      input_parts = input_parts - [:errors, :hints] if options[:as] == :hidden
+      # input_parts = self.class.inline_order.dup
+      # input_parts = input_parts - [:errors, :hints] if options[:as] == :hidden
 
       list_item_content = input_parts.map do |type|
         send(:"inline_#{type}_for", method, options)
