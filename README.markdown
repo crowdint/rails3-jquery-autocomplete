@@ -216,7 +216,10 @@ The previous example would fetch the extra attribute slogan and update jQuery('#
 
 A javascript event named *railsAutocomplete.select* is fired on the input field when a value is selected from the autocomplete drop down. If you need to do something more complex than update fields with data, you can hook into this event, like so:
 
-    $('#my_autocomplete_field').bind('railsAutocomplete.select', function(){ /* Do something here */});
+    $('#my_autocomplete_field').bind('railsAutocomplete.select', function(event, data){
+    	/* Do something here */
+    	alert(data.item.id);
+    });
 
 ## Formtastic
 
