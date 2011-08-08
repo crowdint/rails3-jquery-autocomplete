@@ -19,8 +19,20 @@ end
 # TODO: Better way to load plugins
 begin
   require 'formtastic'
-  class Formtastic::FormBuilder < ActionView::Helpers::FormBuilder
-    include Rails3JQueryAutocomplete::FormtasticPlugin
+  module Formtastic
+    module Inputs
+      class AutocompleteInput
+        include Base
+        include Base::Stringish
+
+        def to_html
+          input_wrapping do
+            label_html <<
+              builder.autocomplete_field(method, options.delete(:url), input_html_options)
+          end
+        end
+      end
+    end
   end
 rescue LoadError
 end
