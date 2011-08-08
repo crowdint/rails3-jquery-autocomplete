@@ -8,14 +8,13 @@ module Rails3JQueryAutocomplete
         "See http://api.rubyonrails.org/classes/ActiveRecord/Callbacks.html for more information.", caller)
       end
 
-      options[:required] = method_required?(method) unless options.key?(:required)
       options[:as]     ||= "autocompleted_string"
 
       html_class = [ options[:as], (options[:required] ? :required : :optional) ]
       html_class << 'error' if @object && @object.respond_to?(:errors) && !@object.errors[method.to_sym].blank?
 
       wrapper_html = options.delete(:wrapper_html) || {}
-      wrapper_html[:id]  ||= generate_html_id(method)
+      # wrapper_html[:id]  ||= generate_html_id(method)
       wrapper_html[:class] = (html_class << wrapper_html[:class]).flatten.compact.join(' ')
 
       if options[:input_html] && options[:input_html][:id]
@@ -23,8 +22,8 @@ module Rails3JQueryAutocomplete
         options[:label_html][:for] ||= options[:input_html][:id]
       end
 
-      input_parts = self.class.inline_order.dup
-      input_parts = input_parts - [:errors, :hints] if options[:as] == :hidden
+      # input_parts = self.class.inline_order.dup
+      # input_parts = input_parts - [:errors, :hints] if options[:as] == :hidden
 
       list_item_content = input_parts.map do |type|
         send(:"inline_#{type}_for", method, options)
