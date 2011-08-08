@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('rr')
   s.add_development_dependency('rcov')
 
-  s.files         = Dir['lib/**/*'] + %w{CHANGELOG.MD LICENSE README.markdown Rakefile}
+  s.files         = Dir['lib/**/*'] + %w{CHANGELOG.md LICENSE README.markdown Rakefile}
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
