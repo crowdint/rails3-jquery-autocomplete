@@ -1,5 +1,6 @@
 # Changelog
 
+* 0.9.1 Fixes issues #96 and #32
 * 0.9.0 Massive rewrite
 * 0.8.0 Compressed JS file
 * 0.7.5 Pull request #46
