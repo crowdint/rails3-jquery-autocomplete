@@ -1,14 +1,15 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~>3.0.3'
+gem 'rails', '~> 3.0.10'
 
 gem 'annotate'
-gem 'capybara', '~>0.4.0'
-gem 'cucumber-rails', '~>0.3.2'
+gem 'capybara'
+gem 'cucumber-rails'
 gem 'rspec-rails'
 gem 'steak'
 gem 'database_cleaner'
 gem 'haml-rails'
+gem 'sass'
 gem 'jquery-rails'
 gem 'launchy'
 gem 'nifty-generators'
