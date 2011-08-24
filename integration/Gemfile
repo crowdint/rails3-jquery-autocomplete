@@ -17,3 +17,7 @@ gem 'pickle'
 gem 'rails3-jquery-autocomplete', :path => '../'
 gem 'simple_form'
 gem 'sqlite3-ruby', :require => 'sqlite3'
+
+# Test Mongo
+# gem 'mongoid'
+# gem 'bson_ext'

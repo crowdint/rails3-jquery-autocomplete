@@ -11,8 +11,10 @@
 #
 
 class Brand < ActiveRecord::Base
+  # include Mongoid::Document
   scope :active, where(:state => true)
   scope :with_address, joins(:address)
 
   belongs_to :address
+  # embeds_one :address
 end
