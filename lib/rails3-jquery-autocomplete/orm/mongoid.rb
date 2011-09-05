@@ -22,7 +22,11 @@ module Rails3JQueryAutocomplete
         limit          = get_autocomplete_limit(options)
         order          = get_autocomplete_order(method, options)
 
-        search = (is_full_search ? '.*' : '^') + term + '.*'
+        if is_full_search
+          search = '.*' + term + '.*'
+        else
+          search = '^' + term
+        end
         items  = model.where(method.to_sym => /#{search}/i).limit(limit).order_by(order)
       end
     end

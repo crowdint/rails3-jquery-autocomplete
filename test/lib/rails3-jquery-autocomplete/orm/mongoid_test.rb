@@ -37,7 +37,7 @@ module Rails3JQueryAutocomplete
 
 				context 'not a full search' do
 					should 'do stuff' do
-						mock(@model).where({:field=>/^query.*/i}).mock!.limit(10).
+						mock(@model).where({:field=>/^query/i}).mock!.limit(10).
 								mock!.order_by([[:order, :asc]])
 
 						get_autocomplete_items(@parameters)	
