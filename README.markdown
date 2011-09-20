@@ -56,7 +56,7 @@ Just add it to your app/assets/javascripts/application.js file
 
     //= require jquery
     //= require jquery_ujs
-    //= require autocomplete
+    //= require autocomplete-rails
 
 ## Upgrading from older versions
 
