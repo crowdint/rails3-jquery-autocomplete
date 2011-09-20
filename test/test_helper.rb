@@ -15,7 +15,7 @@ require 'rails/test_help'
 require 'rails3-jquery-autocomplete'
 
 module Rails3JQueryAutocomplete
-  class Application < Rails::Application
+  class Application < ::Rails::Application
   end
 end
 

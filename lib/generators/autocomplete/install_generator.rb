@@ -8,7 +8,7 @@ module Autocomplete
     end
 
     def self.source_root
-      File.join(File.dirname(__FILE__), '..', 'templates')
+      File.join(File.dirname(__FILE__), '..', '..', 'assets', 'javascripts')
     end
   end
 end

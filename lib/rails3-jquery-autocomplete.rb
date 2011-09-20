@@ -4,6 +4,10 @@ require 'rails3-jquery-autocomplete/autocomplete'
 module Rails3JQueryAutocomplete
   autoload :Orm              , 'rails3-jquery-autocomplete/orm'
   autoload :FormtasticPlugin , 'rails3-jquery-autocomplete/formtastic_plugin'
+
+  unless ::Rails.version < "3.1"
+    require 'rails3-jquery-autocomplete/rails/engine'
+  end
 end
 
 class ActionController::Base

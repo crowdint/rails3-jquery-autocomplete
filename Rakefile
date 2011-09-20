@@ -14,7 +14,7 @@ end
 
 task :uglify do
   require 'uglifier'
-  file_folder = "lib/generators/templates"
+  file_folder = "lib/assets/javascripts"
   File.open("#{file_folder}/autocomplete-rails.js", "w") do |f|
     f << Uglifier.compile(File.read("#{file_folder}/autocomplete-rails-uncompressed.js"))
   end
