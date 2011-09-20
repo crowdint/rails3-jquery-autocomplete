@@ -17,10 +17,6 @@ on how to use this gem with ActiveRecord [here](http://github.com/crowdint/rails
 You can find a [detailed example](http://github.com/crowdint/rails3-jquery-autocomplete-app/tree/mongoid)
 on how to use this gem with MongoID [here](http://github.com/crowdint/rails3-jquery-autocomplete-app/tree/mongoid). (Same thing, different branch)
 
-## MongoMapper
-
-TODO
-
 ## Before you start
 
 Make sure your project is using jQuery-UI and the autocomplete widget
@@ -44,6 +40,8 @@ Install it
 
     bundle install
 
+### Rails 3.0.x
+
 Run the generator
 
     rails generate autocomplete:install
@@ -51,6 +49,14 @@ Run the generator
 And include autocomplete-rails.js on your layouts
 
     javascript_include_tag "autocomplete-rails.js"
+
+### Rails 3.1.x
+
+Just add it to your app/assets/javascripts/application.js file
+
+    //= require jquery
+    //= require jquery_ujs
+    //= require autocomplete
 
 ## Upgrading from older versions
 
@@ -281,9 +287,9 @@ Then you'll have access to the following helper:
 An example on how to use it:
 
     scenario "Autocomplete" do
-      lambda do 
+      lambda do
         Brand.create! [
-          {:name => "Alpha"}, 
+          {:name => "Alpha"},
           {:name => "Beta"},
           {:name => "Gamma"}
         ]
