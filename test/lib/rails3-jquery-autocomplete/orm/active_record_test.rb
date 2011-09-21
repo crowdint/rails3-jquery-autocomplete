@@ -15,14 +15,14 @@ module Rails3JQueryAutocomplete
 				context 'no order is specified' do
 					should 'return the order clause by the field ASC' do
 						assert_equal "field ASC", get_autocomplete_order(:field, {})
-					end	
+					end
 
 					context 'a different model is specified' do
 						should 'return the order clause by the table_name.field ASC' do
 							model = Object.new
 							mock(model).table_name { 'table_name' }
 							assert_equal "table_name.field ASC", get_autocomplete_order(:field, {}, model)
-						end	
+						end
 					end
 				end
 			end
@@ -115,12 +115,12 @@ module Rails3JQueryAutocomplete
 			end
 
 			context '#postgres?' do
-				should 'return nil if PGConn is not defined' do
+				should 'return nil if PGconn is not defined' do
 					assert_nil self.postgres?
 				end
 
-				should 'return true if PGConn is defined' do
-					class ::PGConn ; end
+				should 'return true if PGconn is defined' do
+					class ::PGconn ; end
 
 					assert self.postgres?
 				end
