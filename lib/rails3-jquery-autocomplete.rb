@@ -2,7 +2,7 @@ require 'rails3-jquery-autocomplete/form_helper'
 require 'rails3-jquery-autocomplete/autocomplete'
 
 module Rails3JQueryAutocomplete
-  autoload :Orm              , 'rails3-jquery-autocomplete/orm'
+  autoload :Orm, 'rails3-jquery-autocomplete/orm'
 
   unless ::Rails.version < "3.1"
     require 'rails3-jquery-autocomplete/rails/engine'

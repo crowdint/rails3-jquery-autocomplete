@@ -40,7 +40,7 @@ module Rails3JQueryAutocomplete
       end
 
       def postgres?
-        defined?(PGConn)
+        defined?(PGconn)
       end
     end
   end
