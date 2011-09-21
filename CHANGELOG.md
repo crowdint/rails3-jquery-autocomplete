@@ -1,5 +1,7 @@
 # Changelog
 
+* 1.0.2 Fixed issue #94
+* 1.0.1 Formtastic 2.0 compatibility fix
 * 1.0.0 Rails 3.1 asset pipeline support
 * 0.9.1 Fixes issues #96 and #32
 * 0.9.0 Massive rewrite
