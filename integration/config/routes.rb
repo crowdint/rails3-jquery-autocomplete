@@ -1,5 +1,7 @@
 Integration::Application.routes.draw do
 
+  get "formtastics/new"
+
   root :to => 'autocomplete#new'
   match 'autocomplete/autocomplete_brand_name' => 'autocomplete#autocomplete_brand_name'
 
@@ -25,6 +27,10 @@ Integration::Application.routes.draw do
   end
 
   resources :scoped_autocompletes do
+    get :autocomplete_brand_name, :on => :collection
+  end
+
+  resources :formtastics do
     get :autocomplete_brand_name, :on => :collection
   end
 end

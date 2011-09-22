@@ -30,7 +30,7 @@ begin
     #
     # Formtastic 1.x
     #
-    class Formtastic::FormBuilder < ActionView::Helpers::FormBuilder
+    class Formtastic::SemanticFormBuilder < ActionView::Helpers::FormBuilder
       include Rails3JQueryAutocomplete::FormtasticPlugin
     end
   end
