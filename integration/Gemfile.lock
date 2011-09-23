@@ -1,7 +1,7 @@
 PATH
   remote: ../
   specs:
-    rails3-jquery-autocomplete (1.0.2)
+    rails3-jquery-autocomplete (1.0.3)
       rails (~> 3.0)
 
 GEM
