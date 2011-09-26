@@ -3,6 +3,10 @@
 #
 begin
   require 'formtastic'
+  begin
+    require "formtastic/version"
+  rescue LoadError
+  end
 
   if defined?(Formtastic::VERSION)
     #
