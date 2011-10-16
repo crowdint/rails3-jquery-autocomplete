@@ -50,6 +50,21 @@ And include autocomplete-rails.js on your layouts
 
     javascript_include_tag "autocomplete-rails.js"
 
+#### Upgrading from older versions
+
+If you are upgrading from a previous version, run the generator after installing to replace the javascript file.
+
+    rails generate autocomplete:install
+
+I'd recommend you do this every time you update to make sure you have the latest JS file.
+
+#### Uncompressed Javascript file
+
+If you want to make changes to the JS file, you can install the
+uncompressed version by running:
+
+    rails generate autocomplete:uncompressed
+
 ### Rails 3.1.x
 
 Just add it to your app/assets/javascripts/application.js file
@@ -58,21 +73,6 @@ Just add it to your app/assets/javascripts/application.js file
     //= require jquery_ujs
     //= require jquery_ui
     //= require autocomplete-rails
-
-## Upgrading from older versions
-
-If you are upgrading from a previous version, run the generator after installing to replace the javascript file.
-
-    rails generate autocomplete:install
-
-I'd recommend you do this every time you update to make sure you have the latest JS file.
-
-## Uncompressed Javascript file
-
-If you want to make changes to the JS file, you can install the
-uncompressed version by running:
-
-    rails generate autocomplete:uncompressed
 
 ## Usage
 
