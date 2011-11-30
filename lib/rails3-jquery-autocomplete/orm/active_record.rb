@@ -14,6 +14,7 @@ module Rails3JQueryAutocomplete
         method  = parameters[:method]
         options = parameters[:options]
         scopes  = Array(options[:scopes])
+        where   = options[:where]
         limit   = get_autocomplete_limit(options)
         order   = get_autocomplete_order(method, options, model)
 
@@ -25,6 +26,9 @@ module Rails3JQueryAutocomplete
         items = items.select(get_autocomplete_select_clause(model, method, options)) unless options[:full_model]
         items = items.where(get_autocomplete_where_clause(model, term, method, options)).
             limit(limit).order(order)
+        items = items.where(where) unless where.blank?
+
+        items
       end
 
       def get_autocomplete_select_clause(model, method, options)
