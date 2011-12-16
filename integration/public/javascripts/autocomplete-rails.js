@@ -13,4 +13,101 @@
 *   Example:
 *       <input type="text" data-autocomplete="/url/to/autocomplete" data-id-element="#id_field">
 */
-$(document).ready(function(){$("input[data-autocomplete]").railsAutocomplete()}),function(a){var b=null;a.fn.railsAutocomplete=function(){return this.live("focus",function(){this.railsAutoCompleter||(this.railsAutoCompleter=new a.railsAutocomplete(this))})},a.railsAutocomplete=function(a){_e=a,this.init(_e)},a.railsAutocomplete.fn=a.railsAutocomplete.prototype={railsAutocomplete:"0.0.1"},a.railsAutocomplete.fn.extend=a.railsAutocomplete.extend=a.extend,a.railsAutocomplete.fn.extend({init:function(a){function c(a){return b(a).pop().replace(/^\s+/,"")}function b(b){return b.split(a.delimiter)}a.delimiter=$(a).attr("data-delimiter")||null,$(a).autocomplete({source:function(b,d){$.getJSON($(a).attr("data-autocomplete"),{term:c(b.term)},function(){$(arguments[0]).each(function(b,c){var d={};d[c.id]=c,$(a).data(d)}),d.apply(null,arguments)})},search:function(){var a=c(this.value);if(a.length<2)return!1},focus:function(){return!1},select:function(c,d){var f=b(this.value);f.pop(),f.push(d.item.value);if(a.delimiter!=null)f.push(""),this.value=f.join(a.delimiter);else{this.value=f.join(""),$(this).attr("data-id-element")&&$($(this).attr("data-id-element")).val(d.item.id);if($(this).attr("data-update-elements")){var g=$(this).data(d.item.id.toString()),h=$.parseJSON($(this).attr("data-update-elements"));for(var i in h)$(h[i]).val(g[i])}}var j=this.value;$(this).bind("keyup.clearId",function(){$(this).val().trim()!=j.trim()&&($($(this).attr("data-id-element")).val(""),$(this).unbind("keyup.clearId"))}),$(this).trigger("railsAutocomplete.select",d);return!1}})}})}(jQuery)
+
+(function(jQuery)
+{
+  var self = null;
+  jQuery.fn.railsAutocomplete = function() {
+    return this.live('focus',function() {
+      if (!this.railsAutoCompleter) {
+        this.railsAutoCompleter = new jQuery.railsAutocomplete(this);
+      }
+    });
+  };
+
+  jQuery.railsAutocomplete = function (e) {
+    _e = e;
+    this.init(_e);
+  };
+
+  jQuery.railsAutocomplete.fn = jQuery.railsAutocomplete.prototype = {
+    railsAutocomplete: '0.0.1'
+  };
+
+  jQuery.railsAutocomplete.fn.extend = jQuery.railsAutocomplete.extend = jQuery.extend;
+  jQuery.railsAutocomplete.fn.extend({
+    init: function(e) {
+      e.delimiter = jQuery(e).attr('data-delimiter') || null;
+      function split( val ) {
+        return val.split( e.delimiter );
+      }
+      function extractLast( term ) {
+        return split( term ).pop().replace(/^\s+/,"");
+      }
+
+      jQuery(e).autocomplete({
+        source: function( request, response ) {
+          jQuery.getJSON( jQuery(e).attr('data-autocomplete'), {
+            term: extractLast( request.term )
+          }, function() {
+            jQuery(arguments[0]).each(function(i, el) {
+              var obj = {};
+              obj[el.id] = el;
+              jQuery(e).data(obj);
+            });
+            response.apply(null, arguments);
+          });
+        },
+        search: function() {
+          // custom minLength
+          var term = extractLast( this.value );
+          if ( term.length < 2 ) {
+            return false;
+          }
+        },
+        focus: function() {
+          // prevent value inserted on focus
+          return false;
+        },
+        select: function( event, ui ) {
+          var terms = split( this.value );
+          // remove the current input
+          terms.pop();
+          // add the selected item
+          terms.push( ui.item.value );
+          // add placeholder to get the comma-and-space at the end
+          if (e.delimiter != null) {
+            terms.push( "" );
+            this.value = terms.join( e.delimiter );
+          } else {
+            this.value = terms.join("");
+            if (jQuery(this).attr('data-id-element')) {
+              jQuery(jQuery(this).attr('data-id-element')).val(ui.item.id);
+            }
+            if (jQuery(this).attr('data-update-elements')) {
+              var data = jQuery(this).data(ui.item.id.toString());
+              var update_elements = jQuery.parseJSON(jQuery(this).attr("data-update-elements"));
+              for (var key in update_elements) {
+                jQuery(update_elements[key]).val(data[key]);
+              }
+            }
+          }
+          var remember_string = this.value;
+          jQuery(this).bind('keyup.clearId', function(){
+            if(jQuery(this).val().trim() != remember_string.trim()){
+              jQuery(jQuery(this).attr('data-id-element')).val("");
+              jQuery(this).unbind('keyup.clearId');
+            }
+          });
+          jQuery(this).trigger('railsAutocomplete.select', ui);
+
+          return false;
+        }
+      });
+    }
+  });
+
+  jQuery(document).ready(function(){
+    jQuery('input[data-autocomplete]').railsAutocomplete();
+  });
+})(jQuery);
