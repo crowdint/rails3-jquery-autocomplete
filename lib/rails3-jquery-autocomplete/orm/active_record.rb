@@ -43,8 +43,8 @@ module Rails3JQueryAutocomplete
         ["LOWER(#{table_name}.#{method}) #{like_clause} ?", "#{(is_full_search ? '%' : '')}#{term.downcase}%"]
       end
 
-      def postgres? model
-        # Figure out if this particular model uses the PostgreSQL adapter                                 
+      def postgres?(model)
+        # Figure out if this particular model uses the PostgreSQL adapter
         model.connection.class.to_s.match(/PostgreSQLAdapter/)
       end
     end

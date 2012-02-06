@@ -84,7 +84,7 @@ module Rails3JQueryAutocomplete
       context '#get_autocomplete_where_clause' do
         setup do
           @model = Object.new
-          mock(@model).table_name  { 'table_name' }
+          mock(@model).table_name { 'table_name' }
 
           @term = 'query'
           @options = {}
@@ -93,21 +93,21 @@ module Rails3JQueryAutocomplete
 
         context 'Not Postgres' do
           should 'return options for where' do
-            mock(self).postgres? { false }
+            mock(self).postgres?(@model) { false }
             assert_equal ["LOWER(table_name.method) LIKE ?", "query%"], get_autocomplete_where_clause(@model, @term, @method, @options)
           end
         end
 
         context 'Postgres' do
           should 'return options for where with ILIKE' do
-            mock(self).postgres? { true }
+            mock(self).postgres?(@model) { true }
             assert_equal ["LOWER(table_name.method) ILIKE ?", "query%"], get_autocomplete_where_clause(@model, @term, @method, @options)
           end
         end
 
         context 'full search' do
           should 'return options for where with the term sourrounded by %%' do
-            mock(self).postgres? { false }
+            mock(self).postgres?(@model) { false }
             @options[:full] = true
             assert_equal ["LOWER(table_name.method) LIKE ?", "%query%"], get_autocomplete_where_clause(@model, @term, @method, @options)
           end
@@ -115,14 +115,29 @@ module Rails3JQueryAutocomplete
       end
 
       context '#postgres?' do
-        should 'return nil if PGconn is not defined' do
-          assert_nil self.postgres?
+        setup do
+          @model = stub
         end
 
-        should 'return true if PGconn is defined' do
-          class ::PGconn ; end
+        context 'the connection class is not postgres' do
+          setup do
+            mock(@model).connection { stub }
+          end
 
-          assert self.postgres?
+          should 'return nil if the connection class matches PostgreSQLAdapter' do
+            assert_nil self.postgres?(@model)
+          end
+        end
+
+        context 'the connection class matches PostgreSQLAdapter' do
+          setup do
+            class PostgreSQLAdapter; end
+            mock(@model).connection { PostgreSQLAdapter.new }
+          end
+
+          should 'return true' do
+            assert self.postgres?(@model)
+          end
         end
       end
     end
