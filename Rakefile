@@ -2,7 +2,6 @@ require 'bundler'
 Bundler::GemHelper.install_tasks
 
 require 'rake/testtask'
-require 'rcov/rcovtask'
 
 task :default => [:uglify, :test]
 
@@ -20,9 +19,3 @@ task :uglify do
   end
 end
 
-Rcov::RcovTask.new do |t|
-  t.libs << "test"
-  t.test_files = FileList['test/**/*_test.rb']
-  t.rcov_opts = %w{--exclude \/gems\/}
-  t.verbose = true
-end
