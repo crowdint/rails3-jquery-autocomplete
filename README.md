@@ -1,6 +1,6 @@
 # rails3-jquery-autocomplete
 
-[![Build Status](https://secure.travis-ci.org/crowdint/rails3-jquery-autocomplete.png)](http://travis-ci.org/[YOUR_GITHUB_USERNAME]/[YOUR_PROJECT_NAME])
+[![Build Status](https://secure.travis-ci.org/crowdint/rails3-jquery-autocomplete.png)](http://travis-ci.org/crowdint/rails3-jquery-autocomplete)
 
 An easy way to use jQuery's autocomplete with Rails 3.
 
