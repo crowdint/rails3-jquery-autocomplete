@@ -66,6 +66,10 @@ class ActionView::TestCase
   setup :set_response
   setup :setup_new_user
 
+  def assert_no_select(selector, value = nil)
+    assert_select(selector, :text => value, :count => 0)
+  end
+
   def with_concat_form_for(*args, &block)
     concat simple_form_for(*args, &block)
   end
@@ -102,4 +106,3 @@ class ActionView::TestCase
   end
   alias :users_path :user_path
 end
-

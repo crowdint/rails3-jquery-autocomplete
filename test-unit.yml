@@ -1,6 +1,6 @@
 runner: console
 console_options:
-  # arguments: --use-color=true --verbose=verbose
+  #arguments: --use-color=true --verbose=verbose
   arguments: --use-color=true
   color_scheme: new_and_improved
 color_schemes:
