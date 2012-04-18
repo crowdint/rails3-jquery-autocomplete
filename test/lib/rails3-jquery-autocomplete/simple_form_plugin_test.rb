@@ -14,9 +14,19 @@ module Rails3JQueryAutocomplete
       assert_select "input#user_name[data-autocomplete=/test]"
     end
 
+    should "add a data-update-elements attribute with encoded data if passed an :update_elements option" do
+      with_input_for @user, :name, :autocomplete, :update_elements => { :id => '#this', :ego => '#that' }
+      assert_select "input#user_name[data-update-elements='{&quot;id&quot;:&quot;#this&quot;,&quot;ego&quot;:&quot;#that&quot;}']"
+    end
+
     should "not add a data-update-elements attribute if not passed an :update_elements option" do
       with_input_for @user, :name, :autocomplete, :url => '/test'
       assert_no_select "input#user_name[data-update-elements]"
+    end
+
+    should "add arbitrary html options, if specified" do
+      with_input_for @user, :name, :autocomplete, :input_html => { :class => "superego" }
+      assert_select "input#user_name.superego"
     end
 
   end
