@@ -58,13 +58,6 @@ Feature: Autocomplete
     Then the "Feature Name" field should contain "Glowy,Shiny"
 
   @javascript
-  Scenario: Autocomplete with simple_form
-    Given I go to the new simple form page
-    And I fill in "Brand name" with "al"
-    And I choose "Alpha" in the autocomplete list
-    Then the "Brand name" field should contain "Alpha"
-
-  @javascript
   Scenario: Autocomplete with scope
     Given the "Kappa" brand has an address
     Given I go to the new scoped autocomplete page
