@@ -19,6 +19,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'mongo_mapper', '>= 0.9'
   s.add_development_dependency 'mongo',        '~> 1.6.2'
   s.add_development_dependency 'bson_ext',     '~> 1.6.2'
+  s.add_development_dependency 'guard'
+  s.add_development_dependency 'guard-test'
   s.add_development_dependency 'test-unit',    '~> 2.2.0'
   s.add_development_dependency 'shoulda',      '~> 3.0.1'
   s.add_development_dependency 'uglifier'
