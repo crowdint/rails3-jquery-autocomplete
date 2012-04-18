@@ -320,7 +320,15 @@ And then, install all your dependencies:
 
 You need to have an instance of MongoDB running on your computer or all the mongo tests will fail miserably.
 
+To run all the tests once, simply use
+
     rake test
+
+while you're developing, it is recommended that you run
+
+    bundle exec guard
+
+to have the relevent test run every time you save a file.
 
 ## Integration tests
 

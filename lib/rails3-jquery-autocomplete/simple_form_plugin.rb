@@ -16,7 +16,11 @@ module SimpleForm
       end
 
       def update_elements(elements)
-        {'data-update-elements' => elements.to_json}
+        if elements
+          {'data-update-elements' => elements.to_json}
+        else
+          {}
+        end
       end
     end
   end
