@@ -318,7 +318,7 @@ And then, install all your dependencies:
 
 ## Running the test suite
 
-You need to have an instance of MongoDB running on your computer or all the mongo tests will fail miserably.
+<strike>You need to have an instance of MongoDB running on your computer or all the mongo tests will fail miserably.</strike>
 
 To run all the tests once, simply use
 
