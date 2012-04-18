@@ -344,6 +344,17 @@ integration folder:
     rake db:migrate
     cucumber
 
+## Where to test what
+
+If you're making or tweaking a plugin (such as the formastic plugin or
+simple\_form plugin), check out the simple\_form\_plugin\_test for an
+example of how to test it as part of the main `rake test` run.
+Historically, plugins like these had been tested (shoddily) as part of
+the integration tests. Feel free to remove them from the integration
+suite and move them into the main suite. Your tests will run much
+faster, and there will be less likelihood of your feature breaking in
+the future. Thanks!
+
 # Thanks to
 
 Everyone on [this list](https://github.com/crowdint/rails3-jquery-autocomplete/contributors)
