@@ -70,6 +70,12 @@ class ActionView::TestCase
     concat simple_form_for(*args, &block)
   end
 
+  def with_input_for(object, attribute_name, type, options={})
+    with_concat_form_for(object) do |f|
+      f.input(attribute_name, options.merge(:as => type))
+    end
+  end
+
   def set_controller
     @controller = MockController.new
   end
