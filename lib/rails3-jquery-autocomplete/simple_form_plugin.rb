@@ -49,6 +49,8 @@ module SimpleForm
         #
         label_method, value_method = detect_collection_methods
         autocomplete_options[:value] = object.send(label_method)
+        puts "label_method:#{label_method}"
+        puts "value: #{autocomplete_options[:value]}"
         #
         out = @builder.autocomplete_field(
           attribute_name,
