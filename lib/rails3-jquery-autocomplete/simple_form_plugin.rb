@@ -49,26 +49,26 @@ module SimpleForm
         #
         label_method, value_method = detect_collection_methods
         association = object.send(reflection.name)
-        autocomplete_options[:value] = association.send(label_method) if association.respond_to? label_method
-        puts "label_method:#{label_method}"
-        puts "value: #{autocomplete_options[:value]}"
-        #
+        if association.respond_to? label_method
+          autocomplete_options[:value] = association.send(label_method)
+        end
         out = @builder.autocomplete_field(
           attribute_name,
           options[:url],
           autocomplete_options
         )
+        hidden_options = if association.respond_to? value_method
+          new_options = {}
+          new_options[:value] = association.send(value_method)
+          input_html_options.merge new_options
+        else
+          input_html_options
+        end
         out << @builder.hidden_field(
           attribute_name,
-          rewrite_hidden_option(association.send(value_method)) if association.respond_to? value_method
+          hidden_options
         )
         out.html_safe
-      end
-
-      def rewrite_hidden_option(value)
-        new_options = {}
-        new_options[:value] = value
-        input_html_options.merge new_options
       end
     end
   end
