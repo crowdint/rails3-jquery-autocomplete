@@ -39,9 +39,9 @@ module SimpleForm
         id_element = options.delete :id_element
         if options[:hidden_id]
           if id_element
-            id_element << ", ##{attribute_name}[type=hidden]"
+            id_element << ", ##{object_name}_#{attribute_name}[type=hidden]"
           else
-            id_element = "##{attribute_name}[type=hidden]"
+            id_element = "##{object_name}_#{attribute_name}[type=hidden]"
           end
         end
         new_options["data-id-element"] = id_element
