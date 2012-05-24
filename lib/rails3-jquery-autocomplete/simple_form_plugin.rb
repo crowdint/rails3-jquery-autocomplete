@@ -45,7 +45,6 @@ module SimpleForm
           id_element = "##{object_name}_#{attribute_name}[type=hidden]"
         end
         options[:id_element] = id_element
-        end
         autocomplete_options = rewrite_autocomplete_option
         #
         label_method, value_method = detect_collection_methods
