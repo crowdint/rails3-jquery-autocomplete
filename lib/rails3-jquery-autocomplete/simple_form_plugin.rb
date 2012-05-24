@@ -49,7 +49,7 @@ module SimpleForm
         #
         label_method, value_method = detect_collection_methods
         association = object.send(reflection.name)
-        autocomplete_options[:value] = association.send(label_method)
+        autocomplete_options[:value] = association.send(label_method) if association.respond_to? label_method
         puts "label_method:#{label_method}"
         puts "value: #{autocomplete_options[:value]}"
         #
@@ -60,7 +60,7 @@ module SimpleForm
         )
         out << @builder.hidden_field(
           attribute_name,
-          rewrite_hidden_option(association.send(value_method))
+          rewrite_hidden_option(association.send(value_method)) if association.respond_to? value_method
         )
         out.html_safe
       end
