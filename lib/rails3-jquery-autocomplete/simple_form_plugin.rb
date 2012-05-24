@@ -37,11 +37,14 @@ module SimpleForm
         new_options = {}
         new_options["data-update-elements"] = JSON.generate(options.delete :update_elements) if options[:update_elements]
         id_element = options.delete :id_element
-        new_options["data-id-element"] = if id_element
-          id_element << ", ##{attribute_name}[type=hidden]"
-        else
-          "##{attribute_name}[type=hidden]"
+        if options[:hidden_id]
+          if id_element
+            id_element << ", ##{attribute_name}[type=hidden]"
+          else
+            id_element = "##{attribute_name}[type=hidden]"
+          end
         end
+        new_options["data-id-element"] = id_element
         input_html_options.merge new_options
       end
     end
