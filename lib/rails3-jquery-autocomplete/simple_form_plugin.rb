@@ -6,7 +6,7 @@ module SimpleForm
         @builder.autocomplete_field(
           attribute_name,
           options[:url],
-          html_options
+          rewrite_autocomplete_option
         )
       end
 
@@ -20,16 +20,15 @@ module SimpleForm
         placeholder_present?
       end
 
-      def html_options
-        input_html_options.merge update_elements options[:update_elements]
-      end
-
-      def update_elements(elements)
-        if elements
-          {'data-update-elements' => elements.to_json}
-        else
-          {}
-        end
+      #
+      # Method used to rename the autocomplete key to a more standard
+      # data-autocomplete key
+      #
+      private
+      def rewrite_autocomplete_option
+        new_options["data-update-elements"] = JSON.generate(options.delete :update_elements) if options[:update_elements]
+        new_options["data-id-element"] = options.delete :id_element if options[:id_element]
+        input_html_options.merge new_options
       end
     end
   end
