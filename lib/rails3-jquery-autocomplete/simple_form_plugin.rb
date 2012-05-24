@@ -12,7 +12,7 @@ module SimpleForm
         if options[:hidden_id]
           out << @builder.hidden_field(
             attribute_name,
-            input_html_options
+            rewrite_hidden_option
           )
         end
         out.html_safe
@@ -45,6 +45,12 @@ module SimpleForm
           end
         end
         new_options["data-id-element"] = id_element
+        input_html_options.merge new_options
+      end
+
+      def rewrite_hidden_option
+        new_options = {}
+        new_options[:value] ||= object.id
         input_html_options.merge new_options
       end
     end
