@@ -37,7 +37,7 @@ module SimpleForm
         new_options = {}
         new_options["data-update-elements"] = JSON.generate(options.delete :update_elements) if options[:update_elements]
         id_element = options.delete :id_element
-        new_options["data-id-element"] = if id_element == true
+        new_options["data-id-element"] = if id_element == "true"
           "##{attribute_name}[type=hidden]"
         elsif id_element.is_a? String
           id_element << ", ##{attribute_name}[type=hidden]"
