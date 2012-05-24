@@ -48,7 +48,7 @@ module SimpleForm
         autocomplete_options = rewrite_autocomplete_option
         #
         label_method, value_method = detect_collection_methods
-        association = object.send(options[:reflection].name)
+        association = object.send(reflection.name)
         autocomplete_options[:value] = association.send(label_method)
         puts "label_method:#{label_method}"
         puts "value: #{autocomplete_options[:value]}"
