@@ -38,12 +38,12 @@ module SimpleForm
       include Autocomplete
 
       def input
-        hidden_id = "##{object_name}_#{attribute_name}_hidden"
+        hidden_id = "#{object_name}_#{attribute_name}_hidden"
         id_element = options[:id_element]
         if id_element
-          id_element << ", " << hidden_id
+          id_element << ", #" << hidden_id
         else
-          id_element = hidden_id
+          id_element = "#" + hidden_id
         end
         options[:id_element] = id_element
         autocomplete_options = rewrite_autocomplete_option
