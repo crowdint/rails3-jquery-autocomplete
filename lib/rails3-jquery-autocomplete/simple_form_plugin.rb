@@ -38,7 +38,7 @@ module SimpleForm
       include Autocomplete
 
       def input
-        hidden_id = "#{object_name}_#{attribute_name}_hidden"
+        hidden_id = "#{object_name.underscore}_#{attribute_name}_hidden"
         id_element = options[:id_element]
         if id_element
           id_element << ", #" << hidden_id
