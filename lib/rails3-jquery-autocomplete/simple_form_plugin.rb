@@ -38,7 +38,8 @@ module SimpleForm
       include Autocomplete
 
       def input
-        hidden_id = "#{object_name.underscore}_#{attribute_name}_hidden"
+        # http://www.codeofficer.com/blog/entry/form_builders_in_rails_discovering_field_names_and_ids_for_javascript/
+        hidden_id = "#{object_name}_#{attribute_name}_hidden".gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")
         id_element = options[:id_element]
         if id_element
           id_element << ", #" << hidden_id
