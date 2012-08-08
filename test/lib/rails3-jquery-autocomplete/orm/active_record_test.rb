@@ -13,15 +13,15 @@ module Rails3JQueryAutocomplete
         end
 
         context 'no order is specified' do
-          should 'return the order clause by the field ASC' do
-            assert_equal "field ASC", get_autocomplete_order(:field, {})
+          should 'return the order clause by the LOWER(table_name.field) ASC' do
+            assert_equal "LOWER(field) ASC", get_autocomplete_order(:field, {})
           end
 
           context 'a different model is specified' do
-            should 'return the order clause by the table_name.field ASC' do
+            should 'return the order clause by the LOWER(table_name.field) ASC' do
               model = Object.new
               mock(model).table_name { 'table_name' }
-              assert_equal "table_name.field ASC", get_autocomplete_order(:field, {}, model)
+              assert_equal "LOWER(table_name.field) ASC", get_autocomplete_order(:field, {}, model)
             end
           end
         end

@@ -5,7 +5,7 @@ module Rails3JQueryAutocomplete
         order = options[:order]
 
         table_prefix = model ? "#{model.table_name}." : ""
-        order || "#{table_prefix}#{method} ASC"
+        order || "LOWER(#{table_prefix}#{method}) ASC"
       end
 
       def get_autocomplete_items(parameters)
