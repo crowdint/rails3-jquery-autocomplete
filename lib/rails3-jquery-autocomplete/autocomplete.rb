@@ -12,34 +12,6 @@ module Rails3JQueryAutocomplete
       end
     end
 
-    #
-    # Usage:
-    #
-    # class ProductsController < Admin::BaseController
-    #   autocomplete :brand, :name
-    # end
-    #
-    # This will magically generate an action autocomplete_brand_name, so,
-    # don't forget to add it on your routes file
-    #
-    #   resources :products do
-    #      get :autocomplete_brand_name, :on => :collection
-    #   end
-    #
-    # Now, on your view, all you have to do is have a text field like:
-    #
-    #   f.text_field :brand_name, :autocomplete => autocomplete_brand_name_products_path
-    #
-    #
-    # Yajl is used by default to encode results, if you want to use a different encoder
-    # you can specify your custom encoder via block
-    #
-    # class ProductsController < Admin::BaseController
-    #   autocomplete :brand, :name do |items|
-    #     CustomJSONEncoder.encode(items)
-    #   end
-    # end
-    #
     module ClassMethods
       def autocomplete(object, method, options = {})
         self.send :include, Rails3JQueryAutocomplete::Orm::ActiveRecord
