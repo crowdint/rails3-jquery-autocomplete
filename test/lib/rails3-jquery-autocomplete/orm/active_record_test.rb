@@ -22,7 +22,7 @@ module Rails3JQueryAutocomplete
           expected_where = "WHERE table.column LIKE '%terms'"
           expected_order = "ORDER BY table.column ASC"
 
-          mock(source_model).scoped { active_record_scope }
+          mock(self).source_model.stub!.scoped { active_record_scope }
 
           mock(self).where_clause(terms) { expected_where }
           mock(self).order { expected_order }
