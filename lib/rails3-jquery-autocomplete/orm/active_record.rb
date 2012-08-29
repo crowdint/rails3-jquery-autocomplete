@@ -1,50 +1,36 @@
 module Rails3JQueryAutocomplete
   module Orm
     module ActiveRecord
-      def get_autocomplete_order(method, options, model=nil)
-        order = options[:order]
-
-        table_prefix = model ? "#{model.table_name}." : ""
-        order || "#{table_prefix}#{method} ASC"
+      def source_model
+        sym_to_class(@autocomplete_object)
       end
 
-      def get_autocomplete_items(parameters)
-        model   = parameters[:model]
-        term    = parameters[:term]
-        method  = parameters[:method]
-        options = parameters[:options]
-        scopes  = Array(options[:scopes])
-        where   = options[:where]
-        limit   = get_autocomplete_limit(options)
-        order   = get_autocomplete_order(method, options, model)
-
-
-        items = model.scoped
-
-        scopes.each { |scope| items = items.send(scope) } unless scopes.empty?
-
-        items = items.select(get_autocomplete_select_clause(model, method, options)) unless options[:full_model]
-        items = items.where(get_autocomplete_where_clause(model, term, method, options)).
-            limit(limit).order(order)
-        items = items.where(where) unless where.blank?
-
-        items
+      def source_method
+        @autocomplete_method
       end
 
-      def get_autocomplete_select_clause(model, method, options)
-        table_name = model.table_name
-        (["#{table_name}.#{model.primary_key}", "#{table_name}.#{method}"] + (options[:extra_data].blank? ? [] : options[:extra_data]))
+      def order
+        "#{source_model.table_name}.#{source_method} ASC"
       end
 
-      def get_autocomplete_where_clause(model, term, method, options)
-        table_name = model.table_name
-        is_full_search = options[:full]
-        like_clause = (postgres?(model) ? 'ILIKE' : 'LIKE')
-        ["LOWER(#{table_name}.#{method}) #{like_clause} ?", "#{(is_full_search ? '%' : '')}#{term.downcase}%"]
+      def items(term)
+        objects = source_model.scoped
+        objects = objects.where(where_clause(term)).limit(limit).order(order)
       end
 
+      def where_clause(term)
+        table_name = source_model.table_name
+        #is_full_search = options[:full]
+        #TODO: Make this a something
+        is_full_search = true
+        like_clause = (postgres?(source_model) ? 'ILIKE' : 'LIKE')
+        ["LOWER(#{table_name}.#{source_method}) #{like_clause} ?", "#{(is_full_search ? '%' : '')}#{term.downcase}%"]
+      end
+
+      #
+      # Method used to figure out if the specified model uses postgres
+      #
       def postgres?(model)
-        # Figure out if this particular model uses the PostgreSQL adapter
         model.connection.class.to_s.match(/PostgreSQLAdapter/)
       end
     end

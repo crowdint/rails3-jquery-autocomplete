@@ -4,112 +4,75 @@ module Rails3JQueryAutocomplete
   module Orm
     class ActiveRecordTest < Test::Unit::TestCase
       include Rails3JQueryAutocomplete::Orm::ActiveRecord
+      include Rails3JQueryAutocomplete::Controller
 
-      context "#get_autocomplete_order" do
-        context 'order is specified' do
-          should 'returns that order option' do
-            assert_equal "field ASC", get_autocomplete_order(:field, {:order => 'field ASC'})
-          end
-        end
-
-        context 'no order is specified' do
-          should 'return the order clause by the field ASC' do
-            assert_equal "field ASC", get_autocomplete_order(:field, {})
-          end
-
-          context 'a different model is specified' do
-            should 'return the order clause by the table_name.field ASC' do
-              model = Object.new
-              mock(model).table_name { 'table_name' }
-              assert_equal "table_name.field ASC", get_autocomplete_order(:field, {}, model)
-            end
-          end
+      context "#source_model" do
+        should 'return the specified source object as a class' do
+          @autocomplete_object = :object
+          assert_equal source_model  , Object
+          assert_kind_of source_model, Class
         end
       end
 
-      context '#get_autocomplete_items' do
-        should 'retrieve the items from ActiveRecord' do
-          class Dog ; end
-
-          model = Dog
-          scoped = []
-          whered = []
-          term = 'query'
-          method = :field
-
-          options = {
-            :model => model,
-            :term => term,
-            :method => method,
-            :options => {}
-          }
-
-          mock(self).get_autocomplete_limit(anything) { 10 }
-          mock(self).get_autocomplete_order(anything, anything, anything) { "order ASC" }
-          mock(self).get_autocomplete_select_clause(model, method, {}) { ["field"] }
-          mock(self).get_autocomplete_where_clause(model, term, method, {}) { ["WHERE something"] }
-          mock(model).table_name.times(any_times) { 'model_table_name' }
-
-          mock(model).scoped { model }
-          mock(model).select(["field"]) { model }
-          mock(model).where(["WHERE something"]).mock!.limit(10).mock!.
-              order("order ASC") { 1 }
-
-          assert_equal 1, get_autocomplete_items(options)
+      context "#source_method" do
+        should 'return the specified source object method as a symbol' do
+          @autocomplete_method = :method
+          assert_equal source_method, :method
         end
       end
 
-      context '#get_autocomplete_select_clause' do
+      context "#order" do
+        should 'return a default order clause for ActiveRecord' do
+          mock(self).source_model.stub!.table_name { 'table' }
+          mock(self).source_method { 'method' }
+          assert_equal order, 'table.method ASC'
+        end
+      end
+
+      context "#items" do
+        should 'return the AR objects based on the specified term' do
+          active_record_scope, result = stub, stub
+
+          terms = 'terms'
+          expected_where = "WHERE table.column LIKE '%terms'"
+          expected_order = "ORDER BY table.column ASC"
+
+          mock(source_model).scoped { active_record_scope }
+
+          mock(self).where_clause(terms) { expected_where }
+          mock(self).order { expected_order }
+
+          mock(active_record_scope).where(expected_where).mock!.limit(10).
+              mock!.order(expected_order) { result }
+
+          assert_equal items(terms), result
+        end
+      end
+
+      context "#where_clause" do
         setup do
-          @model = Object.new
-          mock(@model).table_name  { 'table_name' }
-          mock(@model).primary_key { 'id' }
+          @model      = stub
+          @table_name = 'table_name'
+          @term       = 'term'
+
+          stub(self).source_model  { @model }
+          mock(@model).table_name  { @table_name }
+          mock(self).source_method { 'column' }
         end
 
-        should 'create a select clause' do
-          assert_equal ["table_name.id", "table_name.method"],
-              get_autocomplete_select_clause(@model, :method, {})
-        end
-
-        context 'with extra options' do
-          should 'return those extra fields on the clause' do
-            options = {:extra_data => ['table_name.created_at']}
-
-            assert_equal ["table_name.id", "table_name.method", "table_name.created_at"],
-                get_autocomplete_select_clause(@model, :method, options)
-          end
-        end
-      end
-
-      context '#get_autocomplete_where_clause' do
-        setup do
-          @model = Object.new
-          mock(@model).table_name { 'table_name' }
-
-          @term = 'query'
-          @options = {}
-          @method = :method
-        end
-
-        context 'Not Postgres' do
-          should 'return options for where' do
-            mock(self).postgres?(@model) { false }
-            assert_equal ["LOWER(table_name.method) LIKE ?", "query%"], get_autocomplete_where_clause(@model, @term, @method, @options)
-          end
-        end
-
-        context 'Postgres' do
-          should 'return options for where with ILIKE' do
+        context "postgres" do
+          should 'return a WHERE clause constructed with specified term, table and column using ILIKE' do
             mock(self).postgres?(@model) { true }
-            assert_equal ["LOWER(table_name.method) ILIKE ?", "query%"], get_autocomplete_where_clause(@model, @term, @method, @options)
+
+            assert_equal where_clause(@term), ['LOWER(table_name.column) ILIKE ?', '%term%']
           end
         end
 
-        context 'full search' do
-          should 'return options for where with the term sourrounded by %%' do
+        context "else" do
+          should 'return a WHERE clause constructed with specified term, table and column using LIKE' do
             mock(self).postgres?(@model) { false }
-            @options[:full] = true
-            assert_equal ["LOWER(table_name.method) LIKE ?", "%query%"], get_autocomplete_where_clause(@model, @term, @method, @options)
+
+            assert_equal where_clause(@term), ['LOWER(table_name.column) LIKE ?', '%term%']
           end
         end
       end
