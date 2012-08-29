@@ -6,21 +6,6 @@ module Rails3JQueryAutocomplete
       include Rails3JQueryAutocomplete::Orm::ActiveRecord
       include Rails3JQueryAutocomplete::Controller
 
-      context "#source_model" do
-        should 'return the specified source object as a class' do
-          @autocomplete_object = :object
-          assert_equal source_model  , Object
-          assert_kind_of source_model, Class
-        end
-      end
-
-      context "#source_method" do
-        should 'return the specified source object method as a symbol' do
-          @autocomplete_method = :method
-          assert_equal source_method, :method
-        end
-      end
-
       context "#order" do
         should 'return a default order clause for ActiveRecord' do
           mock(self).source_model.stub!.table_name { 'table' }

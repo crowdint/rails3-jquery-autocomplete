@@ -42,53 +42,16 @@ module Rails3JQueryAutocomplete
     #
     module ClassMethods
       def autocomplete(object, method, options = {})
-        define_method("autocomplete_#{object}_#{method}") do
+        self.send :include, Rails3JQueryAutocomplete::Orm::ActiveRecord
+        self.send :include, Rails3JQueryAutocomplete::Controller
 
-          method = options[:column_name] if options.has_key?(:column_name)
-
-          term = params[:term]
-
-          if term && !term.blank?
-            #allow specifying fully qualified class name for model object
-            class_name = options[:class_name] || object
-            items = get_autocomplete_items(:model => get_object(class_name), \
-              :options => options, :term => term, :method => method)
-          else
-            items = {}
-          end
-
-          render :json => json_for_autocomplete(items, options[:display_value] ||= method, options[:extra_data])
+        define_method "source_model" do
+          sym_to_class(object)
         end
-      end
-    end
 
-    # Returns a limit that will be used on the query
-    def get_autocomplete_limit(options)
-      options[:limit] ||= 10
-    end
-
-    # Returns parameter model_sym as a constant
-    #
-    #   get_object(:actor)
-    #   # returns a Actor constant supposing it is already defined
-    #
-    def get_object(model_sym)
-      object = model_sym.to_s.camelize.constantize
-    end
-
-    #
-    # Returns a hash with three keys actually used by the Autocomplete jQuery-ui
-    # Can be overriden to show whatever you like
-    # Hash also includes a key/value pair for each method in extra_data
-    #
-    def json_for_autocomplete(items, method, extra_data=[])
-      items.collect do |item|
-        hash = {"id" => item.id.to_s, "label" => item.send(method), "value" => item.send(method)}
-        extra_data.each do |datum|
-          hash[datum] = item.send(datum)
-        end if extra_data
-        # TODO: Come back to remove this if clause when test suite is better
-        hash
+        define_method "source_method" do
+          method
+        end
       end
     end
   end

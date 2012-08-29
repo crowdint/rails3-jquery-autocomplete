@@ -1,14 +1,6 @@
 module Rails3JQueryAutocomplete
   module Orm
     module ActiveRecord
-      def source_model
-        sym_to_class(@autocomplete_object)
-      end
-
-      def source_method
-        @autocomplete_method
-      end
-
       def order
         "#{source_model.table_name}.#{source_method} ASC"
       end
