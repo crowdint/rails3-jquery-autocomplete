@@ -1,9 +1,0 @@
-%h1 Subclasses
-
-= form_for @product do |form|
-  %p
-    = form.label :name
-    = form.text_field :name
-  %p
-    = form.label :brand_name
-    = form.autocomplete_field :brand_name, autocomplete_foreign_brand_name_sub_classes_path
