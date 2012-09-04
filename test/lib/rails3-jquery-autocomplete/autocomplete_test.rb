@@ -6,12 +6,12 @@ module Rails3JQueryAutocomplete
 
     autocomplete :object, :name
 
-    should 'define the source_method method' do
+    def test_source_method
       assert_respond_to self, :source_method
       assert_equal source_method, :name
     end
 
-    should 'define the source_model method' do
+    def test_defines_source_model
       assert_respond_to self, :source_model
       assert_equal source_model, Object
     end

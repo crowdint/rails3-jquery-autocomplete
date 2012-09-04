@@ -6,87 +6,69 @@ module Rails3JQueryAutocomplete
       include Rails3JQueryAutocomplete::Orm::ActiveRecord
       include Rails3JQueryAutocomplete::Controller
 
-      context "#order" do
-        should 'return a default order clause for ActiveRecord' do
-          mock(self).source_model.stub!.table_name { 'table' }
-          mock(self).source_method { 'method' }
-          assert_equal order, 'table.method ASC'
-        end
+      def test_order
+        mock(self).source_model.stub!.table_name { 'table' }
+        mock(self).source_method { 'method' }
+        assert_equal order, 'table.method ASC'
       end
 
-      context "#items" do
-        should 'return the AR objects based on the specified term' do
-          active_record_scope, result = stub, stub
+      def test_items
+        active_record_scope, result = stub, stub
 
-          terms = 'terms'
-          expected_where = "WHERE table.column LIKE '%terms'"
-          expected_order = "ORDER BY table.column ASC"
+        terms = 'terms'
+        expected_where = "WHERE table.column LIKE '%terms'"
+        expected_order = "ORDER BY table.column ASC"
 
-          mock(self).source_model.stub!.scoped { active_record_scope }
+        mock(self).source_model.stub!.scoped { active_record_scope }
 
-          mock(self).where_clause(terms) { expected_where }
-          mock(self).order { expected_order }
+        mock(self).where_clause(terms) { expected_where }
+        mock(self).order { expected_order }
 
-          mock(active_record_scope).where(expected_where).mock!.limit(10).
-              mock!.order(expected_order) { result }
+        mock(active_record_scope).where(expected_where).mock!.limit(10).
+          mock!.order(expected_order) { result }
 
-          assert_equal items(terms), result
-        end
+        assert_equal items(terms), result
       end
 
-      context "#where_clause" do
-        setup do
-          @model      = stub
-          @table_name = 'table_name'
-          @term       = 'term'
+      def test_where_clause_with_postgres
+        setup_database_models
 
-          stub(self).source_model  { @model }
-          mock(@model).table_name  { @table_name }
-          mock(self).source_method { 'column' }
-        end
+        mock(self).postgres?(@model) { true }
 
-        context "postgres" do
-          should 'return a WHERE clause constructed with specified term, table and column using ILIKE' do
-            mock(self).postgres?(@model) { true }
-
-            assert_equal where_clause(@term), ['LOWER(table_name.column) ILIKE ?', '%term%']
-          end
-        end
-
-        context "else" do
-          should 'return a WHERE clause constructed with specified term, table and column using LIKE' do
-            mock(self).postgres?(@model) { false }
-
-            assert_equal where_clause(@term), ['LOWER(table_name.column) LIKE ?', '%term%']
-          end
-        end
+        assert_equal where_clause(@term), ['LOWER(table_name.column) ILIKE ?', '%term%']
       end
 
-      context '#postgres?' do
-        setup do
-          @model = stub
-        end
+      def test_where_clause_with_others
+        setup_database_models
 
-        context 'the connection class is not postgres' do
-          setup do
-            mock(@model).connection { stub }
-          end
+        mock(self).postgres?(@model) { false }
 
-          should 'return nil if the connection class matches PostgreSQLAdapter' do
-            assert_nil self.postgres?(@model)
-          end
-        end
+        assert_equal where_clause(@term), ['LOWER(table_name.column) LIKE ?', '%term%']
+      end
 
-        context 'the connection class matches PostgreSQLAdapter' do
-          setup do
-            class PostgreSQLAdapter; end
-            mock(@model).connection { PostgreSQLAdapter.new }
-          end
+      def test_postgres_not_postgres
+        model = stub
+        mock(model).connection { stub }
+        assert_nil self.postgres?(model)
+      end
 
-          should 'return true' do
-            assert self.postgres?(@model)
-          end
-        end
+      def test_postgres_with_postgres
+        klass = Class.new
+        Object.const_set 'PostgreSQLAdapter', klass
+
+        model = stub
+        mock(model).connection { PostgreSQLAdapter.new }
+        assert self.postgres?(model)
+      end
+
+      def setup_database_models
+        @model      = stub
+        @table_name = 'table_name'
+        @term       = 'term'
+
+        stub(self).source_model  { @model }
+        mock(@model).table_name  { @table_name }
+        mock(self).source_method { 'column' }
       end
     end
   end

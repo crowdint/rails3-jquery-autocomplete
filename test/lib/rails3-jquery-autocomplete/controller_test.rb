@@ -6,38 +6,30 @@ module Rails3JQueryAutocomplete
     include Rails3JQueryAutocomplete::Controller
     autocomplete :brand, :name
 
-    context "#show" do
-      should 'render the resulting JSON from items_to_json' do
-        stub(self).params { { :term => 'query' } }
-        mock(self).items_to_json('query') { '[ SOME JSON ]' }
-        mock(self).render :json => '[ SOME JSON ]'
-        show
-      end
+    def test_show_action
+      stub(self).params { { :term => 'query' } }
+      mock(self).items_to_json('query') { '[ SOME JSON ]' }
+      mock(self).render :json => '[ SOME JSON ]'
+      show
     end
 
-    context "#limit" do
-      should 'return 10' do
-        assert_equal limit, 10
-      end
+    def test_limit
+      assert_equal limit, 10
     end
 
-    context "#items_to_json" do
-      should "convert all items into JSON for the autocomplete plugin" do
-        item = stub
-        stub(item).id            { 1 }
-        stub(self).source_method { :some_method }
-        stub(item).some_method   { 'method result' }
+    def test_items_to_json
+      item = stub
+      stub(item).id            { 1 }
+      stub(self).source_method { :some_method }
+      stub(item).some_method   { 'method result' }
 
-        mock(self).items('term') { [ item ] }
+      mock(self).items('term') { [ item ] }
 
-        assert_equal items_to_json('term'), [{"id"=>"1", "label"=>"method result", "value"=>"method result"}]
-      end
+      assert_equal items_to_json('term'), [{"id"=>"1", "label"=>"method result", "value"=>"method result"}]
     end
 
-    context "#sym_to_class" do
-    	should "convert the specified sym to a contstant" do
-    		assert_equal sym_to_class(:object), Object
-    	end
+    def test_sym_to_class
+      assert_equal sym_to_class(:object), Object
     end
   end
 end
