@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'uglifier'
   s.add_development_dependency 'rr'
   s.add_development_dependency 'simple_form',  '~>1.5'
+  s.add_development_dependency 'simplecov'
 
   s.files         = Dir['lib/**/*'] + %w{CHANGELOG.md LICENSE README.md Rakefile}
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
