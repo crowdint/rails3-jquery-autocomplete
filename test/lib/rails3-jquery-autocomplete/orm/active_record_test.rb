@@ -9,7 +9,7 @@ module Rails3JQueryAutocomplete
       def test_order
         mock(self).source_model.stub!.table_name { 'table' }
         mock(self).source_method { 'method' }
-        assert_equal order, 'table.method ASC'
+        assert_equal 'table.method ASC', order
       end
 
       def test_items
@@ -27,7 +27,7 @@ module Rails3JQueryAutocomplete
         mock(active_record_scope).where(expected_where).mock!.limit(10).
           mock!.order(expected_order) { result }
 
-        assert_equal items(terms), result
+        assert_equal result, items(terms)
       end
 
       def test_where_clause_with_postgres
@@ -35,7 +35,7 @@ module Rails3JQueryAutocomplete
 
         mock(self).postgres?(@model) { true }
 
-        assert_equal where_clause(@term), ['LOWER(table_name.column) ILIKE ?', 'term%']
+        assert_equal ['LOWER(table_name.column) ILIKE ?', 'term%'], where_clause(@term)
       end
 
       def test_where_clause_with_others
@@ -43,7 +43,7 @@ module Rails3JQueryAutocomplete
 
         mock(self).postgres?(@model) { false }
 
-        assert_equal where_clause(@term), ['LOWER(table_name.column) LIKE ?', 'term%']
+        assert_equal ['LOWER(table_name.column) LIKE ?', 'term%'], where_clause(@term)
       end
 
       def test_postgres_not_postgres
@@ -62,7 +62,7 @@ module Rails3JQueryAutocomplete
       end
 
       def test_full_search
-        assert_equal full_search, false
+        assert_equal false, full_search
       end
 
       def setup_database_models
