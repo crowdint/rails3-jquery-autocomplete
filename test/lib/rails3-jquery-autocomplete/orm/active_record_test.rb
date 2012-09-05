@@ -46,6 +46,15 @@ module Rails3JQueryAutocomplete
         assert_equal ['LOWER(table_name.column) LIKE ?', 'term%'], where_clause(@term)
       end
 
+      def test_where_clause_with_full_search
+        setup_database_models
+
+        mock(self).postgres?(@model) { false }
+        mock(self).full_search { true }
+
+        assert_equal ['LOWER(table_name.column) LIKE ?', '%term%'], where_clause(@term)
+      end
+
       def test_postgres_not_postgres
         model = stub
         mock(model).connection { stub }
