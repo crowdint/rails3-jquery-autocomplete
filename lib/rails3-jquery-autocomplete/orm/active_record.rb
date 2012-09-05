@@ -12,11 +12,12 @@ module Rails3JQueryAutocomplete
 
       def where_clause(term)
         table_name = source_model.table_name
-        #is_full_search = options[:full]
-        #TODO: Make this a something
-        is_full_search = true
         like_clause = (postgres?(source_model) ? 'ILIKE' : 'LIKE')
-        ["LOWER(#{table_name}.#{source_method}) #{like_clause} ?", "#{(is_full_search ? '%' : '')}#{term.downcase}%"]
+        ["LOWER(#{table_name}.#{source_method}) #{like_clause} ?", "#{(full_search ? '%' : '')}#{term.downcase}%"]
+      end
+
+      def full_search
+        false
       end
 
       #
