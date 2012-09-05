@@ -17,6 +17,13 @@ module Rails3JQueryAutocomplete
         assert_equal query_hash, where_clause('term')
       end
 
+      def test_where_clause_with_full_search
+        mock(self).source_method { :method }
+        mock(self).full_search { true }
+        query_hash = { :method => /.*term.*/i }
+        assert_equal query_hash, where_clause('term')
+      end
+
       def test_items
         result, model, stub_where, stub_order = stub, stub, stub, stub
         mock(self).source_model  { model }
@@ -26,6 +33,10 @@ module Rails3JQueryAutocomplete
         mock(model).where(stub_where).mock!.limit(10).mock!.order_by(stub_order) { result }
 
         assert_equal result, items('term')
+      end
+
+      def test_full_search
+        assert_equal false, full_search
       end
     end
   end

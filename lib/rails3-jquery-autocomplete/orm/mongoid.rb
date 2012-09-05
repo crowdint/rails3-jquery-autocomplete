@@ -5,22 +5,17 @@ module Rails3JQueryAutocomplete
         [[source_method, :asc]]
       end
 
-      # TODO: Implement full_search with the following legacy logic:
-      #
-      # if is_full_search
-      #   search = '.*' + term + '.*'
-      # else
-      #   search = '^' + term
-      # end
-      #
-      #
       def where_clause(term)
-        query = '^' + term
+        query = full_search ? '.*' + term + '.*' : '^' + term
         { source_method.to_sym => /#{query}/i }
       end
 
       def items(term)
         source_model.where(where_clause(term)).limit(limit).order_by(order)
+      end
+
+      def full_search
+        false
       end
     end
   end
