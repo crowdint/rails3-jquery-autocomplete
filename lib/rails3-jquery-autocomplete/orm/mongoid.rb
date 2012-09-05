@@ -1,33 +1,26 @@
 module Rails3JQueryAutocomplete
   module Orm
     module Mongoid
-      def get_autocomplete_order(method, options, model=nil)
-        order = options[:order]
-        if order
-          order.split(',').collect do |fields|
-            sfields = fields.split
-            [sfields[0].downcase.to_sym, sfields[1].downcase.to_sym]
-          end
-        else
-          [[method.to_sym, :asc]]
-        end
+      def order
+        [[source_method, :asc]]
       end
 
-      def get_autocomplete_items(parameters)
-        model          = parameters[:model]
-        method         = parameters[:method]
-        options        = parameters[:options]
-        is_full_search = options[:full]
-        term           = parameters[:term]
-        limit          = get_autocomplete_limit(options)
-        order          = get_autocomplete_order(method, options)
+      # TODO: Implement full_search with the following legacy logic:
+      #
+      # if is_full_search
+      #   search = '.*' + term + '.*'
+      # else
+      #   search = '^' + term
+      # end
+      #
+      #
+      def where_clause(term)
+        query = '^' + term
+        { source_method.to_sym => /#{query}/i }
+      end
 
-        if is_full_search
-          search = '.*' + term + '.*'
-        else
-          search = '^' + term
-        end
-        items  = model.where(method.to_sym => /#{search}/i).limit(limit).order_by(order)
+      def items(term)
+        source_model.where(where_clause(term)).limit(limit).order_by(order)
       end
     end
   end
