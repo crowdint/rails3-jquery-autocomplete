@@ -1,60 +1,43 @@
 require 'test_helper'
 
 module Rails3JQueryAutocomplete
-	module Orm
-		class MongoMapperTest < Test::Unit::TestCase
-			include Rails3JQueryAutocomplete::Orm::MongoMapper
+  module Orm
+    class MongoMapperTest < Test::Unit::TestCase
+      include Rails3JQueryAutocomplete::Orm::MongoMapper
+      include Rails3JQueryAutocomplete::Controller
 
-			context "#get_autocomplete_order" do
-				context "order is specified" do
-					should 'returns the parametrized order for Mongoid' do
-						assert_equal [[:field, :asc], [:state, :desc]],
-							get_autocomplete_order(:method, :order => 'field ASC, state DESC')
-					end
-				end
+      def test_order
+        mock(self).source_method { :method }
+        assert_equal [[:method, :asc]], order
+      end
 
-				context 'order is not specified' do
-					should 'return the method ordered ASC by default' do
-						assert_equal [[:method, :asc]],
-							get_autocomplete_order(:method, {})
-					end
-				end
-			end
+      def test_where_clause
+        mock(self).source_method { :method }
+        query_hash = { :method => /^term.*/i }
+        assert_equal query_hash, where_clause('term')
+      end
 
-			context "#get_autocomplete_items" do
-				setup do
-					@model = mock(Object)
+      def test_where_clause_with_full_search
+        mock(self).source_method { :method }
+        mock(self).full_search { true }
+        query_hash = { :method => /.*term.*/i }
+        assert_equal query_hash, where_clause('term')
+      end
 
-					@parameters = {
-						:model => @model,
-						:method => :field,
-						:term => 'query',
-						:options => {:full => false}
-					}
-					mock(self).get_autocomplete_limit(anything) { 10 }
-					mock(self).get_autocomplete_order(anything, anything) { [[:order, :asc]] }
-				end
+      def test_items
+        result, model, stub_where, stub_order = stub, stub, stub, stub
+        mock(self).source_model  { model }
+        mock(self).where_clause('term') { stub_where }
+        mock(self).order { stub_order }
 
-				context 'not a full search' do
-					should 'do stuff' do
-						mock(@model).where({:field=>/^query.*/i}).mock!.limit(10).
-								mock!.sort([[:order, :asc]])
+        mock(model).where(stub_where).mock!.limit(10).mock!.order_by(stub_order) { result }
 
-						get_autocomplete_items(@parameters)	
-					end
-				end
+        assert_equal result, items('term')
+      end
 
-				context 'full search' do
-					should 'return a full search query' do
-						@parameters[:options] = {:full => true}
-
-						mock(@model).where({:field => /.*query.*/i}).mock!.limit(10).
-								mock!.sort([[:order, :asc]])
-						
-						get_autocomplete_items(@parameters)	
-					end
-				end
-			end
-		end
-	end
+      def test_full_search
+        assert_equal false, full_search
+      end
+    end
+  end
 end
