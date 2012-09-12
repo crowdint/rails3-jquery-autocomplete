@@ -60,7 +60,6 @@ end
 
 class ActionView::TestCase
   include Rails3JQueryAutocomplete::Autocomplete
-  include SimpleForm::ActionViewExtensions::FormHelper
 
   setup :set_controller
   setup :set_response
