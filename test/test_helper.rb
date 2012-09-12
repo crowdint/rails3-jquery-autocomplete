@@ -20,7 +20,6 @@ end
 require 'rails/all'
 require 'mongoid'
 require 'mongo_mapper'
-require 'shoulda'
 require 'rr'
 require 'rails/test_help'
 require 'rails3-jquery-autocomplete'

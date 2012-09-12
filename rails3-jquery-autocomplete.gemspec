@@ -22,7 +22,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'guard'
   s.add_development_dependency 'guard-test'
   s.add_development_dependency 'test-unit',    '~> 2.2.0'
-  s.add_development_dependency 'shoulda',      '~> 3.0.1'
   s.add_development_dependency 'uglifier'
   s.add_development_dependency 'rr'
   s.add_development_dependency 'simple_form',  '~>1.5'
