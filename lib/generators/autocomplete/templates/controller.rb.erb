@@ -1,4 +1,50 @@
 class <%= config[:controller_class_name] %>Controller < ApplicationController
   autocomplete :<%= config[:source_object] %>, :<%= config[:source_method] %>
 
+  # protected
+  #
+  # You can override the following methods to customize what the autocomplete
+  # plugin shows up.
+  #
+
+  #
+  # Make this method return the limit of items that will show up
+  # on the autocomplete list.
+  #
+  # Default is 10
+  #
+  # def limit
+  #   10
+  # end
+
+  # Override this method with logic that ends up returning the JSON
+  # that goes to the autocomplete list on the client side.
+  #
+  # Some of the variables you can use here:
+  #
+  # term          - The user's input
+  # items(term)   - Returns the resulting objects for the specified query
+  # source_method - The method that returns the value on the objects
+  #
+  # Example:
+  #
+  # def items_to_json(term)
+  #    items(term).collect do |item|
+  #      {
+  #          "id"    => item.id.to_s,
+  #          "label" => item.send(:a_different_method).capitalize,
+  #          "value" => item.send(source_method).tableize
+  #      }
+  # end
+  #
+
+  #
+  # This method should return the objects that show up on the autocomplete
+  # list.
+  #
+  # Example:
+  #
+  # def items(term)
+  #   Model.all
+  # end
 end
