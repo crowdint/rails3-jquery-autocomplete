@@ -8,7 +8,8 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 ENV["RAILS_ENV"] = "test"
 
 SimpleCov.start do
-  add_filter "/test/"
+  add_group 'Libraries', 'lib'
+  add_group 'Tests', 'test'
 end
 
 module Rails
