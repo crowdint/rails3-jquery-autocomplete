@@ -23,9 +23,9 @@ module Rails3JQueryAutocomplete
         order          = get_autocomplete_order(method, options)
 
         if is_full_search
-          search = '.*' + term + '.*'
+          search = '.*' + Regexp.escape(term) + '.*'
         else
-          search = '^' + term
+          search = '^' + Regexp.escape(term)
         end
         items  = model.where(method.to_sym => /#{search}/i).limit(limit).order_by(order)
       end
