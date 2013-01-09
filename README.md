@@ -197,7 +197,7 @@ If you are not using a FormBuilder (form_for) or you just want to include an aut
       autocomplete_field_tag 'address', '', address_autocomplete_path, :size => 75
     end
 
-#### Autocomplete with Multiple Values Separated by Delimiter
+#### Multiple Values Separated by Delimiter
 
 To generate an autocomplete input field that accepts multiple values separated by a given delimiter, add the `'data-delimiter'` and `:multiple` options:
 
