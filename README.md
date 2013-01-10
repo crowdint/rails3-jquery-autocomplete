@@ -197,6 +197,17 @@ If you are not using a FormBuilder (form_for) or you just want to include an aut
       autocomplete_field_tag 'address', '', address_autocomplete_path, :size => 75
     end
 
+#### Multiple Values Separated by Delimiter
+
+To generate an autocomplete input field that accepts multiple values separated by a given delimiter, add the `'data-delimiter'` and `:multiple` options:
+
+    form_for @product do |f|
+      f.autocomplete_field :brand_names, autocomplete_brand_name_products_path, 
+      'data-delimiter' => ',', :multiple => true
+    end
+
+NOTE: Setting the `:multiple` option to `true` will result in the chosen values being submitted as an array. Leaving this option off will result in the values being passed as a single string, with the values separated by your chosen delimiter.
+
 Now your autocomplete code is unobtrusive, Rails 3 style.
 
 ### Getting the object id
