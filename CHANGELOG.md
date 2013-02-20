@@ -1,5 +1,8 @@
 # Changelog
 
+* 1.0.11
+  * mongoid: escape regular expression in search
+  * When possible, use jQuery .on() rather than .live()
 * 1.0.6 Postgres or non-postgres queries are now determined at model level
 * 1.0.3 Fixed Formtastic 2.0 + Ruby 1.8.7 compat issue
 * 1.0.2 Fixed issue #93, #94
