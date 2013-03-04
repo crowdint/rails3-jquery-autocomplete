@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/crowdint/rails3-jquery-autocomplete}
   s.summary = %q{Use jQuery's autocomplete plugin with Rails 3.}
   s.description = %q{Use jQuery's autocomplete plugin with Rails 3.}
+  s.license = %q{MIT}
 
   s.add_dependency('rails', '~>3.0')
 
