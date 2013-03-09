@@ -339,7 +339,7 @@ while you're developing, it is recommended that you run
 
     bundle exec guard
 
-to have the relevent test run every time you save a file.
+to have the relevant test run every time you save a file.
 
 ## Integration tests
 
@@ -357,7 +357,7 @@ integration folder:
 
 ## Where to test what
 
-If you're making or tweaking a plugin (such as the formastic plugin or
+If you're making or tweaking a plugin (such as the formtastic plugin or
 simple\_form plugin), check out the simple\_form\_plugin\_test for an
 example of how to test it as part of the main `rake test` run.
 Historically, plugins like these had been tested (shoddily) as part of
