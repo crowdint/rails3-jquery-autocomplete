@@ -57,6 +57,37 @@ module Rails3JQueryAutocomplete
 
           assert_equal 1, get_autocomplete_items(options)
         end
+
+        should 'use hstore method if present' do
+          class Dog ; end
+
+          model = Dog
+          scoped = []
+          whered = []
+          term = 'query'
+          method = :field
+          hsmethod = :hsfield
+
+          options = {
+            :model => model,
+            :term => term,
+            :method => method,
+            :options => {hstore: {method: hsmethod}}
+          }
+
+          mock(self).get_autocomplete_limit(anything) { 10 }
+          mock(self).get_autocomplete_order(anything, anything, anything) { "order ASC" }
+          mock(self).get_autocomplete_select_clause(model, hsmethod, options[:options]) { ["hsfield"] }
+          mock(self).get_autocomplete_where_clause(model, term, hsmethod, options[:options]) { ["WHERE something"] }
+          mock(model).table_name.times(any_times) { 'model_table_name' }
+
+          mock(model).scoped { model }
+          mock(model).select(["hsfield"]) { model }
+          mock(model).where(["WHERE something"]).mock!.limit(10).mock!.
+              order("order ASC") { 1 }
+
+          assert_equal 1, get_autocomplete_items(options)
+        end
       end
 
       context '#get_autocomplete_select_clause' do
@@ -69,6 +100,11 @@ module Rails3JQueryAutocomplete
         should 'create a select clause' do
           assert_equal ["table_name.id", "table_name.method"],
               get_autocomplete_select_clause(@model, :method, {})
+        end
+
+        should 'create a select clause with hstore method' do
+          assert_equal ["table_name.id", "table_name.hsmethod"],
+              get_autocomplete_select_clause(@model, :hsmethod, {hstore: {method: :hsmethod}})
         end
 
         context 'with extra options' do
@@ -102,6 +138,15 @@ module Rails3JQueryAutocomplete
           should 'return options for where with ILIKE' do
             mock(self).postgres?(@model) { true }
             assert_equal ["LOWER(table_name.method) ILIKE ?", "query%"], get_autocomplete_where_clause(@model, @term, @method, @options)
+          end
+        end
+
+        context 'HStore' do
+          should 'return options for where from hstore options' do
+            mock(self).postgres?(@model) { true }
+            @options[:hstore] = {method: :hsmethod, key: :hskey}
+            @method = :hsmethod
+            assert_equal ["LOWER(table_name.hsmethod) -> 'hskey' LIKE ?", "query%"], get_autocomplete_where_clause(@model, @term, @method, @options)
           end
         end
 
