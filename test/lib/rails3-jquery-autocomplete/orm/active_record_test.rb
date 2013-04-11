@@ -146,7 +146,7 @@ module Rails3JQueryAutocomplete
             mock(self).postgres?(@model) { true }
             @options[:hstore] = {method: :hsmethod, key: :hskey}
             @method = :hsmethod
-            assert_equal ["LOWER(table_name.hsmethod) -> 'hskey' LIKE ?", "query%"], get_autocomplete_where_clause(@model, @term, @method, @options)
+            assert_equal ["LOWER(table_name.hsmethod -> 'hskey') LIKE ?", "query%"], get_autocomplete_where_clause(@model, @term, @method, @options)
           end
         end
 
