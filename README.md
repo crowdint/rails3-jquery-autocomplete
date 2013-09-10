@@ -1,3 +1,12 @@
+## Status
+
+Unfortunately, I don't have much time to work on this gem, I'm looking for
+someone to help with its maintenance. Send me an email if you are interested in
+getting push privileges to this repo.
+
+david@crowdint.com
+
+
 # rails3-jquery-autocomplete
 
 [![Build Status](https://secure.travis-ci.org/crowdint/rails3-jquery-autocomplete.png)](http://travis-ci.org/crowdint/rails3-jquery-autocomplete)
@@ -202,7 +211,7 @@ If you are not using a FormBuilder (form_for) or you just want to include an aut
 To generate an autocomplete input field that accepts multiple values separated by a given delimiter, add the `'data-delimiter'` and `:multiple` options:
 
     form_for @product do |f|
-      f.autocomplete_field :brand_names, autocomplete_brand_name_products_path, 
+      f.autocomplete_field :brand_names, autocomplete_brand_name_products_path,
       'data-delimiter' => ',', :multiple => true
     end
 
