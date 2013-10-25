@@ -1,5 +1,18 @@
 ## Status
 
+Thanks to David @ crowdint for creating this gem and all of his hard
+work on it in the past.
+
+Just posting this update to let everyone know this project is still
+alive and has a new maintainer.  Over the next couple of weeks we will
+be reviewing existing pull requests and you will see updates shortly.
+
+Thanks for your patience.
+
+joiey-seeley@uiowa.edu
+
+-------
+
 Unfortunately, I don't have much time to work on this gem, I'm looking for
 someone to help with its maintenance. Send me an email if you are interested in
 getting push privileges to this repo.
