@@ -1,3 +1,7 @@
+## INTELLIJ/RubyMine
+.idea/*
+.idea/**/*
+
 ## MAC OS
 .DS_Store
 
@@ -12,6 +16,7 @@ tmtags
 
 ## VIM
 *.swp
+*.swo
 
 ## PROJECT::GENERAL
 coverage
@@ -24,3 +29,5 @@ tmp
 .rvmrc
 .gemrc
 Gemfile.lock
+
+tags
