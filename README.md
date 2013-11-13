@@ -89,7 +89,7 @@ uncompressed version by running:
 
     rails generate autocomplete:uncompressed
 
-### Rails 3.1.x
+### Rails 3.1.x and higher
 
 Just add it to your app/assets/javascripts/application.js file
 
