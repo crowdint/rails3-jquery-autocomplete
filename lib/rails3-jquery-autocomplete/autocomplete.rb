@@ -57,7 +57,7 @@ module Rails3JQueryAutocomplete
             items = {}
           end
 
-          render :json => json_for_autocomplete(items, options[:display_value] ||= method, options[:extra_data], options[:distinct])
+          render :json => json_for_autocomplete(items, options[:display_value] ||= method, options[:extra_data])
         end
       end
     end
@@ -73,7 +73,7 @@ module Rails3JQueryAutocomplete
     #   # returns a Actor constant supposing it is already defined
     #
     def get_object(model_sym)
-      model_sym.to_s.camelize.constantize
+      object = model_sym.to_s.camelize.constantize
     end
 
     #
@@ -81,25 +81,16 @@ module Rails3JQueryAutocomplete
     # Can be overriden to show whatever you like
     # Hash also includes a key/value pair for each method in extra_data
     #
-    def json_for_autocomplete(items, method, extra_data=[], distinct = false)
-      arr = []
-      items.each do |item|
-        hash = {}
-        hash['id'] = item.id.to_s unless distinct
-        hash['value'] = item.send(method)
-        hash['label'] = hash['value']
-        
+    def json_for_autocomplete(items, method, extra_data=[])
+      items.collect do |item|
+        hash = {"id" => item.id.to_s, "label" => item.send(method), "value" => item.send(method)}
         extra_data.each do |datum|
           hash[datum] = item.send(datum)
         end if extra_data
         # TODO: Come back to remove this if clause when test suite is better
-        
-        next if distinct and arr.include?(hash)
-        arr << hash
+        hash
       end
-      arr
     end
-    
   end
 end
 
