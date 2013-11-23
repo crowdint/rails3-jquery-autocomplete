@@ -1,5 +1,27 @@
 ## Status
 
+As you may have noticed we are working through the backlog of issues and pull requests
+and trying to get those caught up.  Couple of quick notes related to this.
+
+1) A new gem with Rails 4 will be forthcoming so users on Rails 4 don't need to point to master.
+2) If there is a specific feature that is in master, but not in the gem I strongly suggest you
+   point to the specific changeset that addresses your issue rather than directly at master. There
+   are going to be a lot of changes going on here and while we will do our best; there will probably
+   be some breakage on master in the short term.  Use at your discretion!
+3) Some pull requests have been submitted to address the same functionality; in those cases we will try
+   to pick the best/optimal solution, accept that and close out the other tickets.
+4) Backwards compatibility is considered a high priority, so if a pull request is a great idea,
+   but it breaks backwards compatibility, it will be closed and noted that it causes breakage 
+   to backwards compatibility.  If anyone passionately wants the feature they are welcome to update 
+   in a way that maintiains backwards compatibility and issue new pull reqs.
+5) Performance is critical.  If a feature is a nice to have, but has been implemented in such a way that it causes
+   performance degradation to existing searches; it will be rejected.
+6) Thanks to everyone who is submitting pull requests, issues, comments, etc... I appreciate the help
+   from each one of you.  Sometimes it has to get worse before it gets better.  But I promise,
+   it will get better!
+
+-------
+
 Thanks to David @ crowdint for creating this gem and all of his hard
 work on it in the past.
 
