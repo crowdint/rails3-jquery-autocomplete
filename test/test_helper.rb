@@ -31,6 +31,6 @@ end
 ActionController::Base.send :include, Rails3JQueryAutocomplete::Application.routes.url_helpers
 
 class Test::Unit::TestCase
-  include RR::Adapters::TestUnit
+
 end
 
