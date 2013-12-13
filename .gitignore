@@ -31,3 +31,4 @@ tmp
 Gemfile.lock
 
 tags
+rails3-jquery-autocomplete-*.gem
