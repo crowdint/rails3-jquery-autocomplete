@@ -3,7 +3,7 @@
 As you may have noticed we are working through the backlog of issues and pull requests
 and trying to get those caught up.  Couple of quick notes related to this.
 
-1. A new gem with Rails 4 will be forthcoming so users on Rails 4 don't need to point to master.
+1. A new gem with Rails 4 support HAS BEEN recently RELEASED (1.0.12).
 2. If there is a specific feature that is in master, but not in the gem I strongly suggest you
    point to the specific changeset that addresses your issue rather than directly at master. There
    are going to be a lot of changes going on here and while we will do our best; there will probably
