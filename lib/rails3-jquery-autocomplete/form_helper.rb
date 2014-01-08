@@ -33,6 +33,7 @@ module ActionView
     #
     private
     def rewrite_autocomplete_option(options)
+      options["data-autocomplete-fields"] = JSON.generate(options.delete :fields) if options[:fields]
       options["data-update-elements"] = JSON.generate(options.delete :update_elements) if options[:update_elements]
       options["data-id-element"] = options.delete :id_element if options[:id_element]
       options
