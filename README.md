@@ -203,6 +203,14 @@ This wouldn't really make much sense unless you use it with the "id_element" att
 
 Only the object's id and the column you are searching on will be returned in JSON, so if your display_value method requires another parameter, make sure to fetch it with the :extra_data option
 
+#### :hstore
+
+  Added option to support searching in hstore columns.
+
+  Pass a hash with two keys: `:method` and `:key` with values: the hstore field name and the key of the hstore to search.
+
+  e.g `autocomplete :feature, :name, :hstore => {:method => 'name_translations', :key => 'en'}`
+
 
 #### :scopes
   Added option to use scopes. Pass scopes in an array.
