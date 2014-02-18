@@ -41,12 +41,12 @@ module Rails3JQueryAutocomplete
       def autocomplete(object, method, options = {}, &block)
 
         define_method("get_prefix") do |model|
-          if model.superclass == ActiveRecord::Base
-            'active_record'
-          elsif model.superclass == Object && model.include?(Mongoid::Document)
+          if model.superclass == Object && model.include?(Mongoid::Document)
             'mongoid'
           elsif model.superclass == Object && model.include?(MongoMapper::Document)
             'mongo_mapper'
+          else
+            'active_record'
           end
         end
         define_method("get_autocomplete_order") do |method, options, model=nil|
