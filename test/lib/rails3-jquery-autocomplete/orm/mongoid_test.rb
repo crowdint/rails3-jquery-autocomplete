@@ -5,23 +5,23 @@ module Rails3JQueryAutocomplete
 		class MongoidTest < Test::Unit::TestCase
 			include Rails3JQueryAutocomplete::Orm::Mongoid
 
-			context "#get_autocomplete_order" do
+			context "#mongoid_get_autocomplete_order" do
 				context "order is specified" do
 					should 'returns the parametrized order for Mongoid' do
 						assert_equal [[:field, :asc], [:state, :desc]],
-							get_autocomplete_order(:method, :order => 'field ASC, state DESC')
+              mongoid_get_autocomplete_order(:method, :order => 'field ASC, state DESC')
 					end
 				end
 
 				context 'order is not specified' do
 					should 'return the method ordered ASC by default' do
 						assert_equal [[:method, :asc]],
-							get_autocomplete_order(:method, {})
+              mongoid_get_autocomplete_order(:method, {})
 					end
 				end
 			end
 
-			context "#get_autocomplete_items" do
+			context "#mongoid_get_autocomplete_items" do
 				setup do
 					@model = mock(Object)
 
@@ -32,7 +32,7 @@ module Rails3JQueryAutocomplete
 						:options => {:full => false}
 					}
 					mock(self).get_autocomplete_limit(anything) { 10 }
-					mock(self).get_autocomplete_order(anything, anything) { [[:order, :asc]] }
+					mock(self).mongoid_get_autocomplete_order(anything, anything) { [[:order, :asc]] }
 				end
 
 				context 'not a full search' do
@@ -40,7 +40,7 @@ module Rails3JQueryAutocomplete
 						mock(@model).where({:field=>/^query/i}).mock!.limit(10).
 								mock!.order_by([[:order, :asc]])
 
-						get_autocomplete_items(@parameters)	
+            mongoid_get_autocomplete_items(@parameters)
 					end
 				end
 
@@ -50,8 +50,8 @@ module Rails3JQueryAutocomplete
 
 						mock(@model).where({:field=>/.*query.*/i}).mock!.limit(10).
 								mock!.order_by([[:order, :asc]])
-						
-						get_autocomplete_items(@parameters)	
+
+            mongoid_get_autocomplete_items(@parameters)
 					end
 				end
 			end
