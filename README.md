@@ -170,6 +170,10 @@ Only the following terms mould match the query 'un':
 
 * Unacceptable
 
+#### :limit => 10 (default behavior)
+
+By default your search result set is limited to the first 10 records. This can be overridden by specifying the limit option.
+
 #### :extra_data
 
 By default, your search will only return the required columns from the database needed to populate your form, namely id and the column you are searching (name, in the above example).
