@@ -1,7 +1,7 @@
 module Rails3JQueryAutocomplete
   module Orm
     module Mongoid
-      def get_autocomplete_order(method, options, model=nil)
+      def mongoid_get_autocomplete_order(method, options, model=nil)
         order = options[:order]
         if order
           order.split(',').collect do |fields|
@@ -13,14 +13,14 @@ module Rails3JQueryAutocomplete
         end
       end
 
-      def get_autocomplete_items(parameters)
+      def mongoid_get_autocomplete_items(parameters)
         model          = parameters[:model]
         method         = parameters[:method]
         options        = parameters[:options]
         is_full_search = options[:full]
         term           = parameters[:term]
         limit          = get_autocomplete_limit(options)
-        order          = get_autocomplete_order(method, options)
+        order          = mongoid_get_autocomplete_order(method, options)
 
         if is_full_search
           search = '.*' + Regexp.escape(term) + '.*'

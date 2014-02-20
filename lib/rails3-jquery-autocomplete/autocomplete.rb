@@ -3,13 +3,10 @@ module Rails3JQueryAutocomplete
     def self.included(target)
       target.extend Rails3JQueryAutocomplete::Autocomplete::ClassMethods
 
-      if defined?(Mongoid::Document)
-        target.send :include, Rails3JQueryAutocomplete::Orm::Mongoid
-      elsif defined?(MongoMapper::Document)
-        target.send :include, Rails3JQueryAutocomplete::Orm::MongoMapper
-      else
-        target.send :include, Rails3JQueryAutocomplete::Orm::ActiveRecord
-      end
+      target.send :include, Rails3JQueryAutocomplete::Orm::Mongoid if defined?(Mongoid::Document)
+      target.send :include, Rails3JQueryAutocomplete::Orm::MongoMapper if defined?(MongoMapper::Document)
+      target.send :include, Rails3JQueryAutocomplete::Orm::ActiveRecord
+
     end
 
     #
@@ -42,6 +39,24 @@ module Rails3JQueryAutocomplete
     #
     module ClassMethods
       def autocomplete(object, method, options = {}, &block)
+
+        define_method("get_prefix") do |model|
+          if model.superclass == Object && model.include?(Mongoid::Document)
+            'mongoid'
+          elsif model.superclass == Object && model.include?(MongoMapper::Document)
+            'mongo_mapper'
+          else
+            'active_record'
+          end
+        end
+        define_method("get_autocomplete_order") do |method, options, model=nil|
+          method("#{get_prefix(get_object(options[:class_name] || object))}_get_autocomplete_order").call(method, options, model)
+        end
+
+        define_method("get_autocomplete_items") do |parameters|
+          method("#{get_prefix(get_object(options[:class_name] || object))}_get_autocomplete_items").call(parameters)
+        end
+
         define_method("autocomplete_#{object}_#{method}") do
 
           method = options[:column_name] if options.has_key?(:column_name)

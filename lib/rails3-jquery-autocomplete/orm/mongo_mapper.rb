@@ -1,7 +1,7 @@
 module Rails3JQueryAutocomplete
 	module Orm
 		module MongoMapper
-			def get_autocomplete_order(method, options, model=nil)
+			def mongo_mapper_get_autocomplete_order(method, options, model=nil)
         order = options[:order]
         if order
           order.split(',').collect do |fields|
@@ -13,14 +13,14 @@ module Rails3JQueryAutocomplete
         end
 			end
 
-			def get_autocomplete_items(parameters)
+			def mongo_mapper_get_autocomplete_items(parameters)
         model          = parameters[:model]
         method         = parameters[:method]
         options        = parameters[:options]
         is_full_search = options[:full]
         term           = parameters[:term]
         limit          = get_autocomplete_limit(options)
-        order          = get_autocomplete_order(method, options)
+        order          = mongo_mapper_get_autocomplete_order(method, options)
 
         search = (is_full_search ? '.*' : '^') + term + '.*'
 				items  = model.where(method.to_sym => /#{search}/i).limit(limit).sort(order)

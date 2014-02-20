@@ -1,14 +1,14 @@
 module Rails3JQueryAutocomplete
   module Orm
     module ActiveRecord
-      def get_autocomplete_order(method, options, model=nil)
+      def active_record_get_autocomplete_order(method, options, model=nil)
         order = options[:order]
 
         table_prefix = model ? "#{model.table_name}." : ""
         order || "#{table_prefix}#{method} ASC"
       end
 
-      def get_autocomplete_items(parameters)
+      def active_record_get_autocomplete_items(parameters)
         model   = parameters[:model]
         term    = parameters[:term]
         options = parameters[:options]
@@ -16,7 +16,7 @@ module Rails3JQueryAutocomplete
         scopes  = Array(options[:scopes])
         where   = options[:where]
         limit   = get_autocomplete_limit(options)
-        order   = get_autocomplete_order(method, options, model)
+        order   = active_record_get_autocomplete_order(method, options, model)
 
 
         items = (::Rails::VERSION::MAJOR * 10 + ::Rails::VERSION::MINOR) >= 41 ? model.all : model.scoped
