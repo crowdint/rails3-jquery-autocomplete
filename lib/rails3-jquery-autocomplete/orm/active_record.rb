@@ -19,7 +19,7 @@ module Rails3JQueryAutocomplete
         order   = active_record_get_autocomplete_order(method, options, model)
 
 
-        items = (::Rails::VERSION::MAJOR * 10 + ::Rails::VERSION::MINOR) >= 41 ? model.all : model.scoped
+        items = (::Rails::VERSION::MAJOR * 10 + ::Rails::VERSION::MINOR) >= 40 ? model.where(nil) : model.scoped
 
         scopes.each { |scope| items = items.send(scope) } unless scopes.empty?
 
