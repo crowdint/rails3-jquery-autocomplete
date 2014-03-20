@@ -7,6 +7,7 @@ module SimpleForm
       #
       def rewrite_autocomplete_option
         new_options = {}
+        new_options["data-autocomplete-fields"] = JSON.generate(options.delete :fields) if options[:fields]
         new_options["data-update-elements"] = JSON.generate(options.delete :update_elements) if options[:update_elements]
         new_options["data-id-element"] = options.delete :id_element if options[:id_element]
         input_html_options.merge new_options

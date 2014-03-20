@@ -274,6 +274,30 @@ If you need to use the id of the selected object, you can use the *id_element* a
 
 This will update the field with id *#some_element with the id of the selected object. The value for this option can be any jQuery selector.
 
+### Sending extra search fields
+
+If you want to send extra fields from your form to the search action,
+you can use the **:fields** options which generates a **data-autocomplete-fields**
+HTML attribute.
+
+The :fields option accepts a hash where the keys represent the Ajax request
+parameter name and the values represent the jQuery selectors to retrieve the
+form elements to get the values:
+
+    f.autocomplete_field :product_name, '/products/autocomplete_product_name', :fields => {:brand_id => '#brand_element', :country => '#country_element'}
+
+    class ProductsController < Admin::BaseController
+      def autocomplete_product_name
+        term = params[:term]
+        brand_id = params[:brand_id]
+        country = params[:country]
+        products = Product.where('brand = ? AND country = ? AND name LIKE ?', brand_id, country, "%term%").order(:name).all
+        render :json => products.map { |product| {:id => product.id, :label => product.name, :value => product.name} }
+      end
+    end
+
+The previous example would fetch the extra attribute slogan and update jQuery('#some_other_element') with the slogan value.
+
 ### Getting extra object data
 
 If you need to extra data about the selected object, you can use the *:update_elements* HTML attribute.
