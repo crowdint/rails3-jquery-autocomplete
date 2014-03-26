@@ -274,6 +274,17 @@ If you need to use the id of the selected object, you can use the *id_element* a
 
 This will update the field with id *#some_element with the id of the selected object. The value for this option can be any jQuery selector.
 
+### Changing destination element
+
+If you need to change destination element where the autocomplete box will be appended to, you can use the **:append_to** option which generates a **data-append-to** HTML attribute that is used in jQuery autocomplete as append_to attribute.
+
+The :append_to option accepts a string containing jQuery selector for destination element:
+
+    f.autocomplete_field :product_name, '/products/autocomplete_product_name', :append_to => "#product_modal"
+
+The previous example would append the autocomplete box containing suggestions to element jQuery('#product_modal'). 
+This is very useful on page where you use various z-indexes and you need to append the box to the topmost element, for example using modal window.
+
 ### Sending extra search fields
 
 If you want to send extra fields from your form to the search action,
