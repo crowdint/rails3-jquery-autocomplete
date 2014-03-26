@@ -280,7 +280,7 @@ If you need to change destination element where the autocomplete box will be app
 
 The :append_to option accepts a string containing jQuery selector for destination element:
 
-f.autocomplete_field :product_name, '/products/autocomplete_product_name', :append_to => "#product_modal"
+    f.autocomplete_field :product_name, '/products/autocomplete_product_name', :append_to => "#product_modal"
 
 The previous example would append the autocomplete box containing suggestions to element jQuery('#product_modal'). 
 This is very useful on page where you use various z-indexes and you need to append the box to the topmost element, for example using modal window.
