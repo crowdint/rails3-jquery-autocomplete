@@ -302,7 +302,7 @@ form elements to get the values:
         term = params[:term]
         brand_id = params[:brand_id]
         country = params[:country]
-        products = Product.where('brand = ? AND country = ? AND name LIKE ?', brand_id, country, "%term%").order(:name).all
+        products = Product.where('brand = ? AND country = ? AND name LIKE ?', brand_id, country, "%#{term}%").order(:name).all
         render :json => products.map { |product| {:id => product.id, :label => product.name, :value => product.name} }
       end
     end
