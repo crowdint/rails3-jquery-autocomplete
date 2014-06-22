@@ -264,6 +264,15 @@ To generate an autocomplete input field that accepts multiple values separated b
 
 NOTE: Setting the `:multiple` option to `true` will result in the chosen values being submitted as an array. Leaving this option off will result in the values being passed as a single string, with the values separated by your chosen delimiter.
 
+#### Automatically focus on the first autocompleted item
+
+To have the first item be automatically focused on when the autocomplete menu is shown, add the `'data-auto-focus'` option and set it to `true`.
+
+	form_for @product do |f|
+		f.autocomplete_field :brand_names, autocomplete_brand_name_products_path,
+		'data-auto-focus' => true
+	end
+
 Now your autocomplete code is unobtrusive, Rails 3 style.
 
 ### Getting the object id
