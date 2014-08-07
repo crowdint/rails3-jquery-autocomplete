@@ -316,8 +316,6 @@ form elements to get the values:
       end
     end
 
-The previous example would fetch the extra attribute slogan and update jQuery('#some_other_element') with the slogan value.
-
 ### Getting extra object data
 
 If you need to extra data about the selected object, you can use the *:update_elements* HTML attribute.
