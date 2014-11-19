@@ -41,9 +41,9 @@ module Rails3JQueryAutocomplete
       def autocomplete(object, method, options = {}, &block)
 
         define_method("get_prefix") do |model|
-          if model.include?(Mongoid::Document)
+          if defined?(Mongoid::Document) && model.include?(Mongoid::Document)
             'mongoid'
-          elsif model.include?(MongoMapper::Document)
+          elsif defined?(MongoMapper::Document) && model.include?(MongoMapper::Document)
             'mongo_mapper'
           else
             'active_record'

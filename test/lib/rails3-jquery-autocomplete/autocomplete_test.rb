@@ -4,6 +4,29 @@ module Rails3JQueryAutocomplete
   class AutocompleteTest < Test::Unit::TestCase
     include Rails3JQueryAutocomplete::Autocomplete
 
+    context 'ClassMethods' do
+      context '#autocomplete' do
+        context '#get_prefix' do
+          context 'Mongoid and MongoMapper is not defined' do
+            setup do
+              ActorsController = Class.new(ActionController::Base)
+              ActorsController.autocomplete(:movie, :name)
+              @controller = ActorsController.new
+
+              @model = Class.new(ActiveRecord::Base)
+
+              Object.send(:remove_const, :Mongoid)
+              Object.send(:remove_const, :MongoMapper)
+            end
+
+            should 'not raise exception' do
+              @controller.get_prefix(@model)
+            end
+          end
+        end
+      end
+    end
+
     context '#get_autocomplete_limit' do
       context 'the limit option was specified' do
         should "return the limit option" do
